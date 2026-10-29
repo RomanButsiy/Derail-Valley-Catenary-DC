@@ -1,0 +1,16 @@
+{
+  "plan_id": "HB-CS-CMS-CENTRAL-01",
+  "status": "planned",
+  "geometry_present": false,
+  "installable_scenery": false,
+  "station_yards": false,
+  "corridor": ["HB departure interface", "CS through track", "CMS through connection", "central junction/ring south of SM"],
+  "track_ids": [],
+  "power_districts": ["HB1500", "CMS1500", "SM1500"],
+  "boundaries": [
+    {"id": "N09", "between": ["HB1500", "CMS1500"], "area": "between HB approach and CS", "coordinates": null},
+    {"id": "N04", "between": ["CMS1500", "SM1500"], "area": "north of CMS before central junction", "coordinates": null}
+  ],
+  "no_additional_neutral_at_CS": true,
+  "notes": "Planning only. Do not copy this file into Scenery. Exact route, gradients, author interfaces and both pantograph contact footprints require geometry verification. No new track placement is included in foundation 0.1.0."
+}

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <RollForward>Major</RollForward>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/CatenaryDC/Power/ElectricalMath.cs" Link="ElectricalMath.cs" />
+    <Compile Include="../../src/CatenaryDC/Power/SubstationState.cs" Link="SubstationState.cs" />
+    <Compile Include="../../src/CatenaryDC/utilities/CsvTable.cs" Link="CsvTable.cs" />
+    <Compile Include="../../src/CatenaryDC/utilities/CSV_struct.cs" Link="CSV_struct.cs" />
+  </ItemGroup>
+</Project>

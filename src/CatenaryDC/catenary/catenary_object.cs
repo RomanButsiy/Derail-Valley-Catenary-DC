@@ -1,0 +1,102 @@
+// Distributed under terms and conditions of CC0 licence. See LICENSE_CC0.txt for details.
+
+using System;
+using Newtonsoft.Json;
+using UnityEngine;
+
+using CatenaryDC.utilities;
+
+using static CatenaryDC.utilities.world_position;
+
+namespace CatenaryDC.catenary;
+
+interface catenary_object_user
+{
+    Vector3 get_relative_position();
+    Quaternion get_orientation();
+    (int x, int z) get_world_position();
+#if DEBUG
+    void set_relative_position(Vector3 new_position);
+#endif
+}
+
+interface catenary_object_template
+{
+    string template_name { get; }
+    string asset_path { get; }
+}
+
+public partial class overhead_equipment
+{
+    [JsonObject]
+    private class catenary_object: catenary_object_user
+    {
+        [JsonIgnore]
+        public GameObject? entity = null;
+        [JsonIgnore]
+        public bool is_visible = false, placed_procedurally = false;
+
+        [JsonProperty]
+        public Quaternion orientation = Quaternion.identity;
+        [JsonProperty]
+        public int   x, z;
+        [JsonProperty]
+        public float y;
+
+        [JsonIgnore]
+        protected GameObject? template { get; private set; }
+
+        protected catenary_object(string template_name, int x, int z, float y, Quaternion orientation)
+        {
+            GameObject? template;
+            if (string.IsNullOrWhiteSpace(template_name))
+                template = null;
+            else if (!system._templates.TryGetValue(template_name, out template))
+            {
+                if (!string.Equals(template_name, "GantryArrow", StringComparison.Ordinal))
+                    throw new ArgumentException($"{template_name} not defined");
+            }
+            this.template    = template;
+            this.orientation = orientation;
+            this.x = x;
+            this.z = z;
+            this.y = y;
+        }
+
+        public Vector3 get_relative_position() => world_position.get_relative_position(x, z, y);
+
+        public (int x, int z) get_world_position() => (x, z);
+
+        public Quaternion get_orientation() => orientation;
+
+#if DEBUG        
+        public void set_relative_position(Vector3 new_position)
+        {
+            is_visible = false;
+            hide_when_out_of_view();
+            (x, z) = get_absolute_position(new_position);
+            y = new_position.y;
+            system.reconstruct_tree_after_moving_object(this);
+            system.handle_scenery_visibility(PlayerManager.PlayerTransform.position);
+        }
+#endif
+
+        public virtual bool reveal()
+        {
+            if (template is null)
+                return false;
+            is_visible = true;
+            entity   ??= GameObject.Instantiate(template, world_position.get_relative_position(x, z, y), orientation);
+            return true;
+        }
+
+        public virtual void hide_when_out_of_view()
+        {
+            if (!is_visible && entity is not null)
+            {
+                GameObject.Destroy(entity);
+                entity = null;
+            }
+        }
+    }
+}

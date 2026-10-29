@@ -1,0 +1,73 @@
+PASS Pinned uploaded upstream snapshot
+PASS Independent UMM/assembly identity
+PASS No upstream auto-updater URL inherited
+PASS Game target remains .NET Framework 4.8
+PASS No legacy post-build install/packaging hook
+PASS All core game references are configurable, not author E: paths
+PASS No game reference marked CopyLocal
+PASS Locomotive project, CCL tools/models and traction tests removed
+PASS Core has no locomotive implementation directories
+PASS Core has no old engine or locomotive namespace imports
+PASS No locomotive ticking or telemetry in core
+PASS C# lexical brace/quote sanity (NOT compilation)
+PASS Balanced conditional compilation blocks
+PASS All retained catenary assets/meta files byte-identical to upload
+PASS Both upstream license texts preserved byte-for-byte
+PASS Attribution and scope notice included
+PASS Unique retained Unity GUIDs
+PASS Unity YAML references resolve inside retained assets or built-ins
+PASS Removed locomotive scenes from Unity build list
+PASS Pinned supplied Unity Editor version
+PASS CSV schema poles
+PASS CSV schema wires
+PASS CSV schema cantilevers
+PASS CSV schema gantries
+PASS CSV schema side_poles
+PASS CSV schema miscellaneous
+PASS CSV prefab assets all present
+PASS New half-section families retained
+PASS Special intermediate steady-arm assets retained
+PASS 31 upstream scenery files retained (reference profile)
+PASS Only known legacy scenery types in reference layouts
+PASS Unique source identifiers
+PASS Every reference wire supply exists
+PASS Reference wire lengths/heights pass new input guards
+PASS Anchor models fit their serialized span length
+PASS Scenery type references: wire
+PASS Scenery type references: pole
+PASS Scenery type references: side_rail_pole
+PASS Scenery type references: miscellaneous_object
+PASS All retained cantilever model combinations exist
+PASS Default is explicitly author-reference, not unbuilt coast route
+PASS No hidden route/override installed by default
+PASS Phase 1 is mainline-only and not falsely marked implemented
+PASS Release get_template fallback retained (CS0571)
+PASS Newest supplied Debug short-wire behavior retained
+PASS Release hides substation marker, not its power state
+PASS Voltage distance accounts for Z squared
+PASS Serialization retains nominal load limit (no multiplier compounding)
+PASS Core breaker restoration is per-world main-thread state
+PASS Vehicle-neutral pre-substation simulation event
+PASS Restrictive legacy JSON type migration binder
+PASS Partial initialization rollback owns loaded bundles
+PASS World teardown clears origin listener and singleton
+PASS Contact search radius includes the longest serialized span
+PASS Debug monitor removed when editor vehicle is disposed
+PASS Empty tunnel range diagnostic guarded
+PASS Unity exporter explicitly builds only two catenary bundles
+PASS Unity exporter creates source/bundle hash receipt
+PASS Build checks both content hashes and additions/deletions after export
+PASS Build stages outside game; does not deploy
+PASS No problematic installer File.Replace/$null path in build script
+PASS No game DLLs or generated binaries in source tree
+PASS Plan and runtime payload are separate
+PASS Direct input-directory comparison: catenary assets unchanged
+PASS Optional bridge: both collector queries migrated
+PASS Optional bridge contains no second network/editor engine
+PASS Optional bridge has no old OCS calls
+PASS Optional bridge subscribes/unsubscribes single core tick
+PASS Optional controller preserves the CCL pack dependency ID
+PASS Prepared adapter lexical sanity (NOT compilation)
+PASS Adapter preparation did not modify original source
+PASS Adapter preparation refuses nonempty output
+RESULT: 72/72 offline checks passed. C#/Unity/game NOT executed.

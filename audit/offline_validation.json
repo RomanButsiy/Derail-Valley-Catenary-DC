@@ -1,0 +1,398 @@
+{
+  "project": "Derail-Valley-Catenary-DC",
+  "version": "0.1.0-foundation",
+  "source_commit": "4d1a6a691415b6f08f9a76fbafdc8357485e277a",
+  "passed": 72,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "Pinned uploaded upstream snapshot",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Independent UMM/assembly identity",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No upstream auto-updater URL inherited",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Game target remains .NET Framework 4.8",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No legacy post-build install/packaging hook",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "All core game references are configurable, not author E: paths",
+      "pass": true,
+      "detail": 13
+    },
+    {
+      "check": "No game reference marked CopyLocal",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Locomotive project, CCL tools/models and traction tests removed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Core has no locomotive implementation directories",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Core has no old engine or locomotive namespace imports",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No locomotive ticking or telemetry in core",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "C# lexical brace/quote sanity (NOT compilation)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Balanced conditional compilation blocks",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "All retained catenary assets/meta files byte-identical to upload",
+      "pass": true,
+      "detail": 573
+    },
+    {
+      "check": "Both upstream license texts preserved byte-for-byte",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Attribution and scope notice included",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Unique retained Unity GUIDs",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Unity YAML references resolve inside retained assets or built-ins",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Removed locomotive scenes from Unity build list",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Pinned supplied Unity Editor version",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "CSV schema poles",
+      "pass": true,
+      "detail": 6
+    },
+    {
+      "check": "CSV schema wires",
+      "pass": true,
+      "detail": 22
+    },
+    {
+      "check": "CSV schema cantilevers",
+      "pass": true,
+      "detail": 55
+    },
+    {
+      "check": "CSV schema gantries",
+      "pass": true,
+      "detail": 6
+    },
+    {
+      "check": "CSV schema side_poles",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "check": "CSV schema miscellaneous",
+      "pass": true,
+      "detail": 16
+    },
+    {
+      "check": "CSV prefab assets all present",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "New half-section families retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Special intermediate steady-arm assets retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "31 upstream scenery files retained (reference profile)",
+      "pass": true,
+      "detail": 31
+    },
+    {
+      "check": "Only known legacy scenery types in reference layouts",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Unique source identifiers",
+      "pass": true,
+      "detail": {
+        "CME/IME1500": 1,
+        "CP750": 1,
+        "FF1500": 1,
+        "HB1500": 1,
+        "IME1000": 1,
+        "IMW1500": 1,
+        "OR750": 1,
+        "SM1500": 1,
+        "SM1000": 1
+      }
+    },
+    {
+      "check": "Every reference wire supply exists",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Reference wire lengths/heights pass new input guards",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Anchor models fit their serialized span length",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Scenery type references: wire",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Scenery type references: pole",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Scenery type references: side_rail_pole",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Scenery type references: miscellaneous_object",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "All retained cantilever model combinations exist",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Default is explicitly author-reference, not unbuilt coast route",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No hidden route/override installed by default",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Phase 1 is mainline-only and not falsely marked implemented",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Release get_template fallback retained (CS0571)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Newest supplied Debug short-wire behavior retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Release hides substation marker, not its power state",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Voltage distance accounts for Z squared",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Serialization retains nominal load limit (no multiplier compounding)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Core breaker restoration is per-world main-thread state",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Vehicle-neutral pre-substation simulation event",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Restrictive legacy JSON type migration binder",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Partial initialization rollback owns loaded bundles",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "World teardown clears origin listener and singleton",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Contact search radius includes the longest serialized span",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Debug monitor removed when editor vehicle is disposed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Empty tunnel range diagnostic guarded",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Unity exporter explicitly builds only two catenary bundles",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Unity exporter creates source/bundle hash receipt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Build checks both content hashes and additions/deletions after export",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Build stages outside game; does not deploy",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No problematic installer File.Replace/$null path in build script",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No game DLLs or generated binaries in source tree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Plan and runtime payload are separate",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Direct input-directory comparison: catenary assets unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge: both collector queries migrated",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge contains no second network/editor engine",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge has no old OCS calls",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge subscribes/unsubscribes single core tick",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional controller preserves the CCL pack dependency ID",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Prepared adapter lexical sanity (NOT compilation)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Adapter preparation did not modify original source",
+      "pass": true,
+      "detail": 49
+    },
+    {
+      "check": "Adapter preparation refuses nonempty output",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "scenery_files": 31,
+  "object_counts": {
+    "substation": 9,
+    "pole": 3145,
+    "cantilever": 3160,
+    "wire": 3751,
+    "miscellaneous_object": 350,
+    "gantry": 181,
+    "side_rail_pole": 473
+  },
+  "retained_asset_files": 573,
+  "core_csharp_files": 29,
+  "maximum_reference_wire_length_m": 80.1593857,
+  "csharp_compiled": false,
+  "csharp_logic_tests_executed": false,
+  "unity_export_executed": false,
+  "powershell_executed": false,
+  "game_tested": false,
+  "phase1_route_built": false
+}

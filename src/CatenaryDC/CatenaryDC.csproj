@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>CatenaryDC</AssemblyName>
+    <RootNamespace>CatenaryDC</RootNamespace>
+    <Version>0.1.0</Version>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CS8981</NoWarn>
+    <Deterministic>true</Deterministic>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GameManagedPath Condition="'$(GameManagedPath)' == '' and '$(GameDirectory)' != ''">$(GameDirectory)/DerailValley_Data/Managed</GameManagedPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="UnityModManager" Version="0.27.2" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Nullable" Version="1.3.1" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp"><HintPath>$(GameManagedPath)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BezierCurves"><HintPath>$(GameManagedPath)/BezierCurves.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="DV.OriginShiftInfo"><HintPath>$(GameManagedPath)/DV.OriginShiftInfo.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="DV.RailTrack"><HintPath>$(GameManagedPath)/DV.RailTrack.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="DV.Simulation"><HintPath>$(GameManagedPath)/DV.Simulation.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="DV.ThingTypes"><HintPath>$(GameManagedPath)/DV.ThingTypes.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="DV.Utils"><HintPath>$(GameManagedPath)/DV.Utils.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(GameManagedPath)/Newtonsoft.Json.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(GameManagedPath)/UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameManagedPath)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AssetBundleModule"><HintPath>$(GameManagedPath)/UnityEngine.AssetBundleModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(GameManagedPath)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="WorldStreamer"><HintPath>$(GameManagedPath)/WorldStreamer.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="RequireGameAssemblies" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(GameManagedPath)' == ''" Text="Pass -p:GameDirectory=&quot;path/to/Derail Valley&quot; or use tools/Build.ps1." />
+    <Error Condition="!Exists('$(GameManagedPath)/Assembly-CSharp.dll')" Text="Derail Valley assemblies not found at $(GameManagedPath). Select the game root, not Mods." />
+  </Target>
+</Project>
