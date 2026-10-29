@@ -17,6 +17,8 @@ ALLOWED_DIRS = ('devices', 'circuit', 'unit_A', 'unit_B', 'utilities')
 # The stock 2WE3 CCL pack declares AdditionalDependencies: Catenary-DC.
 # Only this optional controller provides that legacy ID; it contains no OCS engine.
 BRIDGE_ID = 'Catenary-DC'
+BUILD_FIX_REVISION = 'legacy2we3-buildfix.1'
+LEGACY_LANGUAGE_VERSION = '14.0'
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -25,6 +27,27 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
     if text.count(old) != 1:
         raise ValueError(f'Unexpected upstream structure: {label}. No original file will be changed.')
     return text.replace(old, new, 1)
+
+
+def fix_simulate_named_arguments(caller: str, callee: str) -> str:
+    """Repair two stale named arguments in the verified upstream working copy.
+
+    Do not change solver implementation, call order, or true/false values.
+    Checking the callee as well prevents guessing against another revision.
+    """
+    signature = 'public async Task<bool> simulate(bool permit_topology_changes)'
+    if callee.count(signature) != 1:
+        raise ValueError('Unexpected upstream circuit.simulate signature; refusing to guess parameter semantics.')
+    for value in ('true', 'false'):
+        caller = replace_once(
+            caller,
+            f'_circuit.simulate(permit_commutation: {value})',
+            f'_circuit.simulate(permit_topology_changes: {value})',
+            f'circuit.simulate named argument ({value})')
+    if 'permit_commutation:' in caller:
+        raise ValueError('Unrecognized permit_commutation named call remains in unit_a_sim.cs.')
+    return caller
+
 
 def prepare(source: Path, output: Path, core_dll: Path) -> dict:
     source, output, core_dll = source.resolve(), output.resolve(), core_dll.resolve()
@@ -63,6 +86,13 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
             copied += 1
     for name in ('Main.cs','editor_settings.cs'):
         shutil.copy2(ROOT/'compat/Legacy2WE3/templates'/name, output/name)
+    # The upstream snapshot renamed the solver parameter but left two callers
+    # using its former name. Repair only the copied caller, never the solver.
+    caller_path = output/'unit_A/unit_a_sim.cs'
+    caller = caller_path.read_text(encoding='utf-8-sig')
+    callee = (output/'circuit/circuit.cs').read_text(encoding='utf-8-sig')
+    caller_path.write_text(fix_simulate_named_arguments(caller, callee), encoding='utf-8')
+
     pantograph = output/'devices/pantograph.cs'
     text = pantograph.read_text(encoding='utf-8-sig')
     text = text.replace('using electric_sim.catenary;', 'using CatenaryDC.Api;')
@@ -108,9 +138,9 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
     references = [x.attrib['Include'] for x in original.findall('.//Reference')]
     root = ET.Element('Project', Sdk='Microsoft.NET.Sdk')
     props = ET.SubElement(root, 'PropertyGroup')
-    for key, val in {'TargetFramework':'net48', 'LangVersion':'12.0', 'Nullable':'enable',
+    for key, val in {'TargetFramework':'net48', 'LangVersion':LEGACY_LANGUAGE_VERSION, 'Nullable':'enable',
                      'AssemblyName':'CatenaryDC.Legacy2WE3', 'RootNamespace':'electric_sim',
-                     'Version':'0.1.0', 'NoWarn':'$(NoWarn);CS8981',
+                     'Version':'0.1.1', 'NoWarn':'$(NoWarn);CS8981',
                      'GameManagedPath':'$(GameDirectory)/DerailValley_Data/Managed'}.items():
         ET.SubElement(props,key).text=val
     packages=ET.SubElement(root,'ItemGroup')
@@ -131,7 +161,7 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
     ET.SubElement(target,'Error',Condition="!Exists('$(GameManagedPath)/Assembly-CSharp.dll')",Text='Select the game root using GameDirectory.')
     ET.indent(root, space='  ')
     ET.ElementTree(root).write(output/'Legacy2WE3.csproj',encoding='utf-8',xml_declaration=False)
-    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — optional 2WE3 bridge','Version':'0.1.0',
+    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — optional 2WE3 bridge','Version':'0.1.1',
           'ManagerVersion':'0.27.3','AssemblyName':'CatenaryDC.Legacy2WE3.dll','EntryMethod':'electric_sim.Main.Load',
           'Author':'Knsgf vehicle implementation; compatibility adaptation by RomanButsiy',
           'Requirements':['DerailValleyCatenaryDC-0.1.0']}
@@ -141,7 +171,10 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
             'verified_files':fingerprints,'copied_implementation_cs':copied,
             'contact_queries_redirected':2,'catenary_engine_copied':False,
             'legacy_umm_id':'Catenary-DC','core_umm_id':'DerailValleyCatenaryDC',
-            'compiled':False,'runtime_tested':False}
+            'build_fix_revision':BUILD_FIX_REVISION,
+            'language_version':LEGACY_LANGUAGE_VERSION,'target_framework':'net48',
+            'simulate_named_arguments_fixed':2,
+            'solver_body_changed':False,'compiled':False,'runtime_tested':False}
     (output/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
 
@@ -154,5 +187,7 @@ if __name__=='__main__':
     try:
         report=prepare(args.source,args.output,args.core_dll)
         print(f'Prepared optional bridge; {len(report["verified_files"])} upstream files verified. Nothing installed.')
+        print(f'Compatibility fix: {BUILD_FIX_REVISION}; C# {LEGACY_LANGUAGE_VERSION}; target net48.')
+        print('Fixed two copied simulate calls: permit_commutation -> permit_topology_changes; true/false preserved.')
     except (ValueError,OSError,KeyError) as error:
         parser.exit(1, 'STOPPED: '+str(error)+'\n')
