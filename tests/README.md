@@ -31,3 +31,12 @@ assemblies were available in the preparation environment.
 No layout-construction certificate is implied: force direction, zigzag,
 independent wire runs and two-pantograph neutral-section geometry are a separate
 route-generation/audit task.
+
+
+## DevTools.1
+
+`python tools/test_authoring_tools.py` runs data fixtures and source-safety regression checks.
+`dotnet run --project tests/AuthoringData -c Release -- <repository-root>` compiles and
+runs the production C# data-only validator, without Unity/game assemblies.
+`tools/Test-BuildConfigurations.ps1` performs both actual core builds on the user's
+Windows/game environment. Neither the C# nor Windows commands were executed during package preparation.

@@ -93,17 +93,18 @@ try {
     New-Item -ItemType Directory -Path (Join-Path $stage 'Scenery') | Out-Null
     Copy-Item -LiteralPath (Join-Path $Root 'Scenery\README.md') -Destination (Join-Path $stage 'Scenery')
     $info = [ordered]@{
-        project='Derail-Valley-Catenary-DC'; version='0.1.0'; configuration=$Configuration;
+        project='Derail-Valley-Catenary-DC'; version='0.2.0'; configuration=$Configuration;
         source_base='4d1a6a691415b6f08f9a76fbafdc8357485e277a'; sdk=$sdk;
         built_utc=(Get-Date).ToUniversalTime().ToString('o');
         core_sha256=(Sha (Join-Path $stage 'CatenaryDC.dll'));
         catenary_sha256=(Sha (Join-Path $stage 'catenary'));
         parts_sha256=(Sha (Join-Path $stage 'catenary_parts'));
+        authoring_tools='devtools.1'; assembly_api_version=1;
         locomotive_controller_included=$false;
         hb_cs_cms_route_implemented=$false
     }
     $info | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage 'build-info.json') -Encoding UTF8
-    $zip = Join-Path $build "Derail-Valley-Catenary-DC-0.1.0-$Configuration.zip"
+    $zip = Join-Path $build "Derail-Valley-Catenary-DC-0.2.0-$Configuration.zip"
     Compress-Archive -LiteralPath $stage -DestinationPath $zip
     Write-Host 'BUILD SUCCEEDED. Nothing was installed.'
     Write-Host "Ready folder: $stage"

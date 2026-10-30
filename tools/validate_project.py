@@ -168,7 +168,7 @@ def run(upstream=None):
             try: mod.prepare(upstream,out,Path(temp)/'CatenaryDC.dll');rejected=False
             except ValueError:rejected=True
             check(rejected,'Adapter preparation refuses nonempty output')
-    result={'project':'Derail-Valley-Catenary-DC','version':'0.1.0-foundation','source_commit':provenance['zip_commit_comment'],
+    result={'project':'Derail-Valley-Catenary-DC','version':info['Version'],'source_commit':provenance['zip_commit_comment'],
             'passed':sum(c['pass'] for c in CHECKS),'failed':sum(not c['pass'] for c in CHECKS),'checks':CHECKS,
             'scenery_files':len(layouts),'object_counts':dict(collections.Counter(k for _,_,k,_ in objects)),
             'retained_asset_files':len(retained),'core_csharp_files':len(cs),

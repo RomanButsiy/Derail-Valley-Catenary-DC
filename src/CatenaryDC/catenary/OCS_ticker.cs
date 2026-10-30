@@ -15,6 +15,7 @@ public partial class overhead_equipment
         {
             if (_system == null)
                 return;
+            _system.authoring_tick();
             if (_track_player_movement)
             {
                 Transform? player_view = PlayerManager.ActiveCamera?.transform;

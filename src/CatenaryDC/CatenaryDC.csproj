@@ -3,7 +3,10 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>CatenaryDC</AssemblyName>
     <RootNamespace>CatenaryDC</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
+    <!-- Keep the already tested ApiVersion 1 vehicle adapter binary-compatible. -->
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.2.0.0</FileVersion>
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>$(NoWarn);CS8981</NoWarn>
@@ -28,6 +31,8 @@
     <Reference Include="UnityEngine"><HintPath>$(GameManagedPath)/UnityEngine.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameManagedPath)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.AssetBundleModule"><HintPath>$(GameManagedPath)/UnityEngine.AssetBundleModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(GameManagedPath)/UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TerrainModule"><HintPath>$(GameManagedPath)/UnityEngine.TerrainModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(GameManagedPath)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="WorldStreamer"><HintPath>$(GameManagedPath)/WorldStreamer.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>

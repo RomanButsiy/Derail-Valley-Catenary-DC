@@ -96,6 +96,7 @@ public partial class overhead_equipment
     {
         string raw_part_definitions = parts.LoadAsset<TextAsset>($"Assets/Catenary/{definition_file}.csv")?.text
             ?? throw new FileNotFoundException($"No definition {definition_file} found");
+        _system?._survey_definitions.Add(definition_file, raw_part_definitions);
         var CSV_contents = new CSV_struct<_type_>(raw_part_definitions);
         for (int index = CSV_contents.row_count; index > 0; --index)
         {
@@ -147,7 +148,7 @@ public partial class overhead_equipment
         _floating_origin.WorldMoved += floating_origin_shift;
     }
 
-    private void stuff_scenery(string raw_scenery, bool no_saving)
+    private void stuff_scenery(string raw_scenery, bool no_saving, string sourceName = "UserData/scenery.json", string sourceKind = "editor")
     {
         List<catenary_object>? loaded_objects = JsonConvert.DeserializeObject<List<catenary_object>>(raw_scenery, 
             scenery_json_settings());
@@ -155,6 +156,10 @@ public partial class overhead_equipment
             throw new InvalidDataException("Scenery must be an array of non-null catenary objects.");
         if (no_saving)
             foreach (catenary_object item in loaded_objects) item.placed_procedurally = true;
+        // Capture root records only: constructors also create foundations/gantry legs.
+        for (int i = 0; i < loaded_objects.Count; ++i)
+            _survey_sources[loaded_objects[i]] = new SurveySource(sourceName, sourceKind, i);
+        _survey_input_json[sourceName] = raw_scenery;
         _all_objects.AddRange(loaded_objects);
 
         _scenery_changed = _all_objects.Count > 0;
@@ -191,7 +196,7 @@ public partial class overhead_equipment
             else if (sources.TryGetValue(name, out string? asset))
                 raw = bundle.LoadAsset<TextAsset>(asset)?.text ?? throw new FileNotFoundException("Missing scenery asset " + asset);
             else throw new FileNotFoundException("Profile requests absent scenery: " + name);
-            try { stuff_scenery(raw, no_saving: true); }
+            try { stuff_scenery(raw, no_saving: true, sourceName: name, sourceKind: external.ContainsKey(name) ? "external" : "bundle"); }
             catch (Exception error) { throw new InvalidDataException("Invalid scenery " + name + ": " + error.Message, error); }
         }
         if (Directory.GetFiles(_file_path, "scenery*.json").Length != 0)
@@ -299,6 +304,7 @@ public partial class overhead_equipment
     {
         overhead_equipment? old = _system;
         if (old == null) return;
+        old.authoring_stop(); // Close read-only export/recording before its coroutine host is destroyed.
         bool wasReady = old._ready;
         old._ready = false;
 #if DEBUG

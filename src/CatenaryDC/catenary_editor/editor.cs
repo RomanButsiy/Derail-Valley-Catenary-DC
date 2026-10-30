@@ -174,7 +174,8 @@ internal static class editor
         {
             List<catenary_object_user> nearby_objects = grab_nearby_objects(relative_position, 25.0f);
             gantry_user? closest_gantry = get_closest<gantry_user>(nearby_objects, relative_position);
-            closest_gantry?.stretch = gantry_stretch;
+            // Keep the editor compatible with the same C# 12 compiler as Release.
+            if (closest_gantry != null) closest_gantry.stretch = gantry_stretch;
         }
         else
         {

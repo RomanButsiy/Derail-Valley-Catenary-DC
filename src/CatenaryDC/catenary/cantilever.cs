@@ -131,6 +131,10 @@ public partial class overhead_equipment
 #endif
         }
 
+        // Authoring only: neutral base height, not the visible clamp's height.
+        public Vector3 authoring_registration_base() => new Vector3(x / 1000.0f, y, z / 1000.0f)
+            + orientation * Vector3.right * get_definition(cantilever_type, steady_arm_type, dual_wire).wire_offset;
+
 #if DEBUG
         public Vector3 relative_wire_attachment_point() => get_relative_position() + _wire_attachment_offset;
 #endif

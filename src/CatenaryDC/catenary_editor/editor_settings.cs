@@ -221,7 +221,14 @@ public class editor_settings: ModSettings, IDrawable
             {
                 UnityEngine.GUILayout.Label(CatenaryApi.IsReady ? "Network ready: " + CatenaryApi.LoadedObjectCount + " objects" : "Network not initialized");
                 if (!string.IsNullOrEmpty(CatenaryApi.LastError)) UnityEngine.GUILayout.Label(CatenaryApi.LastError);
-                instance.Draw(m);
+                overhead_equipment.draw_authoring_gui(m);
+                bool wasEnabled = UnityEngine.GUI.enabled;
+                try
+                {
+                    UnityEngine.GUI.enabled = wasEnabled && !overhead_equipment.authoring_busy;
+                    instance.Draw(m);
+                }
+                finally { UnityEngine.GUI.enabled = wasEnabled; }
             };
             mod.OnSaveGUI       = instance.Save;
         }

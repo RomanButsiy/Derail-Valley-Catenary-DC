@@ -1,7 +1,7 @@
 {
   "Id": "DerailValleyCatenaryDC",
   "DisplayName": "Derail Valley Catenary DC",
-  "Version": "0.1.0",
+  "Version": "0.2.0",
   "Author": "RomanButsiy; based on Knsgf catenary",
   "ManagerVersion": "0.27.3",
   "AssemblyName": "CatenaryDC.dll",

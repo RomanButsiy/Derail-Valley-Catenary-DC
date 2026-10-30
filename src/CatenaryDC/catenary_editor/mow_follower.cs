@@ -28,6 +28,7 @@ internal class mow_follower: IDisposable
 
     private void track_movement()
     {
+        if (overhead_equipment.authoring_busy) return;
         Transform front_location    = _mow_vehicle.FrontCouplerAnchor;
         Vector3   relative_position = front_location.position;
         editor.process_location(relative_position, front_location.forward);

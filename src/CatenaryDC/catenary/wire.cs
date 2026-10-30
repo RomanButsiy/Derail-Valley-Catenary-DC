@@ -45,7 +45,7 @@ public partial class overhead_equipment
     }
 
     [JsonObject]
-    private class wire: catenary_object, wire_user
+    private partial class wire: catenary_object, wire_user
     {
         const float end_anchor_dead_length = 4.0f, end_anchor_raise = 0.2f;
 

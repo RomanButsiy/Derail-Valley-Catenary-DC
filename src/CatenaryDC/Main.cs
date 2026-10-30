@@ -41,7 +41,7 @@ public static class Main
             editor_settings.set_up(mod);
             harmony = new Harmony(mod.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            release_log("Derail-Valley-Catenary-DC 0.1.0: catenary-only core. No locomotive controller is included.");
+            release_log("Derail-Valley-Catenary-DC 0.2.0: catenary-only core. No locomotive controller is included.");
             // This engine is session-bound; hot disabling can strand a raised pantograph.
             mod.OnToggle = (_, enabled) => enabled;
             return true;
