@@ -45,7 +45,7 @@ class DataValidation(unittest.TestCase):
     def test_reference_layouts(self):
         sources = {p.name: tool.json_loads(p.read_text()) for p in (CSV/'Scenery').glob('*.json')}
         result = tool.validate_sources(sources, self.tables)
-        self.assertTrue(result['data_valid'], result['errors'][:3]); self.assertEqual(result['objects'], 11069)
+        self.assertTrue(result['data_valid'], result['errors'][:3]); self.assertEqual(result['objects'], 11069 + json.loads((ROOT/'audit/phase1_hb_cs_cms_sm.json').read_text())['object_count'])
     def test_valid_substation_and_wire(self): self.assertTrue(self.check_objects([sample_object(),sample_object('wire')])['data_valid'])
     def test_missing_substation(self): self.assertFalse(self.check_objects([sample_object('wire')])['data_valid'])
     def test_duplicate_substation(self): self.assertFalse(self.check_objects([sample_object(),sample_object()])['data_valid'])

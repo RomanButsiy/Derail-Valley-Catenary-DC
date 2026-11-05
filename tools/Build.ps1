@@ -101,7 +101,7 @@ try {
         parts_sha256=(Sha (Join-Path $stage 'catenary_parts'));
         authoring_tools='devtools.1'; assembly_api_version=1;
         locomotive_controller_included=$false;
-        hb_cs_cms_route_implemented=$false
+        hb_cs_cms_route_implemented=$true; scenery_revision='accepted-visual4-split'
     }
     $info | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage 'build-info.json') -Encoding UTF8
     $zip = Join-Path $build "Derail-Valley-Catenary-DC-0.2.0-$Configuration.zip"

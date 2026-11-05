@@ -1,5 +1,35 @@
 # Derail-Valley-Catenary-DC
 
+## Accepted HB–CS–CMS–SM scenery
+
+Visual 4 was accepted by the user on 2026-11-04. Its 1867 objects are now
+partitioned into 9 station/corridor/neutral files, without geometry changes.
+All 31 original layouts remain byte-identical. Re-export **Catenary → Export OCS**
+before building, and remove the retired external
+`Scenery/scenery_phase1_hb_cs_cms_visual1.json` before testing the new bundle.
+See [integration and test instructions](docs/PHASE1_RELEASE_UK.md).
+
+## 0.2.0 / DevTools.1
+
+Catenary-only core, plus explicit read-only authoring tools in **Release and Debug**.
+The Debug `CS9202` assignment is rewritten without raising the core above C# 12 / net48.
+Vehicle API version 1 and assembly identity 0.1.0.0 are preserved; the tested optional
+2WE3 controller is unchanged. Gauge smoothing is deferred.
+
+Open **Authoring / JSON / survey tools** in the core's UMM panel. Export loaded tracks,
+scene geometry, typed OCS JSON without generated children, CSV/prefab catalogs,
+route recordings, constraints and read-only ground probes. Candidate JSON preflight
+does not instantiate or install any objects. A completed export is not a claim of
+full world coverage, known native track coordinates, or electrical/mechanical validity.
+
+See [the Ukrainian tool/build guide](docs/AUTHORING_TOOLS_UK.md) and
+[the implementation review](docs/DEVTOOLS1_REVIEW_UK.md).
+The DevTools code is unchanged. The accepted scenery assets require a new Unity export.
+
+---
+
+## Foundation documentation
+
 **Catenary-only foundation for a separately maintained Derail Valley DC network.**
 
 Version **0.1.0 — source refactor / local-test candidate**. Based on the supplied
@@ -17,8 +47,8 @@ This is not an official upstream release and not a prebuilt mod download.
 - A restricted reader for the original scenery JSON type names.
 - Explicit network profiles and per-file replacement/addition under `Scenery/`.
 - A vehicle-neutral API and one simulation tick; **no built-in locomotive controller**.
-- The author's **31 original scenery files, unchanged**, as the `author-reference`
-  test profile. They are a baseline, not the final industrial-network design.
+- The author's **31 original scenery files, unchanged**, plus **9 accepted
+  HB–CS–CMS–SM files**, loaded by the `hb-cs-cms-sm` profile.
 
 The 2WE3 locomotive models, cabins, traction circuits, control stands, CCL editor
 binaries, Blender source and traction-motor test rig are removed from the core.
@@ -77,7 +107,7 @@ require another export as long as the receipt remains valid.
 Back up and move the original `Mods/Catenary-DC` outside `Mods`; do not merely
 rename it inside the mods directory. Install the newly built core folder.
 Do not transfer old `scenery_fm.json`, `scenery_or.json`, Debug workspace files
-or settings blindly. Start with the unchanged `author-reference` profile.
+or settings blindly. Use the supplied `hb-cs-cms-sm` profile for this accepted corridor.
 Use a separate Sandbox save on the standard track layout. Double-Tracked Valley
 is deliberately unsupported by this profile. VR/multiplayer are not tested.
 
@@ -92,7 +122,7 @@ of `Mods` and restoring the complete previous mod folder, with the game closed.
 ```json
 {
   "schema_version": 1,
-  "name": "author-reference",
+  "name": "hb-cs-cms-sm",
   "included_scenery": null,
   "load_external_scenery": true
 }
@@ -127,15 +157,16 @@ editor exports as production data without review.
 See the review for limitations. No new short-circuit solver, pantograph model,
 network-wide power-flow solver or automatic geometry validator is claimed.
 
-## First construction phase — not yet implemented
+## First construction phase — accepted Visual 4
 
-**HB → CS → CMS → central junction/ring south of SM.**
-Mainline only, with station through routes and necessary switches; no new yard
-I/O/L/S coverage in this phase. Planned district interfaces: N09 (HB/CMS) and
-N04 (CMS/SM), no extra neutral at CS. The initial project contains **no newly
-placed wires for this corridor**; `plans/` records scope rather than fake
-runtime geometry. Prior FRC Rework.1/final.9 is not silently merged into this
-new author-source baseline.
+**HB → CS → CMS transit route → central junction/ring south of SM.**
+The mainline and HB triangle are complete for this phase; no additional yard
+electrification is included. N09 separates HB/CMS and N04 separates CMS/SM.
+`plans/phase1_hb_cs_cms.json` records scope and coordinates;
+`audit/phase1_hb_cs_cms_sm.json` pins the accepted geometry and file mapping.
+The newly packaged build still requires a local Unity export and in-game retest.
+[GF is the next planned corridor](plans/PHASE2_GF_UK.md); no GF runtime objects
+are included.
 
 ## Checks
 

@@ -61,7 +61,14 @@ def run(upstream=None):
                 stack.pop()
         if stack:preprocessor.append(str(p))
     check(not preprocessor,'Balanced conditional compilation blocks',preprocessor)
-    retained=list(cat.rglob('*')); retained=[p for p in retained if p.is_file()]
+    phase1=load(ROOT/'audit/phase1_hb_cs_cms_sm.json')
+    additions={f['path'] for f in phase1['scenery_files']}
+    additions|={p+'.meta' for p in list(additions)}
+    retained=[p for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in additions]
+    check({p.relative_to(ROOT).as_posix() for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in original}==additions,'Only declared Phase 1 assets added')
+    import verify_phase1_release
+    phase1_result=verify_phase1_release.verify(ROOT)
+    check(phase1_result['passed'],'Accepted Visual 4 preserved exactly in split files',phase1_result)
     check(all(original.get(p.relative_to(ROOT).as_posix())==sha(p) for p in retained),'All retained catenary assets/meta files byte-identical to upload',len(retained))
     check(all(original.get(name)==sha(ROOT/name) for name in ['LICENSE_CC0.txt','LICENSE_MIT.txt']),'Both upstream license texts preserved byte-for-byte')
     check((ROOT/'NOTICE.md').is_file(),'Attribution and scope notice included')
@@ -101,7 +108,7 @@ def run(upstream=None):
             t=obj.get('$type','');kind=t.split('+')[-1].split(',')[0]
             if not t.startswith(prefix) or kind not in allowed:malformed.append((path.name,index,t))
             objects.append((path.name,index,kind,obj))
-    check(len(layouts)==31,'31 upstream scenery files retained (reference profile)',len(layouts))
+    check(len(layouts)==31+len(phase1['scenery_files']),'31 original plus 9 accepted Phase 1 scenery files',len(layouts))
     check(not malformed,'Only known legacy scenery types in reference layouts',malformed)
     definitions=collections.Counter(o['map_location'] for _,_,k,o in objects if k=='substation')
     check(all(n==1 for n in definitions.values()),'Unique source identifiers',dict(definitions))
@@ -120,10 +127,10 @@ def run(upstream=None):
     bad=[(f,i) for f,i,k,o in objects if k=='cantilever' and (o.get('steady_arm_type'),o.get('cantilever_type'),o.get('dual_wire',False)) not in combos]
     check(not bad,'All retained cantilever model combinations exist',bad[:10])
     profile=load(ROOT/'config/network.json')
-    check(profile['included_scenery'] is None and profile['name']=='author-reference','Default is explicitly author-reference, not unbuilt coast route')
+    check(profile['included_scenery'] is None and profile['name']=='hb-cs-cms-sm','Default loads original network and accepted Phase 1')
     check(not list((ROOT/'Scenery').glob('*.json')),'No hidden route/override installed by default')
     plan=load(ROOT/'plans/phase1_hb_cs_cms.json')
-    check(plan['status']=='planned' and not plan['geometry_present'] and plan['station_yards'] is False,'Phase 1 is mainline-only and not falsely marked implemented')
+    check(plan['status']=='user_accepted' and plan['geometry_present'] and plan['station_yards'] is False,'Phase 1 accepted; station yard expansion excluded')
     wire=(source/'catenary/wire.cs').read_text(); sub=(source/'catenary/substation.cs').read_text(); engine=(source/'catenary/overhead_equipment.cs').read_text()
     check('#else\n            return _wire_sections[wire_type].template;\n#endif' in wire,'Release get_template fallback retained (CS0571)')
     check('? "ShortWireMarker"' in wire,'Newest supplied Debug short-wire behavior retained')
@@ -174,7 +181,7 @@ def run(upstream=None):
             'retained_asset_files':len(retained),'core_csharp_files':len(cs),
             'maximum_reference_wire_length_m':max(o['length'] for o in wires),
             'csharp_compiled':False,'csharp_logic_tests_executed':False,'unity_export_executed':False,
-            'powershell_executed':False,'game_tested':False,'phase1_route_built':False}
+            'powershell_executed':False,'game_tested':False,'phase1_route_built':True,'split_package_game_tested':False}
     (ROOT/'audit').mkdir(exist_ok=True)
     (ROOT/'audit/offline_validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(f'RESULT: {result["passed"]}/{len(CHECKS)} offline checks passed. C#/Unity/game NOT executed.')
