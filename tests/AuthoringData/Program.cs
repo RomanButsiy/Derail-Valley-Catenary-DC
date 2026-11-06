@@ -23,8 +23,8 @@ JObject station = Obj("substation"); station["map_location"] = "TEST"; station["
 JObject wire = Obj("wire"); wire["substation"] = "TEST"; wire["wire_type"] = "plain_single"; wire["length"] = 40; wire["previous_pole_vertical_offset"] = 0;
 JObject report = SceneryReview.Validate(sources!, tables!);
 Check((bool)report["data_valid"]!, "All reference source JSON passes constructor-free production validator");
-JObject phase1 = JObject.Parse(File.ReadAllText(Path.Combine(root, "audit", "phase1_hb_cs_cms_sm.json")));
-Check((int)report["objects"]! == 11069 + (int)phase1["object_count"]!, "Original plus accepted Phase 1 object count");
+JObject gfRelease = JObject.Parse(File.ReadAllText(Path.Combine(root, "audit", "phase2_gf.json")));
+Check((int)report["objects"]! == (int)gfRelease["total_objects"]!, "Accepted network object count including GF");
 Check((bool)Read(new JArray(station, wire))["data_valid"]!, "Valid source and wire");
 Check(!(bool)Read(new JArray(wire))["data_valid"]!, "Unknown source rejected");
 Check(!(bool)Read(new JArray(station, station.DeepClone()))["data_valid"]!, "Duplicate source rejected");

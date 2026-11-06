@@ -11,6 +11,9 @@ PASS Core has no old engine or locomotive namespace imports
 PASS No locomotive ticking or telemetry in core
 PASS C# lexical brace/quote sanity (NOT compilation)
 PASS Balanced conditional compilation blocks
+PASS Bundled network matches accepted GF Visual 3
+PASS Only declared Phase 1 and GF assets added
+PASS Accepted Visual 4 preserved exactly in split files
 PASS All retained catenary assets/meta files byte-identical to upload
 PASS Both upstream license texts preserved byte-for-byte
 PASS Attribution and scope notice included
@@ -27,7 +30,7 @@ PASS CSV schema miscellaneous
 PASS CSV prefab assets all present
 PASS New half-section families retained
 PASS Special intermediate steady-arm assets retained
-PASS 31 upstream scenery files retained (reference profile)
+PASS Original, Phase 1 and GF scenery files present
 PASS Only known legacy scenery types in reference layouts
 PASS Unique source identifiers
 PASS Every reference wire supply exists
@@ -38,9 +41,9 @@ PASS Scenery type references: pole
 PASS Scenery type references: side_rail_pole
 PASS Scenery type references: miscellaneous_object
 PASS All retained cantilever model combinations exist
-PASS Default is explicitly author-reference, not unbuilt coast route
+PASS Default profile loads the full accepted network
 PASS No hidden route/override installed by default
-PASS Phase 1 is mainline-only and not falsely marked implemented
+PASS Phase 1 accepted; station yard expansion excluded
 PASS Release get_template fallback retained (CS0571)
 PASS Newest supplied Debug short-wire behavior retained
 PASS Release hides substation marker, not its power state
@@ -61,13 +64,4 @@ PASS Build stages outside game; does not deploy
 PASS No problematic installer File.Replace/$null path in build script
 PASS No game DLLs or generated binaries in source tree
 PASS Plan and runtime payload are separate
-PASS Direct input-directory comparison: catenary assets unchanged
-PASS Optional bridge: both collector queries migrated
-PASS Optional bridge contains no second network/editor engine
-PASS Optional bridge has no old OCS calls
-PASS Optional bridge subscribes/unsubscribes single core tick
-PASS Optional controller preserves the CCL pack dependency ID
-PASS Prepared adapter lexical sanity (NOT compilation)
-PASS Adapter preparation did not modify original source
-PASS Adapter preparation refuses nonempty output
-RESULT: 72/72 offline checks passed. C#/Unity/game NOT executed.
+RESULT: 66/66 offline checks passed. C#/Unity/game NOT executed.

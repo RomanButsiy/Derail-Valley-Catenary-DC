@@ -1,0 +1,83 @@
+{
+  "revision": "GF-visual.3",
+  "accepted_archive_sha256": "b5f6c22b4a22440ecf8b88e87a52d2c823929c3140888f572c85c1ede42e6c27",
+  "accepted_scenery_key": "scenery_phase2_gf_visual1.json",
+  "superseded_external_files": [
+    "scenery_[ff]![cme-ime].json",
+    "scenery_[hb]![sm].json",
+    "scenery_ff-ime[ff].json",
+    "scenery_hb-sm[hb].json",
+    "scenery_ime-ff[cme-ime].json",
+    "scenery_phase2_gf_visual1.json",
+    "scenery_sm-hb[sm].json"
+  ],
+  "accepted_new_objects": 1835,
+  "removed_original_objects": 930,
+  "total_objects": 13841,
+  "total_layouts": 46,
+  "canonical_network_sha256": "5fb1e84590304795062a4fcaa0bfd8a7f9370e36f3dc29fb16e86c1665e5a461",
+  "added_assets": {
+    "scenery_GF-HB[GF].json": {
+      "objects": 594,
+      "sha256": "07da888ebd60a5e2f14c6ae3528f975d895e36b0c223dabc071fe5ba74068a48",
+      "guid": "04cb6482df8157318de127c26fb44027"
+    },
+    "scenery_GF.json": {
+      "objects": 1,
+      "sha256": "a692e34503639843ab83468e408299a2542f4fb38009b1caa1175dd006558748",
+      "guid": "9a9803d6f5a45880bc65068ffa06db53"
+    },
+    "scenery_HB-GF[HB].json": {
+      "objects": 344,
+      "sha256": "a48ec79409c63482a091c74e2c6e6c412009fb2af42610cd2484f225725f51ba",
+      "guid": "ec4a767b2cc45895b67950e23978c319"
+    },
+    "scenery_IME-GF[CME-IME].json": {
+      "objects": 417,
+      "sha256": "d1335344adfb8b0bc2e0ba6502dfa7c9e034d5b4fefb2ef976387570ea73bfa4",
+      "guid": "40e1907568fb5c49bf03a7e5e36ea2ba"
+    },
+    "scenery_[GF]![CME-IME].json": {
+      "objects": 48,
+      "sha256": "5d119b4c58de3616a2e2648d6735a75ef3f63f09d7032301153a104f8c28b8df",
+      "guid": "f76db6ca065a594bbc85127f71a88c72"
+    },
+    "scenery_[HB]![GF].json": {
+      "objects": 33,
+      "sha256": "c6bac2f3c3b42b1b704d07cf2b963b72743aced1c5300fd684cf43e79a1d98aa",
+      "guid": "275172f8610153b78156cd39d3aa0851"
+    }
+  },
+  "revised_assets": {
+    "scenery_FF-IME[FF].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "guid": "f52630b6509c1414a87941481fd9a8a8"
+    },
+    "scenery_HB-SM[HB].json": {
+      "objects": 511,
+      "sha256": "ae2dce303a77b3ee5287324fcbf9c5863db4be9ac5e0bab4a2f0e9fbee47c0df",
+      "guid": "340102896011f9e4faf8251131a7b243"
+    },
+    "scenery_IME-FF[CME-IME].json": {
+      "objects": 237,
+      "sha256": "da938cb763c6a753525d99ec7740001930f29496240d617f323ec90bc320eb41",
+      "guid": "459ab83ce87d6884288ba47313d81b02"
+    },
+    "scenery_SM-HB[SM].json": {
+      "objects": 648,
+      "sha256": "00bb4efe7b8d02c0783bde9c66f7d8fc522e40fb1f5d01c65d7069fcbb55e10b",
+      "guid": "a2d4b0e129dd5c34b812f1e7c208f024"
+    },
+    "scenery_[FF]![CME-IME].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "guid": "658827c51722a434fb4ef9b15f81079b"
+    },
+    "scenery_[HB]![SM].json": {
+      "objects": 30,
+      "sha256": "a6878626d7c0aa92355300ba58af5cc18f339db3288477687c5ca76f88a01065",
+      "guid": "12c98a2461f03774c9dfd81b5e6436f8"
+    }
+  }
+}

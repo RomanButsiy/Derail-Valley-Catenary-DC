@@ -1,10 +1,14 @@
 # Derail-Valley-Catenary-DC
 
+## Accepted GF corridor
+
+The bundle includes the tested GF Visual 3 route from the HB–SM junction past GF to the CME/IME through line. Re-export **Catenary → Export OCS** before building. When upgrading a test installation, move all seven GF external overrides out of the installed mod’s `Scenery/` folder. See the [file list and upgrade instructions](docs/GF_RELEASE_UK.md).
+
 ## Accepted HB–CS–CMS–SM scenery
 
 Visual 4 was accepted by the user on 2026-11-04. Its 1867 objects are now
 partitioned into 9 station/corridor/neutral files, without geometry changes.
-All 31 original layouts remain byte-identical. Re-export **Catenary → Export OCS**
+Re-export **Catenary → Export OCS**
 before building, and remove the retired external
 `Scenery/scenery_phase1_hb_cs_cms_visual1.json` before testing the new bundle.
 See [integration and test instructions](docs/PHASE1_RELEASE_UK.md).
@@ -38,7 +42,7 @@ This is not an official upstream release and not a prebuilt mod download.
 
 **[Українська інструкція складання і тесту](docs/BUILD_UK.md)** ·
 [Code review](docs/CODE_REVIEW_UK.md) · [Vehicle API](docs/VEHICLE_API.md) ·
-[First corridor](plans/PHASE1_HB_CS_CMS_UK.md)
+[First corridor](docs/PHASE1_RELEASE_UK.md)
 
 ## What is in this repository
 
@@ -47,8 +51,7 @@ This is not an official upstream release and not a prebuilt mod download.
 - A restricted reader for the original scenery JSON type names.
 - Explicit network profiles and per-file replacement/addition under `Scenery/`.
 - A vehicle-neutral API and one simulation tick; **no built-in locomotive controller**.
-- The author's **31 original scenery files, unchanged**, plus **9 accepted
-  HB–CS–CMS–SM files**, loaded by the `hb-cs-cms-sm` profile.
+- 46 bundled layouts, including the nine accepted HB–CS–CMS–SM files and the GF corridor, loaded by the `hb-cs-cms-sm` profile.
 
 The 2WE3 locomotive models, cabins, traction circuits, control stands, CCL editor
 binaries, Blender source and traction-motor test rig are removed from the core.
@@ -165,8 +168,7 @@ electrification is included. N09 separates HB/CMS and N04 separates CMS/SM.
 `plans/phase1_hb_cs_cms.json` records scope and coordinates;
 `audit/phase1_hb_cs_cms_sm.json` pins the accepted geometry and file mapping.
 The newly packaged build still requires a local Unity export and in-game retest.
-[GF is the next planned corridor](plans/PHASE2_GF_UK.md); no GF runtime objects
-are included.
+The [GF corridor](docs/GF_RELEASE_UK.md) is also integrated. The route through GF station is the next survey.
 
 ## Checks
 

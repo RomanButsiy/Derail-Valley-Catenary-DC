@@ -1,8 +1,8 @@
 {
   "project": "Derail-Valley-Catenary-DC",
-  "version": "0.1.0-foundation",
+  "version": "0.2.0",
   "source_commit": "4d1a6a691415b6f08f9a76fbafdc8357485e277a",
-  "passed": 72,
+  "passed": 66,
   "failed": 0,
   "checks": [
     {
@@ -33,7 +33,7 @@
     {
       "check": "All core game references are configurable, not author E: paths",
       "pass": true,
-      "detail": 13
+      "detail": 15
     },
     {
       "check": "No game reference marked CopyLocal",
@@ -71,9 +71,37 @@
       "detail": []
     },
     {
+      "check": "Bundled network matches accepted GF Visual 3",
+      "pass": true,
+      "detail": {
+        "passed": true,
+        "objects": 13841,
+        "layouts": 46,
+        "direct_archive_comparison": false,
+        "errors": []
+      }
+    },
+    {
+      "check": "Only declared Phase 1 and GF assets added",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Accepted Visual 4 preserved exactly in split files",
+      "pass": true,
+      "detail": {
+        "passed": true,
+        "scenery_files": 9,
+        "accepted_objects": 1867,
+        "reconstructed_exactly": true,
+        "direct_accepted_json_compared": false,
+        "errors": []
+      }
+    },
+    {
       "check": "All retained catenary assets/meta files byte-identical to upload",
       "pass": true,
-      "detail": 573
+      "detail": 567
     },
     {
       "check": "Both upstream license texts preserved byte-for-byte",
@@ -151,9 +179,9 @@
       "detail": null
     },
     {
-      "check": "31 upstream scenery files retained (reference profile)",
+      "check": "Original, Phase 1 and GF scenery files present",
       "pass": true,
-      "detail": 31
+      "detail": 46
     },
     {
       "check": "Only known legacy scenery types in reference layouts",
@@ -165,8 +193,10 @@
       "pass": true,
       "detail": {
         "CME/IME1500": 1,
+        "CMS1500": 1,
         "CP750": 1,
         "FF1500": 1,
+        "GF1500": 1,
         "HB1500": 1,
         "IME1000": 1,
         "IMW1500": 1,
@@ -216,7 +246,7 @@
       "detail": []
     },
     {
-      "check": "Default is explicitly author-reference, not unbuilt coast route",
+      "check": "Default profile loads the full accepted network",
       "pass": true,
       "detail": null
     },
@@ -226,7 +256,7 @@
       "detail": null
     },
     {
-      "check": "Phase 1 is mainline-only and not falsely marked implemented",
+      "check": "Phase 1 accepted; station yard expansion excluded",
       "pass": true,
       "detail": null
     },
@@ -329,70 +359,27 @@
       "check": "Plan and runtime payload are separate",
       "pass": true,
       "detail": null
-    },
-    {
-      "check": "Direct input-directory comparison: catenary assets unchanged",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Optional bridge: both collector queries migrated",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Optional bridge contains no second network/editor engine",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Optional bridge has no old OCS calls",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Optional bridge subscribes/unsubscribes single core tick",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Optional controller preserves the CCL pack dependency ID",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Prepared adapter lexical sanity (NOT compilation)",
-      "pass": true,
-      "detail": null
-    },
-    {
-      "check": "Adapter preparation did not modify original source",
-      "pass": true,
-      "detail": 49
-    },
-    {
-      "check": "Adapter preparation refuses nonempty output",
-      "pass": true,
-      "detail": null
     }
   ],
-  "scenery_files": 31,
+  "scenery_files": 46,
   "object_counts": {
-    "substation": 9,
-    "pole": 3145,
-    "cantilever": 3160,
-    "wire": 3751,
-    "miscellaneous_object": 350,
+    "substation": 11,
+    "pole": 4042,
+    "cantilever": 4056,
+    "wire": 4669,
+    "miscellaneous_object": 409,
     "gantry": 181,
     "side_rail_pole": 473
   },
-  "retained_asset_files": 573,
-  "core_csharp_files": 29,
+  "retained_asset_files": 567,
+  "core_csharp_files": 35,
   "maximum_reference_wire_length_m": 80.1593857,
   "csharp_compiled": false,
   "csharp_logic_tests_executed": false,
   "unity_export_executed": false,
   "powershell_executed": false,
   "game_tested": false,
-  "phase1_route_built": false
+  "phase1_route_built": true,
+  "gf_route_built": true,
+  "split_package_game_tested": false
 }

@@ -1,0 +1,124 @@
+{
+  "plan_id": "HB-CS-CMS-CENTRAL-01",
+  "status": "user_accepted",
+  "geometry_present": true,
+  "installable_scenery": true,
+  "station_yards": false,
+  "corridor": [
+    "HB departure interface",
+    "CS through track",
+    "CMS through connection",
+    "central junction/ring south of SM"
+  ],
+  "track_ids": [
+    "#Y-#S322#T",
+    "#Y-#S1388#T",
+    "#Y-#S300#T",
+    "#Y-#S734#T",
+    "#Y-#S385#T",
+    "#Y-#S687#T",
+    "#Y-#S245#T",
+    "#Y-#S1434#T",
+    "#Y-#S631#T",
+    "#Y-#S779#T",
+    "CS-A2LP",
+    "#Y-#S741#T",
+    "#Y-#S329#T",
+    "#Y-#S1511#T",
+    "#Y-#S351#T",
+    "#Y-#S1135#T",
+    "#Y-#S353#T",
+    "#Y-#S794#T",
+    "#Y-#S308#T",
+    "#Y-#S663#T",
+    "#Y-#S367#T",
+    "#Y-#S819#T",
+    "#Y-#S185#T",
+    "#Y-#S1178#T",
+    "#Y-#S137#T",
+    "#Y-#S776#T",
+    "#Y-#S91#T",
+    "#Y-#S1026#T",
+    "#Y-#S616#T",
+    "#Y-#S1138#T",
+    "#Y-#S324#T",
+    "#Y-#S1207#T",
+    "#Y-#S76#T",
+    "#Y-#S759#T",
+    "#Y-#S338#T",
+    "#Y-#S1435#T",
+    "#Y-#S89#T",
+    "#Y-#S1722#T",
+    "#Y-#S1195#T",
+    "#Y-#S226#T",
+    "#Y-#S714#T"
+  ],
+  "power_districts": [
+    "HB1500",
+    "CMS1500",
+    "SM1500"
+  ],
+  "boundaries": [
+    {
+      "id": "N09",
+      "between": [
+        "HB1500",
+        "CMS1500"
+      ],
+      "area": "between HB approach and CS",
+      "coordinates": {
+        "x": 11030.985598804738,
+        "y": 134.20977003710448,
+        "z": 2069.940606741357
+      },
+      "center_s_m": 2220.0,
+      "dead_contact_run_m": [
+        2135.0,
+        2305.0
+      ]
+    },
+    {
+      "id": "N04",
+      "between": [
+        "CMS1500",
+        "SM1500"
+      ],
+      "area": "north of CMS before central junction",
+      "coordinates": {
+        "x": 7917.4484917214195,
+        "y": 154.7254251695798,
+        "z": 4221.172805022996
+      },
+      "center_s_m": 10750.0,
+      "dead_contact_run_m": [
+        10665.0,
+        10835.0
+      ]
+    }
+  ],
+  "no_additional_neutral_at_CS": true,
+  "notes": "User accepted Visual 4. These source assets contain exactly the same objects, partitioned by station/corridor/feed. Re-export Unity bundles and retest the packaged build. GF is a separate planned phase.",
+  "accepted_date": "2026-11-04",
+  "source_revision": "phase1-visual.4",
+  "geometry_changed_during_split": false,
+  "scenery_files": [
+    "scenery_HB-CS[HB].json",
+    "scenery_[HB]![CMS].json",
+    "scenery_CS-HB[CMS].json",
+    "scenery_CS.json",
+    "scenery_CS-CMS.json",
+    "scenery_CMS.json",
+    "scenery_CMS-SM[CMS].json",
+    "scenery_[CMS]![SM].json",
+    "scenery_SM-CMS[SM].json"
+  ],
+  "cms_excluded_track_ids": [
+    "#Y-#S1226#T",
+    "#Y-#S570#T",
+    "#Y-#S1214#T",
+    "CMS-A2L",
+    "#Y-#S1638#T"
+  ],
+  "validation_manifest": "audit/phase1_hb_cs_cms_sm.json",
+  "split_build_game_tested": false
+}
