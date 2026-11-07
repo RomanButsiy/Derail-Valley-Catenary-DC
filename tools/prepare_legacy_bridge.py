@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Prepare OPTIONAL 2WE3 controller in an ignored build workspace, never in the core.
-Requires the exact upstream checkout recorded in audit/upstream.json.
+Defaults to the pinned e0b78cb upstream controller; 4d1a6a6 remains opt-in.
 No binaries or locomotive implementation are included in the catenary repository.
 """
 from __future__ import annotations
@@ -17,8 +17,13 @@ ALLOWED_DIRS = ('devices', 'circuit', 'unit_A', 'unit_B', 'utilities')
 # The stock 2WE3 CCL pack declares AdditionalDependencies: Catenary-DC.
 # Only this optional controller provides that legacy ID; it contains no OCS engine.
 BRIDGE_ID = 'Catenary-DC'
-BUILD_FIX_REVISION = 'legacy2we3-buildfix.1'
+BUILD_FIX_REVISION = 'legacy2we3-upstream.2'
 LEGACY_LANGUAGE_VERSION = '14.0'
+BRIDGE_VERSION = '0.2.0'
+UPSTREAM_REVISIONS = {
+    'e0b78cb': 'e0b78cb7943ca4d7cde112065b863139dae0c7b0',
+    '4d1a6a6': '4d1a6a691415b6f08f9a76fbafdc8357485e277a',
+}
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -49,7 +54,44 @@ def fix_simulate_named_arguments(caller: str, callee: str) -> str:
     return caller
 
 
-def prepare(source: Path, output: Path, core_dll: Path) -> dict:
+def verify_source(source: Path, upstream_revision: str) -> dict:
+    """Verify the complete selected inventory before creating generated output."""
+    if upstream_revision not in UPSTREAM_REVISIONS:
+        raise ValueError('Unsupported upstream revision: ' + upstream_revision)
+    selected = [source/'WE6SIM'/f for f in ('Main.cs','car_spawn_handler.cs','electric_sim.csproj')]
+    selected.append(source/'unity_project/Assets/_CCL_CARS/WE6A/WE6_pack.asset')
+    for folder in ALLOWED_DIRS:
+        if not (source/'WE6SIM'/folder).is_dir():
+            raise ValueError('Select the upstream root containing WE6SIM and unity_project.')
+        selected.extend(sorted((source/'WE6SIM'/folder).rglob('*.cs')))
+    if upstream_revision == 'e0b78cb':
+        known = json.loads((ROOT/'compat/Legacy2WE3/upstreams/e0b78cb.json').read_text())['source_files']
+    else:
+        original = json.loads((ROOT/'audit/upstream.json').read_text())['source_files']
+        fixed = {'WE6SIM/Main.cs', 'WE6SIM/car_spawn_handler.cs', 'WE6SIM/electric_sim.csproj',
+                 'unity_project/Assets/_CCL_CARS/WE6A/WE6_pack.asset'}
+        known = {name: {'sha256': value} for name, value in original.items()
+                 if name in fixed or (name.endswith('.cs') and any(name.startswith('WE6SIM/'+d+'/') for d in ALLOWED_DIRS))}
+    names = {p.relative_to(source).as_posix() for p in selected if p.is_file()}
+    if names != set(known):
+        raise ValueError('Upstream file inventory differs: missing=' + str(sorted(set(known)-names))
+                         + '; extra=' + str(sorted(names-set(known))))
+    fingerprints = {}
+    for path in selected:
+        relative = path.relative_to(source).as_posix()
+        data = path.read_bytes()
+        actual = hashlib.sha256(data).hexdigest()
+        entry = known[relative]
+        # Git for Windows can convert LF to CRLF. Accept that conversion only;
+        # BOM, content and whitespace edits still fail the pinned content hash.
+        normalized = hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
+        if actual != entry['sha256'] and normalized != entry.get('lf_sha256'):
+            raise ValueError(f'Unsupported/edited upstream file: {relative}; expected {upstream_revision}.')
+        fingerprints[relative] = actual
+    return fingerprints
+
+
+def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str = 'e0b78cb') -> dict:
     source, output, core_dll = source.resolve(), output.resolve(), core_dll.resolve()
     if source == output or source in output.parents:
         raise ValueError('Output must be outside the original upstream directory.')
@@ -59,20 +101,7 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
         raise ValueError('Inside this repository, generated controller source is allowed only under artifacts/.')
     if output.exists() and any(output.iterdir()):
         raise ValueError('Output must be a new or empty directory.')
-    known = json.loads((ROOT/'audit/upstream.json').read_text())['source_files']
-    selected = [source/'WE6SIM'/f for f in ('Main.cs','car_spawn_handler.cs','electric_sim.csproj')]
-    selected.append(source/'unity_project/Assets/_CCL_CARS/WE6A/WE6_pack.asset')
-    for folder in ALLOWED_DIRS:
-        selected.extend(sorted((source/'WE6SIM'/folder).rglob('*.cs')))
-    if not all((source/'WE6SIM'/folder).is_dir() for folder in ALLOWED_DIRS):
-        raise ValueError('Select the root of the original author source (WE6SIM and unity_project).')
-    fingerprints = {}
-    for path in selected:
-        relative = path.relative_to(source).as_posix()
-        actual = sha(path)
-        if known.get(relative) != actual:
-            raise ValueError(f'Unsupported/edited upstream file: {relative}; expected the supplied 4d1a6a6 snapshot.')
-        fingerprints[relative] = actual
+    fingerprints = verify_source(source, upstream_revision)
     output.mkdir(parents=True, exist_ok=True)
     # Source files are COPIED, never patched in the caller\'s checkout.
     copied = 0
@@ -86,12 +115,19 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
             copied += 1
     for name in ('Main.cs','editor_settings.cs'):
         shutil.copy2(ROOT/'compat/Legacy2WE3/templates'/name, output/name)
-    # The upstream snapshot renamed the solver parameter but left two callers
-    # using its former name. Repair only the copied caller, never the solver.
+    # Only the older snapshot needs the named-argument fix. In e0b78cb the
+    # signature and both callers already agree; preserve the entire solver and
+    # unit_A implementation, including new gauges and explicit delta-time.
     caller_path = output/'unit_A/unit_a_sim.cs'
     caller = caller_path.read_text(encoding='utf-8-sig')
     callee = (output/'circuit/circuit.cs').read_text(encoding='utf-8-sig')
-    caller_path.write_text(fix_simulate_named_arguments(caller, callee), encoding='utf-8')
+    named_arguments_fixed = 0
+    if upstream_revision == '4d1a6a6':
+        caller_path.write_text(fix_simulate_named_arguments(caller, callee), encoding='utf-8')
+        named_arguments_fixed = 2
+    elif (callee.count('public async Task simulate(bool permit_commutation)') != 1
+          or any(caller.count(f'_circuit.simulate(permit_commutation: {v})') != 1 for v in ('true', 'false'))):
+        raise ValueError('Unexpected e0b78cb solver contract.')
 
     pantograph = output/'devices/pantograph.cs'
     text = pantograph.read_text(encoding='utf-8-sig')
@@ -140,7 +176,7 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
     props = ET.SubElement(root, 'PropertyGroup')
     for key, val in {'TargetFramework':'net48', 'LangVersion':LEGACY_LANGUAGE_VERSION, 'Nullable':'enable',
                      'AssemblyName':'CatenaryDC.Legacy2WE3', 'RootNamespace':'electric_sim',
-                     'Version':'0.1.1', 'NoWarn':'$(NoWarn);CS8981',
+                     'Version':BRIDGE_VERSION, 'NoWarn':'$(NoWarn);CS8981',
                      'GameManagedPath':'$(GameDirectory)/DerailValley_Data/Managed'}.items():
         ET.SubElement(props,key).text=val
     packages=ET.SubElement(root,'ItemGroup')
@@ -161,19 +197,22 @@ def prepare(source: Path, output: Path, core_dll: Path) -> dict:
     ET.SubElement(target,'Error',Condition="!Exists('$(GameManagedPath)/Assembly-CSharp.dll')",Text='Select the game root using GameDirectory.')
     ET.indent(root, space='  ')
     ET.ElementTree(root).write(output/'Legacy2WE3.csproj',encoding='utf-8',xml_declaration=False)
-    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — optional 2WE3 bridge','Version':'0.1.1',
+    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — optional 2WE3 bridge','Version':BRIDGE_VERSION,
           'ManagerVersion':'0.27.3','AssemblyName':'CatenaryDC.Legacy2WE3.dll','EntryMethod':'electric_sim.Main.Load',
           'Author':'Knsgf vehicle implementation; compatibility adaptation by RomanButsiy',
-          'Requirements':['DerailValleyCatenaryDC-0.1.0']}
+          'Requirements':['DerailValleyCatenaryDC-0.2.0']}
     (output/'info.json').write_text(json.dumps(info,indent=2)+'\n')
-    report={'upstream_commit':'4d1a6a691415b6f08f9a76fbafdc8357485e277a',
+    report={'upstream_commit':UPSTREAM_REVISIONS[upstream_revision],
+            'upstream_revision':upstream_revision,'bridge_version':BRIDGE_VERSION,
+            'ccl_pack_version':'2.3.7',
             'source':str(source),'core_dll_requested':str(core_dll),
             'verified_files':fingerprints,'copied_implementation_cs':copied,
             'contact_queries_redirected':2,'catenary_engine_copied':False,
             'legacy_umm_id':'Catenary-DC','core_umm_id':'DerailValleyCatenaryDC',
             'build_fix_revision':BUILD_FIX_REVISION,
             'language_version':LEGACY_LANGUAGE_VERSION,'target_framework':'net48',
-            'simulate_named_arguments_fixed':2,
+            'simulate_named_arguments_fixed':named_arguments_fixed,
+            'upstream_gauges_preserved':True,
             'solver_body_changed':False,'compiled':False,'runtime_tested':False}
     (output/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
@@ -183,11 +222,12 @@ if __name__=='__main__':
     parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--core-dll',type=Path,required=True)
+    parser.add_argument('--upstream-revision',choices=tuple(UPSTREAM_REVISIONS),default='e0b78cb')
     args=parser.parse_args()
     try:
-        report=prepare(args.source,args.output,args.core_dll)
+        report=prepare(args.source,args.output,args.core_dll,args.upstream_revision)
         print(f'Prepared optional bridge; {len(report["verified_files"])} upstream files verified. Nothing installed.')
         print(f'Compatibility fix: {BUILD_FIX_REVISION}; C# {LEGACY_LANGUAGE_VERSION}; target net48.')
-        print('Fixed two copied simulate calls: permit_commutation -> permit_topology_changes; true/false preserved.')
+        print(f'Upstream: {report["upstream_commit"]}; named-argument fixes: {report["simulate_named_arguments_fixed"]}.')
     except (ValueError,OSError,KeyError) as error:
         parser.exit(1, 'STOPPED: '+str(error)+'\n')

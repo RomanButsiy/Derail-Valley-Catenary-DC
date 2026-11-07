@@ -1,0 +1,231 @@
+{
+  "repository": "https://github.com/Knsgf/Derail_Valley_electric_concept",
+  "commit": "e0b78cb7943ca4d7cde112065b863139dae0c7b0",
+  "parent_baseline": "4d1a6a691415b6f08f9a76fbafdc8357485e277a",
+  "controller_version": "0.2.0",
+  "ccl_pack_version": "2.3.7",
+  "source_files": {
+    "WE6SIM/Main.cs": {
+      "sha256": "3eeddc6df3ed11cc6566493b8d1c9c4055305f68f613cf7b6c655fbb263363ea",
+      "lf_sha256": "3eeddc6df3ed11cc6566493b8d1c9c4055305f68f613cf7b6c655fbb263363ea"
+    },
+    "WE6SIM/car_spawn_handler.cs": {
+      "sha256": "d8487c00706614d3c14b3d885f3214edc399e9c058f6f141da54b28bce297aec",
+      "lf_sha256": "d8487c00706614d3c14b3d885f3214edc399e9c058f6f141da54b28bce297aec"
+    },
+    "WE6SIM/electric_sim.csproj": {
+      "sha256": "0facdff8fedd6642c02920e65cb246faf1b4fea3a6e7729d97ee6798a7d932a7",
+      "lf_sha256": "0facdff8fedd6642c02920e65cb246faf1b4fea3a6e7729d97ee6798a7d932a7"
+    },
+    "unity_project/Assets/_CCL_CARS/WE6A/WE6_pack.asset": {
+      "sha256": "0b7b36f883c2a0e2e61fa3ff6d2c03f29efbf91385e96bd526c5bdbed502479c",
+      "lf_sha256": "0b7b36f883c2a0e2e61fa3ff6d2c03f29efbf91385e96bd526c5bdbed502479c"
+    },
+    "WE6SIM/devices/auxiliary_motor.cs": {
+      "sha256": "7824f74da3faa968792f601176b9e5e64e85049ecf87dead8e4262319315e085",
+      "lf_sha256": "7824f74da3faa968792f601176b9e5e64e85049ecf87dead8e4262319315e085"
+    },
+    "WE6SIM/devices/binary_contactor.cs": {
+      "sha256": "dda85f102519ba088e9e54e5ec2c16e9f36b9b77840b85fc3d2261164be4587d",
+      "lf_sha256": "dda85f102519ba088e9e54e5ec2c16e9f36b9b77840b85fc3d2261164be4587d"
+    },
+    "WE6SIM/devices/camshaft_contactor_set.cs": {
+      "sha256": "512cdd1c2e70df8e608bff245d07023708b2febc3d4e0ff3ee4121e155228c6c",
+      "lf_sha256": "512cdd1c2e70df8e608bff245d07023708b2febc3d4e0ff3ee4121e155228c6c"
+    },
+    "WE6SIM/devices/camshaft_motor.cs": {
+      "sha256": "ef1860661e0c94117a7ae874761ef3185da3126aff0dfb22fb89b06def87d84f",
+      "lf_sha256": "ef1860661e0c94117a7ae874761ef3185da3126aff0dfb22fb89b06def87d84f"
+    },
+    "WE6SIM/devices/control_stand.cs": {
+      "sha256": "36f51e4d70ce5aaa2499e008ac9295ee227a1dc295aeb327bae398d2705ca512",
+      "lf_sha256": "36f51e4d70ce5aaa2499e008ac9295ee227a1dc295aeb327bae398d2705ca512"
+    },
+    "WE6SIM/devices/dummy_voltage_regulator.cs": {
+      "sha256": "9e17adb2f08853c739430a243449ce25612eb2f3a66065507c7d61c6ea52a29f",
+      "lf_sha256": "9e17adb2f08853c739430a243449ce25612eb2f3a66065507c7d61c6ea52a29f"
+    },
+    "WE6SIM/devices/electric_device.cs": {
+      "sha256": "34a412985f2ad99a212989cf05368360a1a44e7afd832fa0f2fdf8ecb77dc504",
+      "lf_sha256": "34a412985f2ad99a212989cf05368360a1a44e7afd832fa0f2fdf8ecb77dc504"
+    },
+    "WE6SIM/devices/pantograph.cs": {
+      "sha256": "2f57b4a66eac84aaf286fe762edf325b4f54fd11f6afc04c901914adc56e7453",
+      "lf_sha256": "2f57b4a66eac84aaf286fe762edf325b4f54fd11f6afc04c901914adc56e7453"
+    },
+    "WE6SIM/devices/red_ditch_light_controller.cs": {
+      "sha256": "86d3111dd952fd320a66a572685040e117340f1cd248a726ff35ec15185e33e5",
+      "lf_sha256": "86d3111dd952fd320a66a572685040e117340f1cd248a726ff35ec15185e33e5"
+    },
+    "WE6SIM/devices/roof_busbar.cs": {
+      "sha256": "c6c7fec1e367d23458e7e2a7591ba74b68c4ffb43d7b7eb3b3c83c5b839f3dcb",
+      "lf_sha256": "c6c7fec1e367d23458e7e2a7591ba74b68c4ffb43d7b7eb3b3c83c5b839f3dcb"
+    },
+    "WE6SIM/devices/selector_interlock.cs": {
+      "sha256": "ce011399d51875a7937811035b60b447df6c8e46f986967c6b49bb5340d5656c",
+      "lf_sha256": "ce011399d51875a7937811035b60b447df6c8e46f986967c6b49bb5340d5656c"
+    },
+    "WE6SIM/devices/throttle_HUD.cs": {
+      "sha256": "06ea5e9fa48baca6e93d574563e241c496fec064f545e08e7f836e2a3a66d1c5",
+      "lf_sha256": "06ea5e9fa48baca6e93d574563e241c496fec064f545e08e7f836e2a3a66d1c5"
+    },
+    "WE6SIM/devices/traction_motor.cs": {
+      "sha256": "0649ea125b45c2e604ed7fe0a13f3106eafd70b170b079890b621028565fbabe",
+      "lf_sha256": "0649ea125b45c2e604ed7fe0a13f3106eafd70b170b079890b621028565fbabe"
+    },
+    "WE6SIM/devices/tri_state_contactor.cs": {
+      "sha256": "664915fe89d3c469716682eb1bc4f93c6861850284cd6a776e6389a56cc45966",
+      "lf_sha256": "664915fe89d3c469716682eb1bc4f93c6861850284cd6a776e6389a56cc45966"
+    },
+    "WE6SIM/circuit/branch_builder.cs": {
+      "sha256": "f09d326b17523ea17b8701e2a2746fd7ee44d211f9deebe4aa00c4330dd87c5f",
+      "lf_sha256": "f09d326b17523ea17b8701e2a2746fd7ee44d211f9deebe4aa00c4330dd87c5f"
+    },
+    "WE6SIM/circuit/circuit.cs": {
+      "sha256": "704dc55c2fde426e198a0dd32e7c4ee9454763d7e3abaf528c78b07a18c26153",
+      "lf_sha256": "704dc55c2fde426e198a0dd32e7c4ee9454763d7e3abaf528c78b07a18c26153"
+    },
+    "WE6SIM/circuit/circuit_branch.cs": {
+      "sha256": "44d779c1ace4bfbcaaaa41e29239672097046ea46de295072cd8e2a4f854f677",
+      "lf_sha256": "44d779c1ace4bfbcaaaa41e29239672097046ea46de295072cd8e2a4f854f677"
+    },
+    "WE6SIM/circuit/circuit_builder.cs": {
+      "sha256": "c901c80feb70001c0223526dee67813e99403df0f9f487989e5e96d1f5783e25",
+      "lf_sha256": "c901c80feb70001c0223526dee67813e99403df0f9f487989e5e96d1f5783e25"
+    },
+    "WE6SIM/circuit/circuit_compiler.cs": {
+      "sha256": "d2e9dc61c9c28703de19b3ca885a0f0c3b0d56d2f2aec938df719591ab0e8e8d",
+      "lf_sha256": "d2e9dc61c9c28703de19b3ca885a0f0c3b0d56d2f2aec938df719591ab0e8e8d"
+    },
+    "WE6SIM/circuit/circuit_node.cs": {
+      "sha256": "a095fd64b7c09845f296f089181fee7d7dec82bbb1ec96bacaf0a3491b765ccd",
+      "lf_sha256": "a095fd64b7c09845f296f089181fee7d7dec82bbb1ec96bacaf0a3491b765ccd"
+    },
+    "WE6SIM/circuit/linear_solver.cs": {
+      "sha256": "e4b7b9d1af74a7d64096087d0d896c2db2ece2fa8b163f021aa5df20198bf2b3",
+      "lf_sha256": "e4b7b9d1af74a7d64096087d0d896c2db2ece2fa8b163f021aa5df20198bf2b3"
+    },
+    "WE6SIM/circuit/node_builder.cs": {
+      "sha256": "bcc65466809cc21a528b330b7b1d703693b11524ba8893b7e8480aab58613a67",
+      "lf_sha256": "bcc65466809cc21a528b330b7b1d703693b11524ba8893b7e8480aab58613a67"
+    },
+    "WE6SIM/circuit/sparse_matrix.cs": {
+      "sha256": "96e8d5f2fe24fb7392c6a36f6f8f1743facb11002d62f539349f73a80c60c057",
+      "lf_sha256": "96e8d5f2fe24fb7392c6a36f6f8f1743facb11002d62f539349f73a80c60c057"
+    },
+    "WE6SIM/circuit/telemetry.cs": {
+      "sha256": "296e05dcf577486ac5dcc8e84a855ef6606ffd74be2795a1708671745f928f59",
+      "lf_sha256": "296e05dcf577486ac5dcc8e84a855ef6606ffd74be2795a1708671745f928f59"
+    },
+    "WE6SIM/unit_A/blower_controller.cs": {
+      "sha256": "3bc9c87df02c7028a118c0a853502a16a62068059ac89780ecee4e3914d38ec4",
+      "lf_sha256": "3bc9c87df02c7028a118c0a853502a16a62068059ac89780ecee4e3914d38ec4"
+    },
+    "WE6SIM/unit_A/contactors.cs": {
+      "sha256": "aef33666453f56dda107771dc87c92ba9f06a6a40c2be108a12c62ec88e318d7",
+      "lf_sha256": "aef33666453f56dda107771dc87c92ba9f06a6a40c2be108a12c62ec88e318d7"
+    },
+    "WE6SIM/unit_A/electricity_meter.cs": {
+      "sha256": "022095e13125766f65513e0e7dc1a40e676e7ba6da5b393521f103dac8fe05cf",
+      "lf_sha256": "022095e13125766f65513e0e7dc1a40e676e7ba6da5b393521f103dac8fe05cf"
+    },
+    "WE6SIM/unit_A/exciter.cs": {
+      "sha256": "e09e49de86841217b1d357bc97ed59694b1333e16ec603ddc757ee1e34b78d3b",
+      "lf_sha256": "e09e49de86841217b1d357bc97ed59694b1333e16ec603ddc757ee1e34b78d3b"
+    },
+    "WE6SIM/unit_A/main_circuit_breaker.cs": {
+      "sha256": "c0b6563ee57852e7f43cc32e43a6cb86cd56f1611372dcbaad243fcfec30b5df",
+      "lf_sha256": "c0b6563ee57852e7f43cc32e43a6cb86cd56f1611372dcbaad243fcfec30b5df"
+    },
+    "WE6SIM/unit_A/resistor_heat.cs": {
+      "sha256": "7e212cf1bca4f6e5ce7151ba76f36a495cfee143fdd9b1844cb2b4ef6b5f9f16",
+      "lf_sha256": "7e212cf1bca4f6e5ce7151ba76f36a495cfee143fdd9b1844cb2b4ef6b5f9f16"
+    },
+    "WE6SIM/unit_A/throttle_controller.cs": {
+      "sha256": "ffab408f100f685f22949ddf48e9f02260aae5a46b0fd1c65eeb3ff7836ef798",
+      "lf_sha256": "ffab408f100f685f22949ddf48e9f02260aae5a46b0fd1c65eeb3ff7836ef798"
+    },
+    "WE6SIM/unit_A/traction_circuit.cs": {
+      "sha256": "ae968ed338d3e729324f4db13d0de82325afd28804031a0beb48320a941448a3",
+      "lf_sha256": "ae968ed338d3e729324f4db13d0de82325afd28804031a0beb48320a941448a3"
+    },
+    "WE6SIM/unit_A/unit_a_sim.cs": {
+      "sha256": "26a595a358fd3944a3a9029dcf5b9ef424d059ae1d2ec6267f8066b5ca98f5cf",
+      "lf_sha256": "26a595a358fd3944a3a9029dcf5b9ef424d059ae1d2ec6267f8066b5ca98f5cf"
+    },
+    "WE6SIM/unit_B/battery_panel.cs": {
+      "sha256": "18ee64b286d7227b79adff6c97f2e177212c1df49bec7411e0a5e49be1310d1b",
+      "lf_sha256": "18ee64b286d7227b79adff6c97f2e177212c1df49bec7411e0a5e49be1310d1b"
+    },
+    "WE6SIM/unit_B/unit_b_sim.cs": {
+      "sha256": "6914260b8d7f5ecb95e8d45220e6459daf9cd3c144c5b27dcb6634bd01151ae9",
+      "lf_sha256": "6914260b8d7f5ecb95e8d45220e6459daf9cd3c144c5b27dcb6634bd01151ae9"
+    },
+    "WE6SIM/utilities/CSV_struct.cs": {
+      "sha256": "97d1a7d49b8bcb082711388270d15783e368bceccbae653be23704c5beefe5cb",
+      "lf_sha256": "97d1a7d49b8bcb082711388270d15783e368bceccbae653be23704c5beefe5cb"
+    },
+    "WE6SIM/utilities/assert.cs": {
+      "sha256": "961f091330a13581f0ba316faf70dc522715bd94b724ad9c287a2317199dc6ca",
+      "lf_sha256": "961f091330a13581f0ba316faf70dc522715bd94b724ad9c287a2317199dc6ca"
+    },
+    "WE6SIM/utilities/hierarchy_traversal.cs": {
+      "sha256": "d878daf3dab23b9859942980b4ceac37670a580b7b684050bee3cfe76f9a4d61",
+      "lf_sha256": "d878daf3dab23b9859942980b4ceac37670a580b7b684050bee3cfe76f9a4d61"
+    },
+    "WE6SIM/utilities/line_cross.cs": {
+      "sha256": "6ea2c608589be802c26664e28c84655a37d6055efd35d4fa007d022ae8ec2615",
+      "lf_sha256": "6ea2c608589be802c26664e28c84655a37d6055efd35d4fa007d022ae8ec2615"
+    },
+    "WE6SIM/utilities/list_extension.cs": {
+      "sha256": "c293b1c4ba0866c22b6c3a178f9161a1b0e650d9ee34a355b422aefc5b6fdeb3",
+      "lf_sha256": "c293b1c4ba0866c22b6c3a178f9161a1b0e650d9ee34a355b422aefc5b6fdeb3"
+    },
+    "WE6SIM/utilities/log_stack.cs": {
+      "sha256": "b52b311ecf61a24dd412ba2de64a64c88f74f46cabaa73bad1bc48914cbbc784",
+      "lf_sha256": "b52b311ecf61a24dd412ba2de64a64c88f74f46cabaa73bad1bc48914cbbc784"
+    },
+    "WE6SIM/utilities/port_value_change.cs": {
+      "sha256": "6d5e85e3aeaaa41f83d1eea9cfa73080503582dbc9b82c2174233c92393cc9c1",
+      "lf_sha256": "6d5e85e3aeaaa41f83d1eea9cfa73080503582dbc9b82c2174233c92393cc9c1"
+    },
+    "WE6SIM/utilities/sensor_grabber.cs": {
+      "sha256": "731b09aa37328633df94dbfdc471a3104c20ddb863edead3ef82e82a6a580ec6",
+      "lf_sha256": "731b09aa37328633df94dbfdc471a3104c20ddb863edead3ef82e82a6a580ec6"
+    },
+    "WE6SIM/utilities/signal_cable.cs": {
+      "sha256": "bee92fcedb0fa3672c60150ca7d3a85efbf02ec52624a3cdc8bfd6e4f698e30f",
+      "lf_sha256": "bee92fcedb0fa3672c60150ca7d3a85efbf02ec52624a3cdc8bfd6e4f698e30f"
+    },
+    "WE6SIM/utilities/world_position.cs": {
+      "sha256": "1a4243a8e31396da04bb0375b3336a68ca8ee585324e709d767e0665e77b039b",
+      "lf_sha256": "1a4243a8e31396da04bb0375b3336a68ca8ee585324e709d767e0665e77b039b"
+    }
+  },
+  "changed_selected_files_since_baseline": [
+    "WE6SIM/devices/auxiliary_motor.cs",
+    "WE6SIM/devices/camshaft_contactor_set.cs",
+    "WE6SIM/devices/pantograph.cs",
+    "WE6SIM/devices/traction_motor.cs",
+    "WE6SIM/circuit/branch_builder.cs",
+    "WE6SIM/circuit/circuit.cs",
+    "WE6SIM/circuit/circuit_branch.cs",
+    "WE6SIM/circuit/circuit_builder.cs",
+    "WE6SIM/circuit/circuit_compiler.cs",
+    "WE6SIM/circuit/linear_solver.cs",
+    "WE6SIM/circuit/node_builder.cs",
+    "WE6SIM/circuit/telemetry.cs",
+    "WE6SIM/unit_A/blower_controller.cs",
+    "WE6SIM/unit_A/contactors.cs",
+    "WE6SIM/unit_A/electricity_meter.cs",
+    "WE6SIM/unit_A/exciter.cs",
+    "WE6SIM/unit_A/main_circuit_breaker.cs",
+    "WE6SIM/unit_A/resistor_heat.cs",
+    "WE6SIM/unit_A/throttle_controller.cs",
+    "WE6SIM/unit_A/traction_circuit.cs",
+    "WE6SIM/unit_A/unit_a_sim.cs",
+    "WE6SIM/unit_B/unit_b_sim.cs",
+    "WE6SIM/utilities/assert.cs"
+  ],
+  "scope": "Controller source only. No author OCS, scenery, bundles, editor or DoubleTrack power cheat is imported."
+}

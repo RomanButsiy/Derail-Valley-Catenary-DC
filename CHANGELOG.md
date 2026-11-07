@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 — 2WE3 bridge e0b78cb / release tooling
+
+- Pin optional bridge generation to author commit e0b78cb with 49 checked inputs.
+- Preserve upstream gauges, resets, circuit/traction updates and delta-time handling.
+- Keep the old simulate-argument correction only for the explicit 4d1a6a6 profile.
+- Require SDK 10+ for C# 14; retain net48 and the separate controller-only design.
+- Package bridge 0.2.0 with the exact core DLL hash and redact local source paths.
+- Add paired Release ZIP packaging, hash checks and Ukrainian release/install guides.
+- Accepted network geometry and core runtime are unchanged by this bridge update.
+- Source preparation and packaging tests pass; Windows/Unity/game validation is pending.
+
 ## Scenery — GF station / 6 m Visual 2
 
 - Integrated the accepted GF station, side rails and GF1100 supply.

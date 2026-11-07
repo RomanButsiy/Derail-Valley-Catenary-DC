@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "patch_base_commit": "fbce0908c51f42ea10e31a3ad09f913a83ab27a2",
+  "author_commit": "e0b78cb7943ca4d7cde112065b863139dae0c7b0",
+  "bridge_version": "0.2.0",
+  "generator_revision": "legacy2we3-upstream.2",
+  "verified_upstream_inputs": 49,
+  "changed_selected_inputs_since_4d1a6a6": 23,
+  "author_code_preservation": "circuit, unit_A, unit_B and non-adapted devices/utilities match upstream bytes",
+  "new_author_simulate_argument_fixes": 0,
+  "old_author_simulate_argument_fixes": 2,
+  "checks": [
+    {
+      "command": "python tools/test_legacy_bridge.py --source <e0b78cb> --legacy-source <4d1a6a6>",
+      "passed": 10
+    },
+    {
+      "command": "python tools/test_package_release.py",
+      "passed": 12,
+      "fixture_only": true
+    },
+    {
+      "command": "python tools/validate_project.py",
+      "passed": 65
+    },
+    {
+      "command": "python tools/test_authoring_tools.py",
+      "passed": 50
+    },
+    {
+      "command": "python tools/test_network_release.py",
+      "passed": 7
+    },
+    {
+      "command": "python tools/verify_network_release.py",
+      "passed": true,
+      "layouts": 48,
+      "objects": 14545,
+      "reconstructed_overlays": 28
+    }
+  ],
+  "packaging_fixtures": "Synthetic test bytes only; not compiled binaries, never included in deliverables.",
+  "network_assets_changed": false,
+  "core_runtime_changed": false,
+  "dotnet_compile_executed": false,
+  "corelogic_dotnet_tests_executed": false,
+  "windows_powershell_executed": false,
+  "unity_export_executed": false,
+  "game_test_executed": false,
+  "release_published": false,
+  "limitations": "No .NET SDK, Windows PowerShell, Unity Editor or game assemblies are installed in the patch preparation environment. Build and game verification must run locally before release."
+}

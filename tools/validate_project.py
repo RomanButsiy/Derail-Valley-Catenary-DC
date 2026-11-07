@@ -170,7 +170,7 @@ def run(upstream=None):
         check(all(sha(upstream/p.relative_to(ROOT))==sha(p) for p in retained),'Direct input-directory comparison: catenary assets unchanged')
         spec=importlib.util.spec_from_file_location('bridge_prepare',ROOT/'tools/prepare_legacy_bridge.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
         with tempfile.TemporaryDirectory() as temp:
-            out=Path(temp)/'controller'; report=mod.prepare(upstream,out,Path(temp)/'CatenaryDC.dll')
+            out=Path(temp)/'controller'; report=mod.prepare(upstream,out,Path(temp)/'CatenaryDC.dll', upstream_revision='4d1a6a6')
             check(report['contact_queries_redirected']==2,'Optional bridge: both collector queries migrated')
             check(not (out/'catenary').exists() and not (out/'catenary_editor').exists(),'Optional bridge contains no second network/editor engine')
             text='\n'.join(p.read_text(encoding='utf-8-sig') for p in out.rglob('*.cs'))
@@ -178,11 +178,11 @@ def run(upstream=None):
             spawn=(out/'car_spawn_handler.cs').read_text()
             check('CatenaryApi.SimulationStep += simulate_all_units' in spawn and 'CatenaryApi.SimulationStep -= simulate_all_units' in spawn,'Optional bridge subscribes/unsubscribes single core tick')
             binfo=load(out/'info.json')
-            check(binfo['Id']=='Catenary-DC' and binfo['Requirements']==['DerailValleyCatenaryDC-0.1.0'],'Optional controller preserves the CCL pack dependency ID')
+            check(binfo['Id']=='Catenary-DC' and binfo['Requirements']==['DerailValleyCatenaryDC-0.2.0'],'Optional controller preserves the CCL pack dependency ID')
             check(all(literal_balance(p.read_text(encoding='utf-8-sig')) for p in out.rglob('*.cs')),'Prepared adapter lexical sanity (NOT compilation)')
             unchanged=all(sha(upstream/k)==v for k,v in report['verified_files'].items())
             check(unchanged,'Adapter preparation did not modify original source',len(report['verified_files']))
-            try: mod.prepare(upstream,out,Path(temp)/'CatenaryDC.dll');rejected=False
+            try: mod.prepare(upstream,out,Path(temp)/'CatenaryDC.dll', upstream_revision='4d1a6a6');rejected=False
             except ValueError:rejected=True
             check(rejected,'Adapter preparation refuses nonempty output')
     result={'project':'Derail-Valley-Catenary-DC','version':info['Version'],'source_commit':provenance['zip_commit_comment'],

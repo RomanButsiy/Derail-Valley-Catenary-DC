@@ -1,14 +1,15 @@
 # Optional local migration tool. Does not copy the original catenary engine or install anything.
-# legacy2we3-buildfix.1: C# 14 source + repaired named solver arguments in the copied source.
+# Pinned upstream controller. The original OCS and scenery are not imported.
 [CmdletBinding()]
 param([Parameter(Mandatory=$true)][string]$OriginalSourceDirectory,
       [Parameter(Mandatory=$true)][string]$CoreReadyDirectory,
       [Parameter(Mandatory=$true)][string]$GameDirectory,
-      [ValidateSet('Release','Debug')][string]$Configuration='Release')
+      [ValidateSet('Release','Debug')][string]$Configuration='Release',
+      [ValidateSet('e0b78cb','4d1a6a6')][string]$UpstreamRevision='e0b78cb')
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $Root=Split-Path -Parent $PSScriptRoot
-$Revision='legacy2we3-buildfix.1'
+$Revision='legacy2we3-upstream.2'
 $log=$null
 function RequireFile([string]$Path) { if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { throw "Missing file: $Path" } }
 function WriteBuildLine([string]$Message, [string]$LogPath) {
@@ -27,6 +28,11 @@ try {
     $Core=(Resolve-Path -LiteralPath $CoreReadyDirectory).ProviderPath
     $Game=(Resolve-Path -LiteralPath $GameDirectory).ProviderPath
     $dll=Join-Path $Core 'CatenaryDC.dll'; RequireFile $dll
+    RequireFile (Join-Path $Core 'info.json')
+    $coreMod=Get-Content -LiteralPath (Join-Path $Core 'info.json') -Raw | ConvertFrom-Json
+    if ($coreMod.Id -ne 'DerailValleyCatenaryDC' -or [version]$coreMod.Version -lt [version]'0.2.0') {
+        throw 'The new bridge requires Catenary DC 0.2.0 or newer.'
+    }
     RequireFile (Join-Path $Core 'build-info.json')
     $coreInfo=Get-Content -LiteralPath (Join-Path $Core 'build-info.json') -Raw | ConvertFrom-Json
     $hash=(Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -45,15 +51,18 @@ try {
     WriteBuildLine "Configuration: $Configuration; language: C# 14.0; target framework: net48" $log
     $saved=$ErrorActionPreference; $ErrorActionPreference='Continue'
     try {
-        & python (Join-Path $PSScriptRoot 'prepare_legacy_bridge.py') --source $Source --output $work --core-dll $dll 2>&1 |
+        & python (Join-Path $PSScriptRoot 'prepare_legacy_bridge.py') --source $Source --output $work --core-dll $dll --upstream-revision $UpstreamRevision 2>&1 |
             ForEach-Object { "$_" } | Tee-Object -FilePath $log -Append | Out-Host
         $prepareCode=$LASTEXITCODE
     } finally { $ErrorActionPreference=$saved }
     if ($prepareCode -ne 0) { throw 'Adapter preparation failed. Original source and game were not changed.' }
     $prepPath=Join-Path $work 'preparation.json'; RequireFile $prepPath
     $prep=Get-Content -LiteralPath $prepPath -Raw | ConvertFrom-Json
-    if ($prep.build_fix_revision -ne $Revision -or $prep.language_version -ne '14.0' -or $prep.simulate_named_arguments_fixed -ne 2) {
-        throw 'Incomplete build fix. Replace BOTH tools/Build-Legacy2WE3.ps1 and tools/prepare_legacy_bridge.py from the same BuildFix1 package.'
+    $expectedCommit = if ($UpstreamRevision -eq 'e0b78cb') { 'e0b78cb7943ca4d7cde112065b863139dae0c7b0' } else { '4d1a6a691415b6f08f9a76fbafdc8357485e277a' }
+    $expectedFixes = if ($UpstreamRevision -eq 'e0b78cb') { 0 } else { 2 }
+    if ($prep.build_fix_revision -ne $Revision -or $prep.language_version -ne '14.0' -or
+        $prep.upstream_commit -ne $expectedCommit -or $prep.simulate_named_arguments_fixed -ne $expectedFixes) {
+        throw 'Generator and builder revisions do not match. Apply the complete bridge patch.'
     }
     $project=Join-Path $work 'Legacy2WE3.csproj'
     # Resolve the SDK and run both build commands from the SAME working directory,
@@ -83,12 +92,19 @@ try {
     Copy-Item -LiteralPath (Join-Path $work 'info.json') -Destination $stage
     foreach ($file in @('LICENSE_CC0.txt','LICENSE_MIT.txt','NOTICE.md')) { Copy-Item -LiteralPath (Join-Path $Root $file) -Destination $stage }
     $prep.compiled=$true
+    # Local paths remain in the private work log, not in public release metadata.
+    $prep.PSObject.Properties.Remove('source')
+    $prep.PSObject.Properties.Remove('core_dll_requested')
     $prep | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $stage 'preparation.json') -Encoding UTF8
     $resultHash=(Get-FileHash -LiteralPath $result -Algorithm SHA256).Hash.ToLowerInvariant()
-    [ordered]@{project='Legacy2WE3 bridge';build_fix_revision=$Revision;core_sha256=$hash;controller_sha256=$resultHash;
+    [ordered]@{project='Legacy2WE3 bridge';version=$prep.bridge_version;build_fix_revision=$Revision;
+        upstream_commit=$prep.upstream_commit;ccl_pack_version=$prep.ccl_pack_version;core_sha256=$hash;controller_sha256=$resultHash;
         configuration=$Configuration;dotnet_sdk=$sdk;language_version='14.0';target_framework='net48';runtime_tested_here=$false} |
         ConvertTo-Json | Set-Content -LiteralPath (Join-Path $stage 'build-info.json') -Encoding UTF8
+    $zip=Join-Path $build ("Derail-Valley-Catenary-DC-2WE3-Bridge-"+$prep.bridge_version+"-$Configuration.zip")
+    Compress-Archive -LiteralPath $stage -DestinationPath $zip
     WriteBuildLine "OPTIONAL BRIDGE BUILT: $stage" $log
+    WriteBuildLine "UMM ZIP: $zip" $log
     WriteBuildLine 'Nothing installed. Do not enable original Catenary-DC/electric_sim alongside this core or bridge.' $log
     WriteBuildLine 'Keep the separately installed CCL + 2WE3CCL locomotive models for vehicle tests.' $log
 } catch {

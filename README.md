@@ -1,5 +1,19 @@
 # Derail-Valley-Catenary-DC
 
+## 2WE3 bridge from e0b78cb / first release
+
+The optional controller generator now defaults to Knsgf's exact
+`e0b78cb7943ca4d7cde112065b863139dae0c7b0`, checking 49 input files.
+It preserves upstream instruments, gauge resets, circuit changes and explicit
+simulation time steps. The old `simulate` argument correction is applied only
+when explicitly generating the older `4d1a6a6` controller.
+
+Bridge builds require **.NET SDK 10+ / C# 14**, targeting **net48**.
+Core and bridge are version **0.2.0**, packaged as separate UMM ZIPs;
+CCL and 2WE3CCL models remain separate. The accepted scenery is unchanged.
+See the [bridge details](compat/Legacy2WE3/README_UK.md) and
+[player installation guide](docs/INSTALL_RELEASE_UK.md).
+
 ## Accepted GF station and 6 m network
 
 The accepted **Catenary 6 m Visual 2** is integrated into the bundled scenery,
@@ -17,8 +31,8 @@ See the [patch, source layout and upgrade instructions](docs/NETWORK_6M_RELEASE_
 
 Catenary-only core, plus explicit read-only authoring tools in **Release and Debug**.
 The Debug `CS9202` assignment is rewritten without raising the core above C# 12 / net48.
-Vehicle API version 1 and assembly identity 0.1.0.0 are preserved; the tested optional
-2WE3 controller is unchanged. Gauge smoothing is deferred.
+Vehicle API version 1 and assembly identity 0.1.0.0 are preserved.
+The optional controller follows upstream gauge behavior without custom smoothing.
 
 Open **Authoring / JSON / survey tools** in the core's UMM panel. Export loaded tracks,
 scene geometry, typed OCS JSON without generated children, CSV/prefab catalogs,
@@ -80,7 +94,8 @@ traction; a compatible controller is required.
 
 ## Build
 
-Required locally: Unity **2019.4.41f2**, .NET SDK **8 or newer** (C# 12), the
+Required locally: Unity **2019.4.41f2**, .NET SDK **8 or newer** for the core
+(C# 12), **10 or newer for the bridge** (C# 14), the
 installed Derail Valley managed assemblies and working Unity Mod Manager.
 The runtime target is **net48**, not .NET 8/10. Framework reference assemblies
 are restored as a NuGet package. No game DLLs or third-party binaries ship here.
@@ -178,7 +193,11 @@ python .\tools\verify_network_release.py
 python .\tools\validate_project.py
 python .\tools\test_network_release.py
 python .\tools\test_authoring_tools.py
+python .\tools\test_package_release.py
+# New bridge source checks (the pinned e0b78cb checkout):
+python .\tools\test_legacy_bridge.py --source 'C:\DV-Work\Author-e0b78cb'
 # Additional byte-comparison and adapter preparation checks:
+# This optional foundation check still requires the OLD 4d1a6a6 source.
 python .\tools\validate_project.py --upstream 'C:\DV-Work\AuthorSource'
 # Pure production logic tests; no game DLLs needed:
 dotnet run --project .\tests\CoreLogic\CoreLogic.csproj -c Release
@@ -188,6 +207,8 @@ Python checks were executed during preparation. **C# compilation, the C# test
 runner, Unity export, Windows PowerShell and in-game behavior were not executed
 in the preparation environment.** See `audit/offline_validation.json` for the
 actual run. No test count is presented as runtime certification.
+The new controller and release packaging checks are recorded separately in
+`audit/legacy2we3_e0b78cb_validation.json`.
 
 ## Attribution
 

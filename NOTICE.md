@@ -23,6 +23,16 @@ third-party packages retain their own licenses and are not redistributed here.
 The core does NOT contain the 2WE3 vehicle model, cab, traction circuit,
 control stand, Custom Car Loader binaries or the author's Blender locomotive
 file. `compat/Legacy2WE3` is an optional local migration recipe: it reads the
-user's exact original source and stages a separate controller outside the core.
+user's exact pinned author source and stages a separate controller outside the core.
 That controller uses the original vehicle implementation and its notices.
 It does not install or redistribute the CCL model pack.
+
+The optional bridge generator now defaults to author commit
+`e0b78cb7943ca4d7cde112065b863139dae0c7b0`. Its 49 selected input hashes are in
+`compat/Legacy2WE3/upstreams/e0b78cb.json`. The original author owns the
+instruments, circuits, traction and vehicle simulation implementation carried
+into that bridge. This derivative adapts contact queries and lifecycle hooks
+to the independent catenary API. It does not import the newer author's OCS,
+scenery, Double-Tracked Valley power cheat or vehicle model assets into the core.
+The older `4d1a6a6` controller remains an explicitly selected compatibility path;
+the catenary foundation provenance above remains unchanged.
