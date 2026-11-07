@@ -64,20 +64,21 @@ def run(upstream=None):
     phase1=load(ROOT/'audit/phase1_hb_cs_cms_sm.json')
     additions={f['path'] for f in phase1['scenery_files']}
     additions|={p+'.meta' for p in list(additions)}
-    import verify_phase2_release
+    import verify_network_release
     phase2=load(ROOT/'audit/phase2_gf.json')
+    release=load(ROOT/'audit/network_6m.json')
     scenery_dir=cat/'Scenery'
     gf_additions={(scenery_dir/(n+suffix)).relative_to(ROOT).as_posix()
                   for n in phase2['added_assets'] for suffix in ('','.meta')}
     revisions={(scenery_dir/n).relative_to(ROOT).as_posix() for n in phase2['revised_assets']}
     additions |= gf_additions
+    additions |= {(scenery_dir/(n+suffix)).relative_to(ROOT).as_posix()
+                  for n in release['added_assets'] for suffix in ('','.meta')}
+    revisions |= {(scenery_dir/n).relative_to(ROOT).as_posix() for n in release['revised_assets']}
     retained=[p for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in additions | revisions]
-    phase2_result=verify_phase2_release.verify(ROOT)
-    check(phase2_result['passed'],'Bundled network matches accepted GF Visual 3',phase2_result)
-    check({p.relative_to(ROOT).as_posix() for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in original}==additions,'Only declared Phase 1 and GF assets added')
-    import verify_phase1_release
-    phase1_result=verify_phase1_release.verify(ROOT)
-    check(phase1_result['passed'],'Accepted Visual 4 preserved exactly in split files',phase1_result)
+    release_result=verify_network_release.verify(ROOT)
+    check(release_result['passed'],'Bundled network matches accepted GF station / 6 m Visual 2',release_result)
+    check({p.relative_to(ROOT).as_posix() for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in original}==additions,'Only declared Phase 1, GF corridor and GF station assets added')
     check(all(original.get(p.relative_to(ROOT).as_posix())==sha(p) for p in retained),'All retained catenary assets/meta files byte-identical to upload',len(retained))
     check(all(original.get(name)==sha(ROOT/name) for name in ['LICENSE_CC0.txt','LICENSE_MIT.txt']),'Both upstream license texts preserved byte-for-byte')
     check((ROOT/'NOTICE.md').is_file(),'Attribution and scope notice included')
@@ -117,7 +118,7 @@ def run(upstream=None):
             t=obj.get('$type','');kind=t.split('+')[-1].split(',')[0]
             if not t.startswith(prefix) or kind not in allowed:malformed.append((path.name,index,t))
             objects.append((path.name,index,kind,obj))
-    check(len(layouts)==31+len(phase1['scenery_files'])+len(phase2['added_assets']),'Original, Phase 1 and GF scenery files present',len(layouts))
+    check(len(layouts)==release['total_layouts'],'All accepted network scenery files present',len(layouts))
     check(not malformed,'Only known legacy scenery types in reference layouts',malformed)
     definitions=collections.Counter(o['map_location'] for _,_,k,o in objects if k=='substation')
     check(all(n==1 for n in definitions.values()),'Unique source identifiers',dict(definitions))
@@ -190,7 +191,7 @@ def run(upstream=None):
             'retained_asset_files':len(retained),'core_csharp_files':len(cs),
             'maximum_reference_wire_length_m':max(o['length'] for o in wires),
             'csharp_compiled':False,'csharp_logic_tests_executed':False,'unity_export_executed':False,
-            'powershell_executed':False,'game_tested':False,'phase1_route_built':True,'gf_route_built':True,'split_package_game_tested':False}
+            'powershell_executed':False,'game_tested':False,'phase1_route_built':True,'gf_route_built':True,'gf_station_built':True,'scenery_revision':release['revision'],'split_package_game_tested':False}
     (ROOT/'audit').mkdir(exist_ok=True)
     (ROOT/'audit/offline_validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(f'RESULT: {result["passed"]}/{len(CHECKS)} offline checks passed. C#/Unity/game NOT executed.')

@@ -46,7 +46,7 @@ class DataValidation(unittest.TestCase):
         sources = {p.name: tool.json_loads(p.read_text()) for p in (CSV/'Scenery').glob('*.json')}
         result = tool.validate_sources(sources, self.tables)
         self.assertTrue(result['data_valid'], result['errors'][:3])
-        release = json.loads((ROOT/'audit/phase2_gf.json').read_text())
+        release = json.loads((ROOT/'audit/network_6m.json').read_text())
         self.assertEqual(result['objects'], release['total_objects'])
     def test_valid_substation_and_wire(self): self.assertTrue(self.check_objects([sample_object(),sample_object('wire')])['data_valid'])
     def test_missing_substation(self): self.assertFalse(self.check_objects([sample_object('wire')])['data_valid'])

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify that the split source files reproduce the user's accepted Visual 4.
+"""Verify the current release when present; otherwise the historical Visual 4.
 
 Standard library only. Does not regenerate, move, install or edit any object.
 An optional original unified JSON supplies a second direct comparison.
@@ -12,7 +12,13 @@ def digest(value):return hashlib.sha256(canonical(value).encode()).hexdigest()
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def verify(root,accepted=None):
- root=Path(root);manifest=json.loads((root/'audit/phase1_hb_cs_cms_sm.json').read_text(encoding='utf-8'))
+ root=Path(root)
+ if (root/'audit/network_6m.json').is_file():
+  if accepted is not None:
+   return {'passed':False,'errors':['Visual 4 is a historical baseline. For the current release use verify_network_release.py --accepted-zip Catenary_6m_Visual2.zip.']}
+  from verify_network_release import verify as verify_current
+  return verify_current(root)
+ manifest=json.loads((root/'audit/phase1_hb_cs_cms_sm.json').read_text(encoding='utf-8'))
  errors=[];layouts={};objects=[]
  for item in manifest['scenery_files']:
   p=root/item['path'];meta=Path(str(p)+'.meta')

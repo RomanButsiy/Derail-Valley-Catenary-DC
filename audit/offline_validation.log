@@ -11,9 +11,8 @@ PASS Core has no old engine or locomotive namespace imports
 PASS No locomotive ticking or telemetry in core
 PASS C# lexical brace/quote sanity (NOT compilation)
 PASS Balanced conditional compilation blocks
-PASS Bundled network matches accepted GF Visual 3
-PASS Only declared Phase 1 and GF assets added
-PASS Accepted Visual 4 preserved exactly in split files
+PASS Bundled network matches accepted GF station / 6 m Visual 2
+PASS Only declared Phase 1, GF corridor and GF station assets added
 PASS All retained catenary assets/meta files byte-identical to upload
 PASS Both upstream license texts preserved byte-for-byte
 PASS Attribution and scope notice included
@@ -30,7 +29,7 @@ PASS CSV schema miscellaneous
 PASS CSV prefab assets all present
 PASS New half-section families retained
 PASS Special intermediate steady-arm assets retained
-PASS Original, Phase 1 and GF scenery files present
+PASS All accepted network scenery files present
 PASS Only known legacy scenery types in reference layouts
 PASS Unique source identifiers
 PASS Every reference wire supply exists
@@ -64,4 +63,4 @@ PASS Build stages outside game; does not deploy
 PASS No problematic installer File.Replace/$null path in build script
 PASS No game DLLs or generated binaries in source tree
 PASS Plan and runtime payload are separate
-RESULT: 66/66 offline checks passed. C#/Unity/game NOT executed.
+RESULT: 65/65 offline checks passed. C#/Unity/game NOT executed.

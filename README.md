@@ -1,17 +1,17 @@
 # Derail-Valley-Catenary-DC
 
-## Accepted GF corridor
+## Accepted GF station and 6 m network
 
-The bundle includes the tested GF Visual 3 route from the HB–SM junction past GF to the CME/IME through line. Re-export **Catenary → Export OCS** before building. When upgrading a test installation, move all seven GF external overrides out of the installed mod’s `Scenery/` folder. See the [file list and upgrade instructions](docs/GF_RELEASE_UK.md).
+The accepted **Catenary 6 m Visual 2** is integrated into the bundled scenery,
+including GF station, the GF–SM/FF connections and the final 161 frame-pole
+height corrections on HB–CS–CMS–SM. All 14,545 serialized objects match the
+accepted test installation. GF station and tunnel profiles retain their accepted
+heights; the other revised open-route sections use the accepted 6 m profile.
 
-## Accepted HB–CS–CMS–SM scenery
-
-Visual 4 was accepted by the user on 2026-11-04. Its 1867 objects are now
-partitioned into 9 station/corridor/neutral files, without geometry changes.
-Re-export **Catenary → Export OCS**
-before building, and remove the retired external
-`Scenery/scenery_phase1_hb_cs_cms_visual1.json` before testing the new bundle.
-See [integration and test instructions](docs/PHASE1_RELEASE_UK.md).
+Re-export **Catenary → Export OCS** before building. When upgrading from the
+external test package, move its 28 scenery overrides out of the installed mod's
+`Scenery/` folder, including `scenery_gf_station_transit.json`.
+See the [patch, source layout and upgrade instructions](docs/NETWORK_6M_RELEASE_UK.md).
 
 ## 0.2.0 / DevTools.1
 
@@ -51,7 +51,7 @@ This is not an official upstream release and not a prebuilt mod download.
 - A restricted reader for the original scenery JSON type names.
 - Explicit network profiles and per-file replacement/addition under `Scenery/`.
 - A vehicle-neutral API and one simulation tick; **no built-in locomotive controller**.
-- 46 bundled layouts, including the nine accepted HB–CS–CMS–SM files and the GF corridor, loaded by the `hb-cs-cms-sm` profile.
+- 48 bundled layouts, including HB–CS–CMS–SM, HB–GF–mines and the completed GF station route, loaded by the `hb-cs-cms-sm` profile.
 
 The 2WE3 locomotive models, cabins, traction circuits, control stands, CCL editor
 binaries, Blender source and traction-motor test rig are removed from the core.
@@ -160,20 +160,24 @@ editor exports as production data without review.
 See the review for limitations. No new short-circuit solver, pantograph model,
 network-wide power-flow solver or automatic geometry validator is claimed.
 
-## First construction phase — accepted Visual 4
+## HB–CS–CMS–SM corridor
 
 **HB → CS → CMS transit route → central junction/ring south of SM.**
 The mainline and HB triangle are complete for this phase; no additional yard
 electrification is included. N09 separates HB/CMS and N04 separates CMS/SM.
 `plans/phase1_hb_cs_cms.json` records scope and coordinates;
-`audit/phase1_hb_cs_cms_sm.json` pins the accepted geometry and file mapping.
+`audit/phase1_hb_cs_cms_sm.json` records the historical Visual 4 baseline.
+`audit/network_6m.json` pins the current accepted geometry, including later height corrections.
 The newly packaged build still requires a local Unity export and in-game retest.
-The [GF corridor](docs/GF_RELEASE_UK.md) is also integrated. The route through GF station is the next survey.
+The [GF corridor and station](docs/GF_RELEASE_UK.md) are also integrated.
 
 ## Checks
 
 ```powershell
+python .\tools\verify_network_release.py
 python .\tools\validate_project.py
+python .\tools\test_network_release.py
+python .\tools\test_authoring_tools.py
 # Additional byte-comparison and adapter preparation checks:
 python .\tools\validate_project.py --upstream 'C:\DV-Work\AuthorSource'
 # Pure production logic tests; no game DLLs needed:

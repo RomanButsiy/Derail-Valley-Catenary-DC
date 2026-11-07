@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the bundled GF corridor, optionally against the approved Visual 3 ZIP."""
+"""Check the current network release, or historical GF Visual 3 on older trees."""
 import argparse
 import hashlib
 import json
@@ -20,6 +20,10 @@ def network_digest(layouts):
 
 
 def verify(root, accepted_zip=None):
+    root = Path(root)
+    if (root / 'audit/network_6m.json').is_file():
+        from verify_network_release import verify as verify_current
+        return verify_current(root, accepted_zip)
     info = json.loads((root / 'audit/phase2_gf.json').read_text())
     folder = root / SCENERY
     layouts = {p.name: json.loads(p.read_bytes()) for p in folder.glob('scenery_*.json')}

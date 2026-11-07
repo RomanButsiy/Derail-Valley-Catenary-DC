@@ -1,0 +1,1003 @@
+{
+  "revision": "gf-station-visual9_6m-visual2",
+  "base_commit": "ea4636819112d694c966f76fa345f8ce2ffd0bca",
+  "accepted_archive": "Catenary_6m_Visual2.zip",
+  "accepted_archive_sha256": "4b82e877c35c71f2e08ebcb94a5c223a8de067d733feff5919c952ad5cd2d9df",
+  "accepted_archive_root": "Catenary_6m_Visual2/Scenery/",
+  "total_objects": 14545,
+  "total_layouts": 48,
+  "canonical_network_sha256": "0f33c551ed0a508acd982126520408e2a309c63720ae6726dfe91451d3d3d89e",
+  "added_assets": [
+    "scenery_GF-SM[GF].json",
+    "scenery_[GF]![SM].json"
+  ],
+  "revised_assets": [
+    "scenery_CMS-SM[CMS].json",
+    "scenery_CMS.json",
+    "scenery_CS-CMS.json",
+    "scenery_CS-HB[CMS].json",
+    "scenery_CS.json",
+    "scenery_FF-SM[FF].json",
+    "scenery_GF-HB[GF].json",
+    "scenery_GF.json",
+    "scenery_HB-CS[HB].json",
+    "scenery_HB-GF[HB].json",
+    "scenery_HB-SM[HB].json",
+    "scenery_IME-FF[CME-IME].json",
+    "scenery_IME-GF[CME-IME].json",
+    "scenery_OWN.json",
+    "scenery_SM-CMS[SM].json",
+    "scenery_SM-FF[SM].json",
+    "scenery_SM-HB[SM].json",
+    "scenery_[CMS]![SM].json",
+    "scenery_[FF]![SM].json",
+    "scenery_[GF]![CME-IME].json",
+    "scenery_[HB]![CMS].json",
+    "scenery_[HB]![GF].json",
+    "scenery_[HB]![SM].json"
+  ],
+  "station_partition": {
+    "scenery_GF-HB[GF].json": 375,
+    "scenery_GF.json": 332,
+    "scenery_GF-SM[GF].json": 305,
+    "scenery_[GF]![SM].json": 18
+  },
+  "assets": {
+    "scenery_CME-IME.json": {
+      "objects": 314,
+      "sha256": "536e4630eaf74ee2129c84fca10d117bc783e40434c72fafff4f8e051f060364",
+      "meta_sha256": "45f7b8611462ded5282df4369275de1c9aa424a4424ed603919f44fb12acd278",
+      "guid": "ed2e9abd6988a444dab277a12dc2cc5f",
+      "wire_feeds": {
+        "CME/IME1500": 104
+      }
+    },
+    "scenery_CME.json": {
+      "objects": 482,
+      "sha256": "8c9394abc495795caa50f76456bd22857af9a8c6013240fe0659bda5387c2322",
+      "meta_sha256": "04f167004907f87c9765ccfd6d9b0252545d08231e8c3acb16be927b209ca822",
+      "guid": "74f7db7c7919c0d409975cbc8198c107",
+      "wire_feeds": {
+        "CME/IME1500": 152
+      }
+    },
+    "scenery_CMS-SM[CMS].json": {
+      "objects": 94,
+      "sha256": "93f825ccc57a307cb4720ffc31cfc2f68a31ebebf7d948fb12b2ff1a4f90d636",
+      "meta_sha256": "30883007081c1fe337b5515bc5e801de16a30e7250ff31090f4b582d2ed74a91",
+      "guid": "f0cb5de2733a50529160ce0b4ae661fa",
+      "wire_feeds": {
+        "CMS1500": 31
+      }
+    },
+    "scenery_CMS.json": {
+      "objects": 139,
+      "sha256": "d5b8e14fb5ed3e8f9f13730f1ecd376f2ffe228ab8584cdba9a019cde0636e64",
+      "meta_sha256": "b6c8ef2c4dd1f82dddb5005b8b984243442bc7b20701c3d2c409ec173720b803",
+      "guid": "58b99ca8f4fd506f84164699d5a35271",
+      "wire_feeds": {
+        "CMS1500": 46
+      }
+    },
+    "scenery_CP-IMW[IMW].json": {
+      "objects": 355,
+      "sha256": "baac50bd7af06d35a8436831a210b60d5e655b284e44b7305179912cc0fd5da7",
+      "meta_sha256": "b1bba709e3a3057a03bc1da7698819fa8f068edb37088f7dfeea4006be0c1cb0",
+      "guid": "feb7da0cf56315249b6d435e91636716",
+      "wire_feeds": {
+        "IMW1500": 111
+      }
+    },
+    "scenery_CP.json": {
+      "objects": 685,
+      "sha256": "b40a0d025607d4f7ea65f4d0349dd0ef07aa641fc246c44626613d13711ca276",
+      "meta_sha256": "313828164f9f71b5254c21bde9faa018bbaf5b130deaf52c35baf5b48593ac39",
+      "guid": "93b0ddaeb413bec45ac75fa110adf248",
+      "wire_feeds": {
+        "CP750": 244
+      }
+    },
+    "scenery_CS-CMS.json": {
+      "objects": 702,
+      "sha256": "2b61943fe9ed71f798435d4372fe07b6483c5cfc4b8a2c7723b14a4773e1fd52",
+      "meta_sha256": "c4a5e20c16275e3b7664c93cf9b5d3e762e34089c9bd2140236c6a93469485eb",
+      "guid": "d8fe68f3666f5a979903eee44ec9cbc6",
+      "wire_feeds": {
+        "CMS1500": 234
+      }
+    },
+    "scenery_CS-HB[CMS].json": {
+      "objects": 212,
+      "sha256": "615893536fda96d5a0fa2e6a35f612f516e771e365894fb41ee6145046cd8fa1",
+      "meta_sha256": "f2235abe6565b48898c204860b2b3379ddc2dbc32121c0b814d164bd9802dfc3",
+      "guid": "df930860224851bfb2566762f83f069b",
+      "wire_feeds": {
+        "CMS1500": 71
+      }
+    },
+    "scenery_CS.json": {
+      "objects": 76,
+      "sha256": "78c0f4d23594db24fd33a1b6a53ee10bf16b465e93f1a670aa60cea25563481b",
+      "meta_sha256": "4f4ed4740a23d1b335241eed629b2f4161813cac55ba6cb3d504d8a712effdc1",
+      "guid": "7d133d777c8e52fc8692837cffc5c1ac",
+      "wire_feeds": {
+        "CMS1500": 25
+      }
+    },
+    "scenery_CW-MF[CP].json": {
+      "objects": 359,
+      "sha256": "689e4a47bb2beb884adfced2a1b721ac58b32ae5e54c6f47c0b91c5ae410c7a2",
+      "meta_sha256": "b7d4bea8ee1c149b1452874164fec7a8d76d636db528d0f04e83d1bae2b7736e",
+      "guid": "95bbbd5650b12434c8db3f4738a6f822",
+      "wire_feeds": {
+        "CP750": 121
+      }
+    },
+    "scenery_CW.json": {
+      "objects": 177,
+      "sha256": "f138fd6a82494fc8cdc02bdb8843800bb3d436bc655cc654717c8fae5c106802",
+      "meta_sha256": "514051b524c384510455077a2f680e59633be13cd5bab4c6769b0550e79560f0",
+      "guid": "ddca670c71624ff46889443b2617cd80",
+      "wire_feeds": {
+        "CP750": 64
+      }
+    },
+    "scenery_FF-IME[FF].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "meta_sha256": "9c3a6da10fffdae6e69eb970464cc0ca803efaeb6ad8f9e7f4bd9780058dbb2a",
+      "guid": "f52630b6509c1414a87941481fd9a8a8",
+      "wire_feeds": {}
+    },
+    "scenery_FF-IMW[FF].json": {
+      "objects": 360,
+      "sha256": "e25d7beb1036fac83855b4993193738e001d25b5cfe0d9429fe42b11df347fbb",
+      "meta_sha256": "ef40d844a45b6f5742f365bb7ae4253832f2afb23c579500d02ed5f636ad6d58",
+      "guid": "ba80fcd1d4b6d5042b9ca67f6db72359",
+      "wire_feeds": {
+        "FF1500": 118
+      }
+    },
+    "scenery_FF-OR[FF].json": {
+      "objects": 189,
+      "sha256": "7246de03468434872408af5b4ece50919683655843d4752d5f0e5934643ec808",
+      "meta_sha256": "8b66408a411ecfffd98d9db11bf79ecb64249ea10c9add3699120ce221c9d630",
+      "guid": "e5693bbab91d0284ab2339963dd1f6b6",
+      "wire_feeds": {
+        "FF1500": 62
+      }
+    },
+    "scenery_FF-SM[FF].json": {
+      "objects": 667,
+      "sha256": "3f89e9907396512d3ed5aef24f7dba340248394f9458ade4aefccccb07941cd1",
+      "meta_sha256": "6607e94f36fe5991a6b6e7554a3ed4f0ede535e8c3becf0bfb6bb10a76f21e6b",
+      "guid": "40685bf28be92d5448c7adc391469252",
+      "wire_feeds": {
+        "GF1500": 170
+      }
+    },
+    "scenery_FF.json": {
+      "objects": 391,
+      "sha256": "c7f6e5a0acd0f5cd87cd766b43dbaed05127a26fa5998fd88386143bea39eb81",
+      "meta_sha256": "66464a237a8c8a1013182f682dc80da35d42f299f52540c69d7c46dc527445ff",
+      "guid": "c3ef469b63de25045b4eeb7bf86b6511",
+      "wire_feeds": {
+        "FF1500": 125
+      }
+    },
+    "scenery_FM-SM[SM].json": {
+      "objects": 110,
+      "sha256": "0a34c0ae271cf3bb5379cdc9c4a27dd2210e4ec1ec751683034a768c52ab8d88",
+      "meta_sha256": "568556b6d384730acc621c4e35eb971e1f0c64dd6a85d5bdfabe21f633ca8dde",
+      "guid": "2a7deb6d4d760cc44a930566950ba49e",
+      "wire_feeds": {
+        "SM1500": 37
+      }
+    },
+    "scenery_FM.json": {
+      "objects": 280,
+      "sha256": "82f04958ad2315f152e75c60e67e14db032ef9c8131b8ae7b96395497e85b494",
+      "meta_sha256": "6c5b2c55c24b2e9475f27238853158534aeb3ae9cfbcda8759a076a0a551ab53",
+      "guid": "261a7c004b4792441b4eb095e2602f58",
+      "wire_feeds": {
+        "SM1500": 95
+      }
+    },
+    "scenery_GF-HB[GF].json": {
+      "objects": 969,
+      "sha256": "32fc678d1e4a5c53f1ef9e9a98d597c960bf67e939bc5cf56d1c3ea8ce3d4795",
+      "meta_sha256": "864d836ce5591148cd4a0db390ea29c474e4326c8a33990df3e111db438f89f5",
+      "guid": "04cb6482df8157318de127c26fb44027",
+      "wire_feeds": {
+        "GF1500": 324
+      }
+    },
+    "scenery_GF-SM[GF].json": {
+      "objects": 305,
+      "sha256": "f2d92bdaa73cb397f4bd73eb90788e1586591ce13c2372a0e235c3c540c172a3",
+      "meta_sha256": "dd0122cb96838d1dc0b421fc981acc04ac67569b3ac15e746350639d05a64e8d",
+      "guid": "5734de4cb98b56148335f8c175e98d8d",
+      "wire_feeds": {
+        "GF1500": 102
+      }
+    },
+    "scenery_GF.json": {
+      "objects": 333,
+      "sha256": "faf1c14f13fc7fcc34e088eef9e75d4ed7e9673dd0db69986274fbd97388d481",
+      "meta_sha256": "5b800d9581b2508b496a2ea99f7301797d8e371f91dc6e56beb580ef3ec6264a",
+      "guid": "9a9803d6f5a45880bc65068ffa06db53",
+      "wire_feeds": {
+        "GF1500": 6,
+        "GF1100": 139
+      }
+    },
+    "scenery_HB-CS[HB].json": {
+      "objects": 386,
+      "sha256": "5abea9e21db0ee4aa6576b1e30e09103732740a129c15ace5c35d46af4e3f03f",
+      "meta_sha256": "dced3bf9cd832a632d3962fb6d9c382c2575a941c1f5aa44957ae84de4ef1d99",
+      "guid": "609c22cc6d825163993c4cf82e315308",
+      "wire_feeds": {
+        "HB1500": 129
+      }
+    },
+    "scenery_HB-GF[HB].json": {
+      "objects": 344,
+      "sha256": "3b5fd0b4aeac9cf2f7af2e88d68176f1a8749b0c15bc75a87d6771ab221bf52d",
+      "meta_sha256": "f766e0e8a382742b39314bd764531a9f78a7ff481a6b2c6d2200a8ca0dd10f3a",
+      "guid": "ec4a767b2cc45895b67950e23978c319",
+      "wire_feeds": {
+        "HB1500": 115
+      }
+    },
+    "scenery_HB-SM[HB].json": {
+      "objects": 511,
+      "sha256": "c9ac9b24bec69dcbf7cee5821cbb78143dc33df81b6ca926b394f09a7f676e13",
+      "meta_sha256": "1eb43bdf69c26312feb8da8a8e099036d0295bbc38a2b90a2b54681abf547d40",
+      "guid": "340102896011f9e4faf8251131a7b243",
+      "wire_feeds": {
+        "HB1500": 203
+      }
+    },
+    "scenery_HB.json": {
+      "objects": 1107,
+      "sha256": "5dde2e7ee120e8f7b64debe562dc764465e356bf009b7c17803c25957841508c",
+      "meta_sha256": "5e74e5e7dad4142f22d8c8d28bc1c230a1938b97943272464cffe7e0400ff76d",
+      "guid": "869e588074d244b48a57400e520db897",
+      "wire_feeds": {
+        "HB1500": 329
+      }
+    },
+    "scenery_IME-FF[CME-IME].json": {
+      "objects": 237,
+      "sha256": "47893bcb2bc349776ad7f52dd170e911ab36ebf240e4260bd12269045a1bd958",
+      "meta_sha256": "23987d2e505e25960d11f1605a15c30acd663c64640a7edc624cc792b73f7a1f",
+      "guid": "459ab83ce87d6884288ba47313d81b02",
+      "wire_feeds": {
+        "CME/IME1500": 79
+      }
+    },
+    "scenery_IME-GF[CME-IME].json": {
+      "objects": 417,
+      "sha256": "b5b112000284d4e267d01acae63351dfae80a3d0845833bf25db200d1d96cef3",
+      "meta_sha256": "84325b61f6ade578fef498b4073eb013721f9a1a905cf89ae38cea99c4d3fe63",
+      "guid": "40e1907568fb5c49bf03a7e5e36ea2ba",
+      "wire_feeds": {
+        "CME/IME1500": 139
+      }
+    },
+    "scenery_IME.json": {
+      "objects": 564,
+      "sha256": "e638242e9939b2d9c723577c5ceafe5fc939e3236d6b6bc2099e67abd8951305",
+      "meta_sha256": "592cce10555106b2fbf920cd6b64463e94008b00bdefbf5f30143c7cc4de7224",
+      "guid": "8dfe6eb1451325945acfec1fdc7669d4",
+      "wire_feeds": {
+        "IME1000": 163,
+        "CME/IME1500": 70
+      }
+    },
+    "scenery_IMW-FF[IMW].json": {
+      "objects": 545,
+      "sha256": "93eb3cc76ce4c83b2e366dbadf67dbc9fc1c30cdc14dc589170863f8006825b5",
+      "meta_sha256": "53690b32b1515809618c04648f82bd7273301333b5cf6c78879d7b28e826f807",
+      "guid": "007fb4a9a5430c84aa060bb4fe9b24a6",
+      "wire_feeds": {
+        "IMW1500": 180
+      }
+    },
+    "scenery_IMW.json": {
+      "objects": 73,
+      "sha256": "e1d3fb4c0243dcfa49c057b4bcbcf77b9e5d3c6d8ae67e41bc2f5c1742b03ca3",
+      "meta_sha256": "a9ee6c58e122076029fc9bba0ab1f98043ac7873ed10ad766290fb95f993dd37",
+      "guid": "133070301ce90cc4da1799a859a78da6",
+      "wire_feeds": {
+        "IMW1500": 17
+      }
+    },
+    "scenery_MF.json": {
+      "objects": 185,
+      "sha256": "e09aa751a8cfd4515e1e2ab535d7ab1b6c11838bfbdb7626d6637eb7564ef53e",
+      "meta_sha256": "82115441c45615787fc83899f18ce0830981923904fd3a94ad7a0a9cc4a4daf0",
+      "guid": "4a571b6d0e236aa45a7c695051867edb",
+      "wire_feeds": {
+        "CP750": 63
+      }
+    },
+    "scenery_OR.json": {
+      "objects": 484,
+      "sha256": "40ca1b3d6f00a0dda64f47a66f3e41a2f4bdb4a917117b1ee24ca6f295892feb",
+      "meta_sha256": "39842fb41661a0a7b4272d7fe9fb51ebc270c1b2fc12d76bdc4270ce62122a05",
+      "guid": "a533de89ebb67c4459e43cbc2688cef3",
+      "wire_feeds": {
+        "OR750": 155
+      }
+    },
+    "scenery_OWC.json": {
+      "objects": 152,
+      "sha256": "04e520aa4347b0d1a199edc4068fa35cc0a9abbfcb29b28c13141f94d7078e9d",
+      "meta_sha256": "15057bcec2d8125415d7ad180636d86842e0b008a23371bb00409643ff566f0d",
+      "guid": "9729c8b6bb09bf744b79b09afef8d1e1",
+      "wire_feeds": {
+        "SM1500": 41
+      }
+    },
+    "scenery_OWN.json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "meta_sha256": "755ac5422a956e88cd93dae39762f68a7727138491e6c3a9a63405ab80346827",
+      "guid": "112dc24ac5e4a3a4cb8b23555fe44881",
+      "wire_feeds": {}
+    },
+    "scenery_SM-CMS[SM].json": {
+      "objects": 195,
+      "sha256": "84c97633701eca85bb99058009687c243e9b8f6ef151cb2dbcaf49fb29fbb2cc",
+      "meta_sha256": "d23d8a3f2660059683f83ecb6766588fdc6bfa0aa5f8e64a70b78bcbaa066587",
+      "guid": "ac1409e25465581e9be9f0fb01c3f9b2",
+      "wire_feeds": {
+        "SM1500": 65
+      }
+    },
+    "scenery_SM-FF[SM].json": {
+      "objects": 306,
+      "sha256": "4603adeae897292a5d52e1f06ea8fe267cf4a587ead965b96c2ba6269c7e2f8a",
+      "meta_sha256": "a23e58576a9f040ad6c0abecab7375ca9a1751c8947733b15da8572029ba26ed",
+      "guid": "09259c6748988394f8abea01a98ae9b7",
+      "wire_feeds": {
+        "SM1500": 55,
+        "GF1500": 89,
+        "NEUTRAL": 6
+      }
+    },
+    "scenery_SM-HB[SM].json": {
+      "objects": 648,
+      "sha256": "347082d83748922e2f5a86cf813a39d53a74648852d561b5d4e906cca6313cc2",
+      "meta_sha256": "cbacf74cf10cc36fcbd90f143d2b81d1f8339e3e0549e94e7c213b52e2720431",
+      "guid": "a2d4b0e129dd5c34b812f1e7c208f024",
+      "wire_feeds": {
+        "SM1500": 183
+      }
+    },
+    "scenery_SM.json": {
+      "objects": 927,
+      "sha256": "534cc74dd4205731da080e585bd6fdb647c92e535187290916b650f1c2ef8d0d",
+      "meta_sha256": "f2dd3e06c6ea34027c99dea4e89e625232f5157b422e0aaffb2c87797012f7a3",
+      "guid": "a3eeca669af6a4a4790d96310a23599d",
+      "wire_feeds": {
+        "SM1500": 129,
+        "SM1000": 269
+      }
+    },
+    "scenery_[CMS]![SM].json": {
+      "objects": 30,
+      "sha256": "4f6b4e872d820059a5d0111c2f29a396998417b7ff0e67480e5ed7405f3b27fe",
+      "meta_sha256": "3086d00cafbe28949849de81335da00bad8aa06233820398e78acfda4e0a0f84",
+      "guid": "ef0304bf648655af9b9325f56f3dc23b",
+      "wire_feeds": {
+        "NEUTRAL": 8
+      }
+    },
+    "scenery_[CP]![IMW].json": {
+      "objects": 34,
+      "sha256": "1cee22ca908133bcbc542cb622376c3032c0d9a406c4002395606f467e7685e5",
+      "meta_sha256": "073157a9cb0b10954ca57724f3b2e3e58261c7d734fc55109ee076c721550b05",
+      "guid": "b31571a98b577ad46b5ccb739d47b086",
+      "wire_feeds": {
+        "NEUTRAL": 12
+      }
+    },
+    "scenery_[FF]![CME-IME].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "meta_sha256": "af2c708fc25df1a43aeacd4adb36ebe6a59a647a4071cf225cf06ee282411bfb",
+      "guid": "658827c51722a434fb4ef9b15f81079b",
+      "wire_feeds": {}
+    },
+    "scenery_[FF]![IMW].json": {
+      "objects": 27,
+      "sha256": "13c3d2c3d54f003ed2eed156433fcf65376f2f2d9f7561e65594d76879325a68",
+      "meta_sha256": "1365ea0ad1c639c1cff18a596d9988079ab5348b9a69f78acf9a7afadb1ec77c",
+      "guid": "1741d1b15f9b6994eaeaef38fdcecac1",
+      "wire_feeds": {
+        "NEUTRAL": 8
+      }
+    },
+    "scenery_[FF]![SM].json": {
+      "objects": 12,
+      "sha256": "dc108257c6a20b8fc6b5837b1081f59ec2fe4c02bcd85ff26f7aa8f5fb71f2da",
+      "meta_sha256": "9346df738142fafac7eef35be6381b977fe219691d73f33900418fe113d3ecd3",
+      "guid": "0f45175ea6478a547ac5e952d8aac22f",
+      "wire_feeds": {
+        "GF1500": 7
+      }
+    },
+    "scenery_[GF]![CME-IME].json": {
+      "objects": 48,
+      "sha256": "52f3a6d7d7e049ac29f7d7ad14de660db224d635941d75a2f5ecff0e702b3ded",
+      "meta_sha256": "a219e8952751547043547ef699be7742001208fc48a70d200209353decc6e692",
+      "guid": "f76db6ca065a594bbc85127f71a88c72",
+      "wire_feeds": {
+        "NEUTRAL": 14
+      }
+    },
+    "scenery_[GF]![SM].json": {
+      "objects": 18,
+      "sha256": "0ecac5a99af58ec7d9a63f96a957b298f681a8589ed83ae02245c9dc42aaf4d4",
+      "meta_sha256": "ac0a62c036c017607a2bd8ef6a00fca37ccba5c1575da4d3e387c645944c33a1",
+      "guid": "4b9be76e294f530fb19da212d8a106ea",
+      "wire_feeds": {
+        "NEUTRAL": 2,
+        "SM1500": 1,
+        "GF1500": 1
+      }
+    },
+    "scenery_[HB]![CMS].json": {
+      "objects": 33,
+      "sha256": "1ff0fe1c17ec1143f0fa1aaa5a9d1e1161b4d4c69402d1e7683ff09b0d28ae31",
+      "meta_sha256": "fb051ec10b3ae02e8a24c33e97e81ca50f512c318761088617cddee25fedeea2",
+      "guid": "391c7284929e5eb680c1140a5a189190",
+      "wire_feeds": {
+        "NEUTRAL": 9
+      }
+    },
+    "scenery_[HB]![GF].json": {
+      "objects": 33,
+      "sha256": "13f1a9e6777908e002bcfaf0470a0f2fd3f2c4038db94eb28473c60f29e7644a",
+      "meta_sha256": "e617ec97ef0281bbea08fe1f18be9761feeca33a99eb812a5bb4647429a1a90e",
+      "guid": "275172f8610153b78156cd39d3aa0851",
+      "wire_feeds": {
+        "NEUTRAL": 9
+      }
+    },
+    "scenery_[HB]![SM].json": {
+      "objects": 30,
+      "sha256": "7da12b4942bd764f929b05c22c15344fe8ac56bea228c6253cd903de6de400cc",
+      "meta_sha256": "07ec5ef887c3be2edd83c88cb74eefa11c06b595532903b1f062344c4fad563b",
+      "guid": "12c98a2461f03774c9dfd81b5e6436f8",
+      "wire_feeds": {
+        "NEUTRAL": 8
+      }
+    }
+  },
+  "accepted_sources": {
+    "scenery_[cms]![sm].json": {
+      "objects": 30,
+      "sha256": "d75bf0c7fd184a3287f11bab80be574148b8bc4320d7f67f5edab9673027f7d5",
+      "canonical_sha256": "5aff8f43c4a5d1397d5185e53caf349d3a2264778dcfde0dcd21dabb8b4501b5"
+    },
+    "scenery_[ff]![cme-ime].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "canonical_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "scenery_[ff]![sm].json": {
+      "objects": 12,
+      "sha256": "fb702060c12d258b205f7fd16743adc4731c46a2ed70993a331b81f1f1523f30",
+      "canonical_sha256": "2b2f3af1f39dc32d832dea91747e3d3b72a416f0a9b846e6ff4cd557b754945d"
+    },
+    "scenery_[gf]![cme-ime].json": {
+      "objects": 48,
+      "sha256": "9fb06afd2aad67769f3e4aa3c43595f1ce4c97d7a386aa9610f403f4b3b33c16",
+      "canonical_sha256": "8c9423ca80b9cd97e8cca014b916947ec7cd970b132a7a29b60353aa464f7f9e"
+    },
+    "scenery_[hb]![cms].json": {
+      "objects": 33,
+      "sha256": "cf4422e34ffd88423a1e487658cf3fadd7e198702524f2b7a49ca4753b9b4934",
+      "canonical_sha256": "3ddae7a3f75dc485d5aeb92a128bac949c1910c10b078f9e85e532828d292c17"
+    },
+    "scenery_[hb]![gf].json": {
+      "objects": 33,
+      "sha256": "6fcfda6e573d506cbaef998431b1f4b6b9d63bef53523295164617df970a8d0e",
+      "canonical_sha256": "96b5e4604d4d2866b35044ce303caa17e3c15bce633ba6a77c2418ec32ffc8b2"
+    },
+    "scenery_[hb]![sm].json": {
+      "objects": 30,
+      "sha256": "5b3677c37c6cfecba43e67cbc96bbbb76370970d713e5607170778c29908e061",
+      "canonical_sha256": "c3df91dc3fdb08659083dfe52d7852bfcf11ec952ef70a1ee9d97f6bd3c2fb37"
+    },
+    "scenery_cms-sm[cms].json": {
+      "objects": 94,
+      "sha256": "1988b673b2194fa06e96c7d7f42159086703a5f672bb30b78442f6520fad7411",
+      "canonical_sha256": "2309ee2be4fc6e0768ef44f5c43fce849796292b79665e30839526efa575e01b"
+    },
+    "scenery_cms.json": {
+      "objects": 139,
+      "sha256": "88c3c9fe34dc982f10266b944258d769e533e55d0d2402155c4e29dbd8c75673",
+      "canonical_sha256": "d44897e19be077d7991cc4c97779b7c09efaf5ef0e656c1994f6281c260721e5"
+    },
+    "scenery_cs-cms.json": {
+      "objects": 702,
+      "sha256": "14b4b77e076c21a5c866962d9041d3491c79f6d685d9e624fae68c9c4eeabbc5",
+      "canonical_sha256": "dd03411690e1fe77d60bfd1cf6a77e70fc15bfc4394cc7591b595183a3e033cb"
+    },
+    "scenery_cs-hb[cms].json": {
+      "objects": 212,
+      "sha256": "d44c4e7bc4de49807a8dece909096e6ebf92de786ea350f2be160c8bcb4dd450",
+      "canonical_sha256": "d4b61c08a6d377ce422bf1707122798edad639f2b64ccf9abe50d9d005517154"
+    },
+    "scenery_cs.json": {
+      "objects": 76,
+      "sha256": "e88705eb7722b0c1de0371e5f1ad02df626cf6d471685d59df2d181bd870b159",
+      "canonical_sha256": "5a73d7a07567082c5dfd3bbb516f76941a82ae0ab04f9e7fd2be969cacdf416f"
+    },
+    "scenery_ff-ime[ff].json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "canonical_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "scenery_ff-sm[ff].json": {
+      "objects": 667,
+      "sha256": "645f02c1a37307646fa506393ebcc1f59dc4bb29ef99410ca8fd8a82efb2ce69",
+      "canonical_sha256": "b6232bb631b8e0e52364aa51a94aadb38838de2e4bb67e931926ef737e86e525"
+    },
+    "scenery_gf-hb[gf].json": {
+      "objects": 594,
+      "sha256": "7c70e8f09d6c560d243e0e1845d94964c9b94bf24b13b60da0dd4a95daaf62e1",
+      "canonical_sha256": "543ad203f384d1cddd8dbfaea88a445b5a98fc77e478f56749818676a0914158"
+    },
+    "scenery_gf.json": {
+      "objects": 1,
+      "sha256": "a692e34503639843ab83468e408299a2542f4fb38009b1caa1175dd006558748",
+      "canonical_sha256": "9bcd5078b1acc77b3f26a549b6bed70ea5a7d6e70830ad64607e75e930530974"
+    },
+    "scenery_gf_station_transit.json": {
+      "objects": 1030,
+      "sha256": "717a4190ee8b0ce29c3e9ede853bbe088e419ec0215cb32ceee554fcb5a4ab73",
+      "canonical_sha256": "0441f1477f0702039f7b0c2125cf1e44b9fee38758f3e2029acdcd3141d2e60a"
+    },
+    "scenery_hb-cs[hb].json": {
+      "objects": 386,
+      "sha256": "9135102f879938ac01d43f8fb2719c8e6144dd7d8b37993357d3dfedba08dc9a",
+      "canonical_sha256": "0a39224eb746dc86e0ee6d245b8d3ce7a77bd551a61f2c32d92fd37eca3454fc"
+    },
+    "scenery_hb-gf[hb].json": {
+      "objects": 344,
+      "sha256": "782c11f3c36a0415693fe7b592c423a487ecbf5ccdbdf07f639d66f2a1dcb27b",
+      "canonical_sha256": "f9b52f49038e32578360046e08491841a2b4a62bca9372e8cc4df1013e04f831"
+    },
+    "scenery_hb-sm[hb].json": {
+      "objects": 511,
+      "sha256": "e1cc10c25e75b6b0a4021bb600ab840d3f83c4694cc6a60777e98feb00970098",
+      "canonical_sha256": "93e7fd911869404562c3a522a63bf16b74598ef44cbc593060d4d96abafa60e9"
+    },
+    "scenery_ime-ff[cme-ime].json": {
+      "objects": 237,
+      "sha256": "e609d477889cef334d5e8c63ea924a0f56100a3acb55a23f380e5e3c053b1247",
+      "canonical_sha256": "e1bd4ae1064561b9bb1b2f696228d82809bc75020cb799fedc45d9ddaa417768"
+    },
+    "scenery_ime-gf[cme-ime].json": {
+      "objects": 417,
+      "sha256": "fa242c8eea24d93e804793ffb26dc0d1362ecfdca6090868a506197d09df25d5",
+      "canonical_sha256": "dcf52301e856459b0887f9e6841c3c257c54aea5b509638267174e85f49ff3bc"
+    },
+    "scenery_own.json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "canonical_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "scenery_phase1_hb_cs_cms_visual1.json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "canonical_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "scenery_phase2_gf_visual1.json": {
+      "objects": 0,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "canonical_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "scenery_sm-cms[sm].json": {
+      "objects": 195,
+      "sha256": "59e44b03eb5fd692dfd8ad7e4aa064738988a6829f494d447358dc00fdcee533",
+      "canonical_sha256": "53b74b6b8f76c1684dfc560ed64b74ce20ce2fb15995d13553b9b181619a3a80"
+    },
+    "scenery_sm-ff[sm].json": {
+      "objects": 306,
+      "sha256": "9766fdead32b29e1688dcbf1013697052a78fb1cf25e075dc75248a412e0657d",
+      "canonical_sha256": "c5339103ac5341da5e3ba3c33e5256bd0c6c76c11b65abc95f32e885d7203952"
+    },
+    "scenery_sm-hb[sm].json": {
+      "objects": 648,
+      "sha256": "a8b77b51d8145101a95033532253a1a8d029956d07fcf09db9f0b2a89c2412d1",
+      "canonical_sha256": "e4dbbf64452d3fdfb4cfcc0acecb277096694e2814fb8fd939d60dc620abcbd7"
+    }
+  },
+  "source_mapping": [
+    {
+      "source": "scenery_[cms]![sm].json",
+      "source_start": 0,
+      "target": "scenery_[CMS]![SM].json",
+      "target_start": 0,
+      "count": 30
+    },
+    {
+      "source": "scenery_[ff]![sm].json",
+      "source_start": 0,
+      "target": "scenery_[FF]![SM].json",
+      "target_start": 0,
+      "count": 12
+    },
+    {
+      "source": "scenery_[gf]![cme-ime].json",
+      "source_start": 0,
+      "target": "scenery_[GF]![CME-IME].json",
+      "target_start": 0,
+      "count": 48
+    },
+    {
+      "source": "scenery_[hb]![cms].json",
+      "source_start": 0,
+      "target": "scenery_[HB]![CMS].json",
+      "target_start": 0,
+      "count": 33
+    },
+    {
+      "source": "scenery_[hb]![gf].json",
+      "source_start": 0,
+      "target": "scenery_[HB]![GF].json",
+      "target_start": 0,
+      "count": 33
+    },
+    {
+      "source": "scenery_[hb]![sm].json",
+      "source_start": 0,
+      "target": "scenery_[HB]![SM].json",
+      "target_start": 0,
+      "count": 30
+    },
+    {
+      "source": "scenery_cms-sm[cms].json",
+      "source_start": 0,
+      "target": "scenery_CMS-SM[CMS].json",
+      "target_start": 0,
+      "count": 94
+    },
+    {
+      "source": "scenery_cms.json",
+      "source_start": 0,
+      "target": "scenery_CMS.json",
+      "target_start": 0,
+      "count": 139
+    },
+    {
+      "source": "scenery_cs-cms.json",
+      "source_start": 0,
+      "target": "scenery_CS-CMS.json",
+      "target_start": 0,
+      "count": 702
+    },
+    {
+      "source": "scenery_cs-hb[cms].json",
+      "source_start": 0,
+      "target": "scenery_CS-HB[CMS].json",
+      "target_start": 0,
+      "count": 212
+    },
+    {
+      "source": "scenery_cs.json",
+      "source_start": 0,
+      "target": "scenery_CS.json",
+      "target_start": 0,
+      "count": 76
+    },
+    {
+      "source": "scenery_ff-sm[ff].json",
+      "source_start": 0,
+      "target": "scenery_FF-SM[FF].json",
+      "target_start": 0,
+      "count": 667
+    },
+    {
+      "source": "scenery_gf-hb[gf].json",
+      "source_start": 0,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 0,
+      "count": 594
+    },
+    {
+      "source": "scenery_gf.json",
+      "source_start": 0,
+      "target": "scenery_GF.json",
+      "target_start": 0,
+      "count": 1
+    },
+    {
+      "source": "scenery_hb-cs[hb].json",
+      "source_start": 0,
+      "target": "scenery_HB-CS[HB].json",
+      "target_start": 0,
+      "count": 386
+    },
+    {
+      "source": "scenery_hb-gf[hb].json",
+      "source_start": 0,
+      "target": "scenery_HB-GF[HB].json",
+      "target_start": 0,
+      "count": 344
+    },
+    {
+      "source": "scenery_hb-sm[hb].json",
+      "source_start": 0,
+      "target": "scenery_HB-SM[HB].json",
+      "target_start": 0,
+      "count": 511
+    },
+    {
+      "source": "scenery_ime-ff[cme-ime].json",
+      "source_start": 0,
+      "target": "scenery_IME-FF[CME-IME].json",
+      "target_start": 0,
+      "count": 237
+    },
+    {
+      "source": "scenery_ime-gf[cme-ime].json",
+      "source_start": 0,
+      "target": "scenery_IME-GF[CME-IME].json",
+      "target_start": 0,
+      "count": 417
+    },
+    {
+      "source": "scenery_sm-cms[sm].json",
+      "source_start": 0,
+      "target": "scenery_SM-CMS[SM].json",
+      "target_start": 0,
+      "count": 195
+    },
+    {
+      "source": "scenery_sm-ff[sm].json",
+      "source_start": 0,
+      "target": "scenery_SM-FF[SM].json",
+      "target_start": 0,
+      "count": 306
+    },
+    {
+      "source": "scenery_sm-hb[sm].json",
+      "source_start": 0,
+      "target": "scenery_SM-HB[SM].json",
+      "target_start": 0,
+      "count": 648
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 0,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 594,
+      "count": 232
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 232,
+      "target": "scenery_GF.json",
+      "target_start": 1,
+      "count": 70
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 302,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 0,
+      "count": 148
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 450,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 826,
+      "count": 117
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 567,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 148,
+      "count": 124
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 691,
+      "target": "scenery_[GF]![SM].json",
+      "target_start": 0,
+      "count": 16
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 707,
+      "target": "scenery_GF.json",
+      "target_start": 71,
+      "count": 1
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 708,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 943,
+      "count": 17
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 725,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 272,
+      "count": 14
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 739,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 960,
+      "count": 3
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 742,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 286,
+      "count": 9
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 751,
+      "target": "scenery_GF.json",
+      "target_start": 72,
+      "count": 2
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 753,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 295,
+      "count": 2
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 755,
+      "target": "scenery_GF.json",
+      "target_start": 74,
+      "count": 104
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 859,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 963,
+      "count": 1
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 860,
+      "target": "scenery_GF.json",
+      "target_start": 178,
+      "count": 8
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 868,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 297,
+      "count": 1
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 869,
+      "target": "scenery_GF.json",
+      "target_start": 186,
+      "count": 2
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 871,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 964,
+      "count": 4
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 875,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 298,
+      "count": 3
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 878,
+      "target": "scenery_GF-HB[GF].json",
+      "target_start": 968,
+      "count": 1
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 879,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 301,
+      "count": 3
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 882,
+      "target": "scenery_[GF]![SM].json",
+      "target_start": 16,
+      "count": 2
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 884,
+      "target": "scenery_GF.json",
+      "target_start": 188,
+      "count": 5
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 889,
+      "target": "scenery_GF-SM[GF].json",
+      "target_start": 304,
+      "count": 1
+    },
+    {
+      "source": "scenery_gf_station_transit.json",
+      "source_start": 890,
+      "target": "scenery_GF.json",
+      "target_start": 193,
+      "count": 140
+    }
+  ],
+  "retired_monoliths": [
+    "scenery_phase1_hb_cs_cms_visual1.json",
+    "scenery_phase2_gf_visual1.json",
+    "scenery_gf_station_transit.json"
+  ],
+  "superseded_external_files": [
+    "scenery_[cms]![sm].json",
+    "scenery_[ff]![cme-ime].json",
+    "scenery_[ff]![sm].json",
+    "scenery_[gf]![cme-ime].json",
+    "scenery_[hb]![cms].json",
+    "scenery_[hb]![gf].json",
+    "scenery_[hb]![sm].json",
+    "scenery_cms-sm[cms].json",
+    "scenery_cms.json",
+    "scenery_cs-cms.json",
+    "scenery_cs-hb[cms].json",
+    "scenery_cs.json",
+    "scenery_ff-ime[ff].json",
+    "scenery_ff-sm[ff].json",
+    "scenery_gf-hb[gf].json",
+    "scenery_gf.json",
+    "scenery_gf_station_transit.json",
+    "scenery_hb-cs[hb].json",
+    "scenery_hb-gf[hb].json",
+    "scenery_hb-sm[hb].json",
+    "scenery_ime-ff[cme-ime].json",
+    "scenery_ime-gf[cme-ime].json",
+    "scenery_own.json",
+    "scenery_phase1_hb_cs_cms_visual1.json",
+    "scenery_phase2_gf_visual1.json",
+    "scenery_sm-cms[sm].json",
+    "scenery_sm-ff[sm].json",
+    "scenery_sm-hb[sm].json"
+  ],
+  "geometry_changed_during_integration": false,
+  "height_policy": {
+    "nominal_contact_height_m": 6.0,
+    "tunnels": "Accepted lower profile with approach transitions",
+    "gf_station": "Accepted station geometry preserved",
+    "raised_frame_poles_phase1": 161
+  },
+  "verification_scope": "Exact accepted payload integration; Unity export and game retest required"
+}

@@ -1,5 +1,14 @@
 # Changelog
 
+## Scenery — GF station / 6 m Visual 2
+
+- Integrated the accepted GF station, side rails and GF1100 supply.
+- Preserved accepted 6 m route profiles, tunnel transitions and 161 frame-pole lifts.
+- Integrated relocated N01, GF1500 feed towards FF and agreed deelectrification.
+- Split station scenery into route/station/neutral assets: 48 layouts, 14,545 objects.
+- Added exact overlay reconstruction checks and current release provenance.
+- Requires a fresh Unity OCS export and local game retest; runtime code is unchanged.
+
 ## 0.1.0 — foundation / source-test candidate
 
 - Extracted catenary-only runtime and Unity project from supplied `4d1a6a6`.

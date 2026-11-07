@@ -23,7 +23,7 @@ JObject station = Obj("substation"); station["map_location"] = "TEST"; station["
 JObject wire = Obj("wire"); wire["substation"] = "TEST"; wire["wire_type"] = "plain_single"; wire["length"] = 40; wire["previous_pole_vertical_offset"] = 0;
 JObject report = SceneryReview.Validate(sources!, tables!);
 Check((bool)report["data_valid"]!, "All reference source JSON passes constructor-free production validator");
-JObject gfRelease = JObject.Parse(File.ReadAllText(Path.Combine(root, "audit", "phase2_gf.json")));
+JObject gfRelease = JObject.Parse(File.ReadAllText(Path.Combine(root, "audit", "network_6m.json")));
 Check((int)report["objects"]! == (int)gfRelease["total_objects"]!, "Accepted network object count including GF");
 Check((bool)Read(new JArray(station, wire))["data_valid"]!, "Valid source and wire");
 Check(!(bool)Read(new JArray(wire))["data_valid"]!, "Unknown source rejected");

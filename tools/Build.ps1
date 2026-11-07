@@ -101,7 +101,7 @@ try {
         parts_sha256=(Sha (Join-Path $stage 'catenary_parts'));
         authoring_tools='devtools.1'; assembly_api_version=1;
         locomotive_controller_included=$false;
-        hb_cs_cms_route_implemented=$true; gf_corridor_implemented=$true; scenery_revision='phase1-visual4_gf-visual3'
+        hb_cs_cms_route_implemented=$true; gf_corridor_implemented=$true; gf_station_implemented=$true; scenery_revision='gf-station-visual9_6m-visual2'
     }
     $info | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage 'build-info.json') -Encoding UTF8
     $zip = Join-Path $build "Derail-Valley-Catenary-DC-0.2.0-$Configuration.zip"
