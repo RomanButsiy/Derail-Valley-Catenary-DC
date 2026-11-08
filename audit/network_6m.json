@@ -1,22 +1,28 @@
 {
-  "revision": "gf-station-visual9_6m-visual2",
+  "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3",
   "base_commit": "ea4636819112d694c966f76fa345f8ce2ffd0bca",
   "accepted_archive": "Catenary_6m_Visual2.zip",
   "accepted_archive_sha256": "4b82e877c35c71f2e08ebcb94a5c223a8de067d733feff5919c952ad5cd2d9df",
   "accepted_archive_root": "Catenary_6m_Visual2/Scenery/",
-  "total_objects": 14545,
-  "total_layouts": 48,
-  "canonical_network_sha256": "0f33c551ed0a508acd982126520408e2a309c63720ae6726dfe91451d3d3d89e",
+  "total_objects": 14570,
+  "total_layouts": 50,
+  "canonical_network_sha256": "ed63549cd09b812fb5d1c7f5cd4301659bf1220a07794f8af8bb8aa241518531",
   "added_assets": [
+    "scenery_CP-CW[IMW].json",
     "scenery_GF-SM[GF].json",
+    "scenery_[CP]![CW-MF].json",
     "scenery_[GF]![SM].json"
   ],
   "revised_assets": [
     "scenery_CMS-SM[CMS].json",
     "scenery_CMS.json",
+    "scenery_CP-IMW[IMW].json",
+    "scenery_CP.json",
     "scenery_CS-CMS.json",
     "scenery_CS-HB[CMS].json",
     "scenery_CS.json",
+    "scenery_CW-MF[CP].json",
+    "scenery_CW.json",
     "scenery_FF-SM[FF].json",
     "scenery_GF-HB[GF].json",
     "scenery_GF.json",
@@ -25,11 +31,13 @@
     "scenery_HB-SM[HB].json",
     "scenery_IME-FF[CME-IME].json",
     "scenery_IME-GF[CME-IME].json",
+    "scenery_MF.json",
     "scenery_OWN.json",
     "scenery_SM-CMS[SM].json",
     "scenery_SM-FF[SM].json",
     "scenery_SM-HB[SM].json",
     "scenery_[CMS]![SM].json",
+    "scenery_[CP]![IMW].json",
     "scenery_[FF]![SM].json",
     "scenery_[GF]![CME-IME].json",
     "scenery_[HB]![CMS].json",
@@ -79,9 +87,18 @@
         "CMS1500": 46
       }
     },
+    "scenery_CP-CW[IMW].json": {
+      "objects": 126,
+      "sha256": "1d220bfa0cbc808b879c0904bbffe8d94da99fa911b93a1fa7f4c28b9e92b1fe",
+      "meta_sha256": "e165569dda1552a8f7ca5ba75a2eb77609948bd380997fbd7554e0f2854d5b4b",
+      "guid": "1fb8a45bd9d252c0bace19914231073b",
+      "wire_feeds": {
+        "IMW1500": 42
+      }
+    },
     "scenery_CP-IMW[IMW].json": {
-      "objects": 355,
-      "sha256": "baac50bd7af06d35a8436831a210b60d5e655b284e44b7305179912cc0fd5da7",
+      "objects": 343,
+      "sha256": "4a3408b63d2a20d2ed06172eb7a0de89e74835698b3766df4eac676b2e54ffd7",
       "meta_sha256": "b1bba709e3a3057a03bc1da7698819fa8f068edb37088f7dfeea4006be0c1cb0",
       "guid": "feb7da0cf56315249b6d435e91636716",
       "wire_feeds": {
@@ -89,12 +106,12 @@
       }
     },
     "scenery_CP.json": {
-      "objects": 685,
-      "sha256": "b40a0d025607d4f7ea65f4d0349dd0ef07aa641fc246c44626613d13711ca276",
+      "objects": 555,
+      "sha256": "4c1d79c050aa45cbc805335534af8ac0bfa0568a76265b31ecf2fa85bbe3e617",
       "meta_sha256": "313828164f9f71b5254c21bde9faa018bbaf5b130deaf52c35baf5b48593ac39",
       "guid": "93b0ddaeb413bec45ac75fa110adf248",
       "wire_feeds": {
-        "CP750": 244
+        "CP750": 194
       }
     },
     "scenery_CS-CMS.json": {
@@ -126,20 +143,20 @@
     },
     "scenery_CW-MF[CP].json": {
       "objects": 359,
-      "sha256": "689e4a47bb2beb884adfced2a1b721ac58b32ae5e54c6f47c0b91c5ae410c7a2",
+      "sha256": "bde508cd70389b4b09c33be37be57c7f9e6fc9de27d6d758fc17b2747227c2f7",
       "meta_sha256": "b7d4bea8ee1c149b1452874164fec7a8d76d636db528d0f04e83d1bae2b7736e",
       "guid": "95bbbd5650b12434c8db3f4738a6f822",
       "wire_feeds": {
-        "CP750": 121
+        "IMW1500": 121
       }
     },
     "scenery_CW.json": {
       "objects": 177,
-      "sha256": "f138fd6a82494fc8cdc02bdb8843800bb3d436bc655cc654717c8fae5c106802",
+      "sha256": "efa302daa8bb56cc6991f9a4f60b5d7bee8c0e67a71c332b5e62dab0e3c695c3",
       "meta_sha256": "514051b524c384510455077a2f680e59633be13cd5bab4c6769b0550e79560f0",
       "guid": "ddca670c71624ff46889443b2617cd80",
       "wire_feeds": {
-        "CP750": 64
+        "IMW1500": 64
       }
     },
     "scenery_FF-IME[FF].json": {
@@ -315,11 +332,11 @@
     },
     "scenery_MF.json": {
       "objects": 185,
-      "sha256": "e09aa751a8cfd4515e1e2ab535d7ab1b6c11838bfbdb7626d6637eb7564ef53e",
+      "sha256": "78fe57c43b5bffc520e3fc8356ef592958359306bec1e43cef2936a8685a77dc",
       "meta_sha256": "82115441c45615787fc83899f18ce0830981923904fd3a94ad7a0a9cc4a4daf0",
       "guid": "4a571b6d0e236aa45a7c695051867edb",
       "wire_feeds": {
-        "CP750": 63
+        "IMW1500": 63
       }
     },
     "scenery_OR.json": {
@@ -395,9 +412,18 @@
         "NEUTRAL": 8
       }
     },
+    "scenery_[CP]![CW-MF].json": {
+      "objects": 42,
+      "sha256": "d46f8901e8396090048f5b1a60abbc28a09605d51065977b6c2159950b0f1a5a",
+      "meta_sha256": "688c0412c043226b6fd60e155f8df9f436ec642e2f274766f98427816a127398",
+      "guid": "69b31f024ec45ca4ae2a5310e8cc18a3",
+      "wire_feeds": {
+        "NEUTRAL": 12
+      }
+    },
     "scenery_[CP]![IMW].json": {
-      "objects": 34,
-      "sha256": "1cee22ca908133bcbc542cb622376c3032c0d9a406c4002395606f467e7685e5",
+      "objects": 33,
+      "sha256": "02a4b4f824761eca9a2655e496a8ff5ffe6cd690121d072abb33ac65583eb82d",
       "meta_sha256": "073157a9cb0b10954ca57724f3b2e3e58261c7d734fc55109ee076c721550b05",
       "guid": "b31571a98b577ad46b5ccb739d47b086",
       "wire_feeds": {
@@ -964,6 +990,8 @@
   ],
   "superseded_external_files": [
     "scenery_[cms]![sm].json",
+    "scenery_[cp]![cw-mf].json",
+    "scenery_[cp]![imw].json",
     "scenery_[ff]![cme-ime].json",
     "scenery_[ff]![sm].json",
     "scenery_[gf]![cme-ime].json",
@@ -972,9 +1000,14 @@
     "scenery_[hb]![sm].json",
     "scenery_cms-sm[cms].json",
     "scenery_cms.json",
+    "scenery_cp-cw[imw].json",
+    "scenery_cp-imw[imw].json",
+    "scenery_cp.json",
     "scenery_cs-cms.json",
     "scenery_cs-hb[cms].json",
     "scenery_cs.json",
+    "scenery_cw-mf[cp].json",
+    "scenery_cw.json",
     "scenery_ff-ime[ff].json",
     "scenery_ff-sm[ff].json",
     "scenery_gf-hb[gf].json",
@@ -985,6 +1018,7 @@
     "scenery_hb-sm[hb].json",
     "scenery_ime-ff[cme-ime].json",
     "scenery_ime-gf[cme-ime].json",
+    "scenery_mf.json",
     "scenery_own.json",
     "scenery_phase1_hb_cs_cms_visual1.json",
     "scenery_phase2_gf_visual1.json",
@@ -999,5 +1033,66 @@
     "gf_station": "Accepted station geometry preserved",
     "raised_frame_poles_phase1": 161
   },
-  "verification_scope": "Exact accepted payload integration; Unity export and game retest required"
+  "verification_scope": "Exact accepted GF/6 m and CP Visual3 payload integration; Unity export and rebuilt game retest required",
+  "cp_approaches": {
+    "revision": "cp-approaches-visual3",
+    "base_commit": "76ee7444eea61904dc93cc2384793d5aa339fc54",
+    "accepted_archive": "CP-Approaches-Visual3.zip",
+    "accepted_archive_sha256": "b7c2e0b26591dca3538b82b210d94e83b2a0f6ee971149bb80c0d039ea80d475",
+    "accepted_archive_root": "CP-Approaches-Visual3/Scenery/",
+    "user_accepted_on": "2026-11-08",
+    "sources": {
+      "scenery_cp-cw[imw].json": {
+        "target": "scenery_CP-CW[IMW].json",
+        "sha256": "1d220bfa0cbc808b879c0904bbffe8d94da99fa911b93a1fa7f4c28b9e92b1fe",
+        "canonical_sha256": "d2fc3c17f5b708711b85a04d385452d3469b2e9070a6c8c7c9f5f92dbce911bc",
+        "objects": 126
+      },
+      "scenery_cp-imw[imw].json": {
+        "target": "scenery_CP-IMW[IMW].json",
+        "sha256": "4a3408b63d2a20d2ed06172eb7a0de89e74835698b3766df4eac676b2e54ffd7",
+        "canonical_sha256": "db08fffe3ef277bf0011943d50b15f844f0081978d7d4a91f7e700dde1efaaae",
+        "objects": 343
+      },
+      "scenery_cp.json": {
+        "target": "scenery_CP.json",
+        "sha256": "4c1d79c050aa45cbc805335534af8ac0bfa0568a76265b31ecf2fa85bbe3e617",
+        "canonical_sha256": "b83a041f446771cdfb396ecbafe497938f7aa081f837ea8e77f4e06ca106c97f",
+        "objects": 555
+      },
+      "scenery_cw-mf[cp].json": {
+        "target": "scenery_CW-MF[CP].json",
+        "sha256": "bde508cd70389b4b09c33be37be57c7f9e6fc9de27d6d758fc17b2747227c2f7",
+        "canonical_sha256": "1bc9589f03521e26fb4622d49e70f5d312995a3473e5e934f3a7d02cc3197849",
+        "objects": 359
+      },
+      "scenery_cw.json": {
+        "target": "scenery_CW.json",
+        "sha256": "efa302daa8bb56cc6991f9a4f60b5d7bee8c0e67a71c332b5e62dab0e3c695c3",
+        "canonical_sha256": "2d23c8d2c1a1bcd3650b7ba8542d44da75a455dca788086023e503b1b08c7d37",
+        "objects": 177
+      },
+      "scenery_mf.json": {
+        "target": "scenery_MF.json",
+        "sha256": "78fe57c43b5bffc520e3fc8356ef592958359306bec1e43cef2936a8685a77dc",
+        "canonical_sha256": "fd17b7f1f5ad49aed02639e46fbfd2785ab91ffb3f2e7614c7ab942319f0fdcc",
+        "objects": 185
+      },
+      "scenery_[cp]![cw-mf].json": {
+        "target": "scenery_[CP]![CW-MF].json",
+        "sha256": "d46f8901e8396090048f5b1a60abbc28a09605d51065977b6c2159950b0f1a5a",
+        "canonical_sha256": "1d6abc0439a0be4a1d5b597cf7734e8f336fe54518ea246967f4db58eea827e1",
+        "objects": 42
+      },
+      "scenery_[cp]![imw].json": {
+        "target": "scenery_[CP]![IMW].json",
+        "sha256": "02a4b4f824761eca9a2655e496a8ff5ffe6cd690121d072abb33ac65583eb82d",
+        "canonical_sha256": "9c9de79db1786ca6c30799392f0ea19f6b1fd8240506d7f12b9d779dcb79dfd1",
+        "objects": 33
+      }
+    },
+    "geometry_changed_during_integration": false,
+    "yard_supply": "CP750",
+    "mainline_supply": "IMW1500"
+  }
 }

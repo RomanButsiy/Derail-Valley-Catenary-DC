@@ -71,27 +71,29 @@
       "detail": []
     },
     {
-      "check": "Bundled network matches accepted GF station / 6 m Visual 2",
+      "check": "Bundled network matches accepted GF / 6 m and CP approaches",
       "pass": true,
       "detail": {
         "passed": true,
-        "revision": "gf-station-visual9_6m-visual2",
-        "layouts": 48,
-        "objects": 14545,
+        "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3",
+        "layouts": 50,
+        "objects": 14570,
         "reconstructed_overlays": 28,
         "direct_archive_comparison": false,
+        "cp_approach_sources_verified": 8,
+        "cp_archive_comparison": false,
         "errors": []
       }
     },
     {
-      "check": "Only declared Phase 1, GF corridor and GF station assets added",
+      "check": "Only declared Phase 1, GF and CP assets added",
       "pass": true,
       "detail": null
     },
     {
       "check": "All retained catenary assets/meta files byte-identical to upload",
       "pass": true,
-      "detail": 563
+      "detail": 557
     },
     {
       "check": "Both upstream license texts preserved byte-for-byte",
@@ -171,7 +173,7 @@
     {
       "check": "All accepted network scenery files present",
       "pass": true,
-      "detail": 48
+      "detail": 50
     },
     {
       "check": "Only known legacy scenery types in reference layouts",
@@ -352,17 +354,17 @@
       "detail": null
     }
   ],
-  "scenery_files": 48,
+  "scenery_files": 50,
   "object_counts": {
     "substation": 12,
-    "pole": 4209,
-    "cantilever": 4217,
-    "wire": 4939,
-    "miscellaneous_object": 427,
+    "pole": 4214,
+    "cantilever": 4220,
+    "wire": 4943,
+    "miscellaneous_object": 440,
     "gantry": 181,
     "side_rail_pole": 560
   },
-  "retained_asset_files": 563,
+  "retained_asset_files": 557,
   "core_csharp_files": 35,
   "maximum_reference_wire_length_m": 80.1593857,
   "csharp_compiled": false,
@@ -373,6 +375,6 @@
   "phase1_route_built": true,
   "gf_route_built": true,
   "gf_station_built": true,
-  "scenery_revision": "gf-station-visual9_6m-visual2",
+  "scenery_revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3",
   "split_package_game_tested": false
 }

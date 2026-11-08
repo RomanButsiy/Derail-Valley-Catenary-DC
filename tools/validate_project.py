@@ -77,8 +77,8 @@ def run(upstream=None):
     revisions |= {(scenery_dir/n).relative_to(ROOT).as_posix() for n in release['revised_assets']}
     retained=[p for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in additions | revisions]
     release_result=verify_network_release.verify(ROOT)
-    check(release_result['passed'],'Bundled network matches accepted GF station / 6 m Visual 2',release_result)
-    check({p.relative_to(ROOT).as_posix() for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in original}==additions,'Only declared Phase 1, GF corridor and GF station assets added')
+    check(release_result['passed'],'Bundled network matches accepted GF / 6 m and CP approaches',release_result)
+    check({p.relative_to(ROOT).as_posix() for p in cat.rglob('*') if p.is_file() and p.relative_to(ROOT).as_posix() not in original}==additions,'Only declared Phase 1, GF and CP assets added')
     check(all(original.get(p.relative_to(ROOT).as_posix())==sha(p) for p in retained),'All retained catenary assets/meta files byte-identical to upload',len(retained))
     check(all(original.get(name)==sha(ROOT/name) for name in ['LICENSE_CC0.txt','LICENSE_MIT.txt']),'Both upstream license texts preserved byte-for-byte')
     check((ROOT/'NOTICE.md').is_file(),'Attribution and scope notice included')
