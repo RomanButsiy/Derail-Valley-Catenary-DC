@@ -1,0 +1,54 @@
+{
+  "base_commit": "27b08b55b0319603386e3b4240380ec602cb833f",
+  "accepted_layout": "IMW-MF-Visual8",
+  "accepted_by_user": "2026-11-15",
+  "scenery_integrated_byte_identically": 12,
+  "total_layouts": 54,
+  "total_objects": 14982,
+  "network_verification": {
+    "passed": true,
+    "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8",
+    "layouts": 54,
+    "objects": 14982,
+    "reconstructed_overlays": 28,
+    "direct_archive_comparison": false,
+    "cp_approach_sources_verified": 8,
+    "cp_archive_comparison": true,
+    "cp_predecessor_sources_verified": 4,
+    "imw_mf_sources_verified": 12,
+    "imw_mf_archive_comparison": true,
+    "errors": []
+  },
+  "offline_source_checks": {
+    "passed": 65,
+    "failed": 0
+  },
+  "python_suite": {
+    "total": 87,
+    "passed": 77,
+    "skipped": 10,
+    "failures": 0
+  },
+  "bridge_with_e0b78cb_source": {
+    "total": 10,
+    "passed": 9,
+    "skipped": 1,
+    "skip_reason": "Historical 4d1a6a6 source not provided; current e0b78cb checks all pass."
+  },
+  "dotnet_sdk": "8.0.428",
+  "core_logic_passed": 19,
+  "authoring_data_passed": 10,
+  "player_tracking_passed": 15,
+  "player_tracking_uses_production_files": true,
+  "player_tracking_unity_api": "Lifetime and event test doubles; not Unity execution",
+  "core_net48_built": false,
+  "unity_exported": false,
+  "powershell_executed": false,
+  "reload_fix_game_tested": false,
+  "layout_game_acceptance": "User accepted Visual8; no new geometry generated for integration.",
+  "runtime_source_sha256": {
+    "src/CatenaryDC/catenary/OCS_ticker.cs": "db8040bde113206af0ba55aedc267ece4d1230eb5152b344aa527715b8230a3c",
+    "src/CatenaryDC/catenary/player_tracking.cs": "f458a3d070241d99721ca3ba85217c3f3e26916f2740a15941fdec3165a7568e",
+    "src/CatenaryDC/catenary/overhead_equipment.cs": "11c532f75cdc23c8668f7382627d39a19c0d7b423cedb769c3c024a036941ffd"
+  }
+}

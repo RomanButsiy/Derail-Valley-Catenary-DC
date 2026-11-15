@@ -4,7 +4,8 @@ A DC electrification mod for **Derail Valley**, based on Knsgf’s original work
 It adds overhead wires and powered side rails for compatible electric locomotives.
 
 The expanded network includes **HB–CS–CMS–SM**, **HB–GF towards the mines**, and
-**GF station with its connections towards SM and FF**.
+**GF station with its connections towards SM and FF**, **CP approaches**, and
+**IMW–MF**, including MF passenger, industrial and military I/O tracks.
 
 [**Download from Releases**](https://github.com/RomanButsiy/Derail-Valley-Catenary-DC/releases)
 

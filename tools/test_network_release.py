@@ -1,5 +1,6 @@
 """Regression checks for lost/duplicated geometry and broken split mappings."""
 import json
+import gzip
 from pathlib import Path
 import shutil
 import tempfile
@@ -16,6 +17,7 @@ class NetworkReleaseTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         (self.root / 'audit').mkdir()
         shutil.copy2(ROOT / 'audit/network_6m.json', self.root / 'audit/network_6m.json')
+        shutil.copy2(ROOT / 'audit/cp_pre_imw_mf.json.gz', self.root / 'audit/cp_pre_imw_mf.json.gz')
         shutil.copytree(ROOT / SCENERY, self.root / SCENERY)
 
     def edit_layout(self, change):
@@ -76,16 +78,59 @@ class NetworkReleaseTests(unittest.TestCase):
         manifest = self.root / 'audit/network_6m.json'
         info = json.loads(manifest.read_bytes())
         cp = info['cp_approaches']
+        prior = json.loads(gzip.decompress((self.root / info['imw_mf']['cp_predecessor_path']).read_bytes()))
         archive_path = self.root / 'accepted-cp.zip'
         with zipfile.ZipFile(archive_path, 'w') as archive:
             for name, entry in cp['sources'].items():
-                archive.write(self.root / SCENERY / entry['target'], cp['accepted_archive_root'] + name)
+                raw = prior[name].encode() if entry.get('superseded_by') else (self.root / SCENERY / entry['target']).read_bytes()
+                archive.writestr(cp['accepted_archive_root'] + name, raw)
         cp['accepted_archive_sha256'] = sha(archive_path.read_bytes())
         manifest.write_text(json.dumps(info))
         result = verify(self.root, cp_accepted_zip=archive_path)
         self.assertTrue(result['passed'], result['errors'])
         self.assertTrue(result['cp_archive_comparison'])
         self.assertEqual(result['cp_approach_sources_verified'], 8)
+
+    def test_changed_imw_payload_is_rejected_after_inventory_refresh(self):
+        path = self.root / SCENERY / 'scenery_MF-Military.json'
+        rows = json.loads(path.read_bytes()); rows[-1]['y'] += .1
+        path.write_text(json.dumps(rows))
+        manifest = self.root / 'audit/network_6m.json'
+        info = json.loads(manifest.read_bytes())
+        info['assets'][path.name]['sha256'] = sha(path.read_bytes())
+        layouts = {p.name: json.loads(p.read_bytes()) for p in (self.root / SCENERY).glob('*.json')}
+        info['canonical_network_sha256'] = network_digest(layouts)
+        manifest.write_text(json.dumps(info))
+        self.assertTrue(any('Accepted IMW-MF payload differs' in e for e in verify(self.root)['errors']))
+
+    def test_cp_predecessor_corruption_is_rejected(self):
+        (self.root / 'audit/cp_pre_imw_mf.json.gz').write_bytes(b'broken')
+        self.assertTrue(any('Invalid CP predecessor' in e for e in verify(self.root)['errors']))
+
+    def test_cp_supersession_cannot_hide_unrelated_geometry(self):
+        manifest = self.root / 'audit/network_6m.json'
+        info = json.loads(manifest.read_bytes())
+        info['cp_approaches']['sources']['scenery_cp.json']['superseded_by'] = 'imw-mf-visual8'
+        manifest.write_text(json.dumps(info))
+        self.assertTrue(any('Invalid CP supersession' in e for e in verify(self.root)['errors']))
+
+    def test_imw_archive_exact_comparison(self):
+        manifest = self.root / 'audit/network_6m.json'
+        info = json.loads(manifest.read_bytes()); imw = info['imw_mf']
+        archive_path = self.root / 'accepted-imw.zip'
+        with zipfile.ZipFile(archive_path, 'w') as archive:
+            for name, entry in imw['sources'].items():
+                archive.write(self.root / SCENERY / entry['target'], imw['accepted_archive_root'] + name)
+        imw['accepted_archive_sha256'] = sha(archive_path.read_bytes())
+        manifest.write_text(json.dumps(info))
+        result = verify(self.root, imw_mf_accepted_zip=archive_path)
+        self.assertTrue(result['passed'], result['errors'])
+        self.assertEqual(result['imw_mf_sources_verified'], 12)
+        self.assertTrue(result['imw_mf_archive_comparison'])
+
+    def test_wrong_imw_archive_is_rejected(self):
+        path = self.root / 'wrong.zip'; path.write_bytes(b'wrong')
+        self.assertTrue(any('Expected the accepted IMW-MF' in e for e in verify(self.root, imw_mf_accepted_zip=path)['errors']))
 
     def test_wrong_cp_archive_is_rejected(self):
         archive_path = self.root / 'wrong.zip'

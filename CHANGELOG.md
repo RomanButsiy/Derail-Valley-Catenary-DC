@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — accepted IMW–MF / save reload fix
+
+- Integrate the twelve user-accepted Visual8 layouts without regenerating geometry.
+- Keep FF–OR, remove the agreed IMW/CP branches, and add the IMW–MF 1500 V route.
+- MF passenger and military I/O use 750 V trolley; industrial B/C use 1100 V side rails.
+- Preserve accepted wire transitions, anchoring, rail alignment, signs and crossings.
+- Check Unity object lifetime before accessing the active camera or player transform.
+- Bind each player tracker to its own world; stop/unsubscribe it on unload, including
+  when Unity has already destroyed its host, and reject stale simulation callbacks.
+- Add executable player-tracking regression tests and exact accepted-payload checks.
+- A fresh Unity export and core build are required; game reload testing remains pending.
+
 ## 0.2.0 — 2WE3 bridge e0b78cb / release tooling
 
 - Pin optional bridge generation to author commit e0b78cb with 49 checked inputs.

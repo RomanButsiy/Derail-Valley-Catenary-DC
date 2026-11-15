@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <RollForward>Major</RollForward>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/CatenaryDC/catenary/OCS_ticker.cs" Link="OCS_ticker.cs" />
+    <Compile Include="../../src/CatenaryDC/catenary/player_tracking.cs" Link="player_tracking.cs" />
+  </ItemGroup>
+</Project>

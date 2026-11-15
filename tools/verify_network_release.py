@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the accepted GF / 6 m and CP approach integrations, without Unity.
+"""Verify accepted GF / 6 m, CP and IMW-MF integrations, without Unity.
 
 Checks serialized values and multiplicities, metadata, supplies and the mapping
 back to every accepted overlay. This is not a physical clearance or game test.
@@ -7,6 +7,7 @@ back to every accepted overlay. This is not a physical clearance or game test.
 import argparse
 import collections
 import hashlib
+import gzip
 import json
 from pathlib import Path
 import re
@@ -30,7 +31,7 @@ def network_digest(layouts):
     return sha(('\n'.join(rows) + '\n').encode())
 
 
-def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None):
+def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_zip=None):
     root = Path(root)
     info = json.loads((root / 'audit/network_6m.json').read_bytes())
     folder = root / SCENERY
@@ -129,14 +130,43 @@ def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None):
                         errors.append('Direct accepted archive comparison differs: ' + name)
     # CP Visual3 uses eight complete layouts, so no repartitioning or object
     # regeneration is needed. Preserve its reviewed bytes as well as values.
+    imw = info.get('imw_mf', {})
+    imw_sources = imw.get('sources', {})
+    cp_prior = {}
+    if imw:
+        try:
+            data = (root / imw['cp_predecessor_path']).read_bytes()
+            if sha(data) != imw['cp_predecessor_sha256']:
+                raise ValueError('Changed CP predecessor snapshot')
+            cp_prior = json.loads(gzip.decompress(data))
+            if set(cp_prior) != set(imw['superseded_cp_sources']):
+                raise ValueError('Unexpected CP predecessor inventory')
+        except (OSError, ValueError, KeyError, TypeError) as ex:
+            errors.append('Invalid CP predecessor: ' + str(ex))
+            cp_prior = {}
     cp = info.get('cp_approaches', {})
     cp_sources = cp.get('sources', {})
+    cp_payloads = {}
     for name, entry in cp_sources.items():
         target = entry['target']
-        rows = layouts.get(target)
+        # Four complete CP-era files intentionally changed in accepted IMW-MF.
+        # Validate their frozen predecessor against the ORIGINAL CP digests;
+        # the active files must independently match the accepted IMW-MF bytes.
+        if entry.get('superseded_by'):
+            if (entry['superseded_by'] != imw.get('revision') or name not in cp_prior
+                    or imw_sources.get(name, {}).get('target') != target):
+                errors.append('Invalid CP supersession: ' + name)
+            raw = cp_prior.get(name, '').encode()
+        else:
+            raw = (folder / target).read_bytes() if (folder / target).is_file() else b''
+        cp_payloads[name] = raw
+        try:
+            rows = json.loads(raw)
+        except ValueError:
+            rows = None
         if (rows is None or len(rows) != entry['objects']
                 or sha(canonical(rows).encode()) != entry['canonical_sha256']
-                or sha((folder / target).read_bytes()) != entry['sha256']):
+                or sha(raw) != entry['sha256']):
             errors.append('Accepted CP payload differs: ' + name)
     if cp_accepted_zip is not None:
         archive_path = Path(cp_accepted_zip)
@@ -152,14 +182,38 @@ def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None):
                 for name, entry in cp_sources.items():
                     if name not in names:
                         continue
-                    target = folder / entry['target']
-                    if not target.is_file() or archive.read(prefix + name) != target.read_bytes():
+                    if archive.read(prefix + name) != cp_payloads[name]:
                         errors.append('Direct accepted CP archive comparison differs: ' + name)
+    for name, entry in imw_sources.items():
+        target = folder / entry['target']
+        rows = layouts.get(entry['target'])
+        if (rows is None or len(rows) != entry['objects']
+                or sha(canonical(rows).encode()) != entry['canonical_sha256']
+                or sha(target.read_bytes()) != entry['sha256']):
+            errors.append('Accepted IMW-MF payload differs: ' + name)
+    if imw_mf_accepted_zip is not None:
+        archive_path = Path(imw_mf_accepted_zip)
+        if not imw or sha(archive_path.read_bytes()) != imw['accepted_archive_sha256']:
+            errors.append('Expected the accepted IMW-MF-Visual8.zip')
+        else:
+            with zipfile.ZipFile(archive_path) as archive:
+                prefix = imw['accepted_archive_root']
+                names = [n[len(prefix):] for n in archive.namelist()
+                         if n.startswith(prefix) and n.endswith('.json')]
+                if sorted(names) != sorted(imw_sources):
+                    errors.append('Unexpected accepted IMW-MF archive scenery inventory')
+                for name, entry in imw_sources.items():
+                    target = folder / entry['target']
+                    if name not in names or not target.is_file() or archive.read(prefix + name) != target.read_bytes():
+                        errors.append('Direct accepted IMW-MF archive comparison differs: ' + name)
     return dict(passed=not errors, revision=info['revision'], layouts=len(layouts),
                 objects=total, reconstructed_overlays=len(restored),
                 direct_archive_comparison=accepted_zip is not None,
                 cp_approach_sources_verified=len(cp_sources),
-                cp_archive_comparison=cp_accepted_zip is not None, errors=errors)
+                cp_archive_comparison=cp_accepted_zip is not None,
+                cp_predecessor_sources_verified=len(cp_prior),
+                imw_mf_sources_verified=len(imw_sources),
+                imw_mf_archive_comparison=imw_mf_accepted_zip is not None, errors=errors)
 
 
 if __name__ == '__main__':
@@ -167,7 +221,8 @@ if __name__ == '__main__':
     parser.add_argument('--root', type=Path, default=ROOT)
     parser.add_argument('--accepted-zip', type=Path)
     parser.add_argument('--cp-accepted-zip', type=Path)
+    parser.add_argument('--imw-mf-accepted-zip', type=Path)
     args = parser.parse_args()
-    result = verify(args.root, args.accepted_zip, args.cp_accepted_zip)
+    result = verify(args.root, args.accepted_zip, args.cp_accepted_zip, args.imw_mf_accepted_zip)
     print(json.dumps(result, indent=2))
     raise SystemExit(0 if result['passed'] else 1)

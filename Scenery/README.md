@@ -7,3 +7,8 @@ When upgrading from GF station or Catenary 6 m Visual 2 test packages, move the 
 The accepted CP approaches (Visual3) are also bundled. After rebuilding and
 installing this version, move the eight CP test overrides out of this folder;
 see [the CP upgrade list](../docs/CP_RELEASE_UK.md#збирання-та-встановлення).
+
+The accepted IMW–MF Visual8 layouts are now bundled too. After installing the
+rebuilt mod, move all twelve IMW–MF review overrides outside the mod, including
+`scenery_mf-industrial.json` and `scenery_mf-military.json`.
+See [the complete IMW–MF list](../docs/IMW_MF_RELEASE_UK.md).

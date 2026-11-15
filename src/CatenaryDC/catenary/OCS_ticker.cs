@@ -10,33 +10,46 @@ public partial class overhead_equipment
     private class OCS_ticker: MonoBehaviour
     {
         private bool _track_player_movement = false;
+        private overhead_equipment? _owner;
+
+        public void bind_owner(overhead_equipment owner) => _owner = owner;
+
+        private bool can_tick(overhead_equipment? owner) =>
+            owner != null && ReferenceEquals(owner, _owner) &&
+            ReferenceEquals(owner, _system) && owner._ready;
         
         void Update()
         {
-            if (_system == null)
+            overhead_equipment? owner = _owner;
+            if (!can_tick(owner))
                 return;
-            _system.authoring_tick();
-            if (_track_player_movement)
+            owner!.authoring_tick();
+            if (_track_player_movement && can_tick(owner))
             {
-                Transform? player_view = PlayerManager.ActiveCamera?.transform;
-                if (player_view is null)
+                // Unity can destroy the native camera before PlayerManager clears
+                // its managed reference during reload. ?. and "is null" bypass
+                // UnityEngine.Object's lifetime check; never use them here.
+                var camera = PlayerManager.ActiveCamera;
+                Transform? player_view = camera != null ? camera.transform : null;
+                if (player_view == null)
                 {
                     player_view = PlayerManager.PlayerTransform;
-                    if (player_view is null)
+                    if (player_view == null)
                         return;
                 }
-                //(int x, int z) = world_position.get_absolute_position(player_view.position);
-                //Main.log($"x={x} z={z}");
-                _system.handle_scenery_visibility(player_view.position);
+                owner.handle_scenery_visibility(player_view.position);
             }
         }
 
         void FixedUpdate()
         {
-            if (_system != null && _system._ready)
+            overhead_equipment? owner = _owner;
+            if (can_tick(owner))
             {
                 CatenaryApi.RaiseSimulationStep();
-                _system.simulate_all_substations_load();
+                // A subscriber may end the world. Do not tick disposed state or
+                // the replacement world from this old component.
+                if (can_tick(owner)) owner!.simulate_all_substations_load();
             }
         }
 
@@ -48,6 +61,13 @@ public partial class overhead_equipment
         public void resume_tracker()
         {
             _track_player_movement = true;
+        }
+
+        public void stop_tracker()
+        {
+            _track_player_movement = false;
+            _owner = null;
+            if (this != null) enabled = false;
         }
     }
 }

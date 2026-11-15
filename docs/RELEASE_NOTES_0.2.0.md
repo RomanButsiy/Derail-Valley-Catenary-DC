@@ -1,11 +1,15 @@
 # Catenary DC 0.2.0 + 2WE3 bridge
 
-First packaged release of this fork's accepted GF / 6 m Visual 2 network,
+Packaged release of this fork's accepted GF / 6 m, CP and IMW–MF network,
 with a separate optional 2WE3 controller built from Knsgf's
 `e0b78cb7943ca4d7cde112065b863139dae0c7b0`.
 
 - Network: HB–CS–CMS–SM, HB–GF–mines, completed GF station and connections;
   accepted tunnel/station heights, open-route 6 m profiles, side rails and feeds.
+- IMW–MF Visual8: accepted 1500 V approach, MF passenger/military I/O trolley
+  at 750 V and industrial B/C side rails at 1100 V; agreed deelectrification.
+- Save reload: safely skip destroyed camera/player references and detach the
+  old world's tracker, preventing it from updating a replacement world.
 - Bridge: upstream instruments, gauge resets, circuit/traction updates and
   explicit simulation time-step handling, connected to this fork's vehicle API.
 - Two independent UMM ZIPs. The bridge is built against the packaged core DLL.
@@ -26,8 +30,9 @@ No claim of VR/multiplayer compatibility.
 - Routes, neutral sections, side rails, A/B traction and gauge checks: **fill in**.
 - Known issues from those tests: **fill in**.
 
-Source preparation passed automated Python checks. The patch preparation
-environment did not run .NET compilation, Unity export, PowerShell or the game.
+Source preparation passed Python checks and 44 C# logic/data/tracker tests.
+Tracker tests use Unity lifetime doubles. Full core net48 compilation against
+the game, Unity export, PowerShell and actual save reload were not run here.
 Replace this maintainer section with the actual local validation results.
 
 Original locomotive and overhead-equipment work by **Knsgf**.

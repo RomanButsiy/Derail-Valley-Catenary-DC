@@ -1,5 +1,33 @@
 # Test boundaries
 
+## IMW–MF / player tracking update — 2026-11-15
+
+```powershell
+dotnet run --project tests/PlayerTracking -c Release
+python tools/verify_network_release.py --imw-mf-accepted-zip IMW-MF-Visual8.zip
+python tools/test_network_release.py
+```
+
+The 15 player-tracking tests compile the actual `OCS_ticker.cs` and
+`player_tracking.cs` with small Unity lifetime/event doubles. They reproduce the
+old destroyed-camera failure, test camera/player fallback and recovery, teleport
+suspension, destroyed-host unsubscription, 20 load/unload cycles, old-world
+isolation and disposal/replacement during a simulation callback. They are not a
+Unity scene test and do not compile the whole net48 mod against game assemblies.
+These tests were executed with .NET SDK 8.0.428; the source is unchanged between
+the test runner and the core build.
+The existing 19 CoreLogic and 10 AuthoringData checks also passed on that SDK.
+
+The network verifier compares all 12 current payloads to accepted Visual8.
+Four superseded CP-era payloads remain frozen in `audit/cp_pre_imw_mf.json.gz`
+and are checked against their original CP hashes, while their active replacements
+must match Visual8 separately. The unchanged CP assets and all 28 earlier
+GF / 6 m overlay reconstructions remain checked against live assets.
+
+The sections below describe the earlier preparation environment. Full core
+Release/Debug compilation, Unity export and actual save reload still require
+the local game installation.
+
 ## Executed offline during preparation
 
 `python tools/validate_project.py --upstream <original source>` checks the

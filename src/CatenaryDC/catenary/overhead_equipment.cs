@@ -276,12 +276,7 @@ public partial class overhead_equipment
                 wires_tree_objects_per_node
             );
 
-            _system._OCS_ticker = new GameObject("CatenaryDC.OCS.PlayerTracker", typeof(OCS_ticker));
-            var tracker = _system._OCS_ticker.GetComponent<OCS_ticker>();
-            PlayerManager.PlayerTeleportStarted  += tracker.suspend_tracker;
-            PlayerManager.PlayerTeleportFinished += tracker.resume_tracker;
-            PlayerManager.PlayerChanged          += _system.restart_tracker;
-            tracker.resume_tracker();
+            _system.start_player_tracker();
             _system._ready = true;
             CatenaryApi.RaiseActivated();
             Main.release_log("Catenary ready: " + _system._all_objects.Count + " objects, " + all_wires.Count + " wire sections.");
@@ -295,18 +290,14 @@ public partial class overhead_equipment
         }
     }
 
-    private void restart_tracker()
-    {
-        _OCS_ticker?.GetComponent<OCS_ticker>().resume_tracker();
-    }
-
     internal static void dispose(bool saveEditor = true)
     {
         overhead_equipment? old = _system;
         if (old == null) return;
-        old.authoring_stop(); // Close read-only export/recording before its coroutine host is destroyed.
         bool wasReady = old._ready;
         old._ready = false;
+        old.authoring_stop(); // Close read-only export/recording before its coroutine host is destroyed.
+        old.stop_player_tracker(); // Disable immediately; Destroy is deferred until the end of the frame.
 #if DEBUG
         editor.disable();
         if (saveEditor && wasReady)
@@ -315,15 +306,6 @@ public partial class overhead_equipment
             catch (Exception error) { Main.release_log("Could not save editor workspace: " + error); }
         }
 #endif
-        if (old._OCS_ticker != null)
-        {
-            var tracker = old._OCS_ticker.GetComponent<OCS_ticker>();
-            PlayerManager.PlayerTeleportStarted -= tracker.suspend_tracker;
-            PlayerManager.PlayerTeleportFinished -= tracker.resume_tracker;
-            PlayerManager.PlayerChanged -= old.restart_tracker;
-            GameObject.Destroy(old._OCS_ticker);
-            old._OCS_ticker = null;
-        }
         if (old._floating_origin != null) old._floating_origin.WorldMoved -= old.floating_origin_shift;
         old._floating_origin = null;
         // Include transient/editor-created objects, not only the latest visibility list.
