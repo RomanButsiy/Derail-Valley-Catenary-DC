@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — City West
+
+- Bundle the six accepted CW Visual7 layouts, including the 750 V yards and service tracks, both neutral sections and the SM approach.
+- Preserve the accepted passenger-yard height profile, low urban crossings and transitions at the arch. The two service tracks share one mast beside the cabinets.
+
 ## Unreleased — accepted IMW–MF / save reload fix
 
 - Integrate the twelve user-accepted Visual8 layouts without regenerating geometry.

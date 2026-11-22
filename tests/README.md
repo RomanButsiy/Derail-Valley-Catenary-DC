@@ -1,5 +1,10 @@
 # Test boundaries
 
+## CW Visual7
+
+Run `python tools/verify_network_release.py --cw-accepted-zip CW_Visual7.zip` to compare all six bundled CW payloads directly. The network tests also verify the previous CP, IMW–MF and GF/6 m layouts across the four replaced assets.
+
+
 ## IMW–MF / player tracking update — 2026-11-15
 
 ```powershell

@@ -12,3 +12,6 @@ The accepted IMW–MF Visual8 layouts are now bundled too. After installing the
 rebuilt mod, move all twelve IMW–MF review overrides outside the mod, including
 `scenery_mf-industrial.json` and `scenery_mf-military.json`.
 See [the complete IMW–MF list](../docs/IMW_MF_RELEASE_UK.md).
+
+CW Visual7 is included in the rebuilt bundle. Move its six external review
+overrides outside the mod when upgrading. [CW file list](../docs/CW_RELEASE_UK.md)

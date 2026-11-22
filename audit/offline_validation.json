@@ -2,7 +2,7 @@
   "project": "Derail-Valley-Catenary-DC",
   "version": "0.2.0",
   "source_commit": "4d1a6a691415b6f08f9a76fbafdc8357485e277a",
-  "passed": 65,
+  "passed": 74,
   "failed": 0,
   "checks": [
     {
@@ -71,13 +71,13 @@
       "detail": []
     },
     {
-      "check": "Bundled network matches accepted GF / 6 m, CP and IMW-MF",
+      "check": "Bundled network matches accepted GF / 6 m, CP, IMW-MF and CW",
       "pass": true,
       "detail": {
         "passed": true,
-        "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8",
-        "layouts": 54,
-        "objects": 14982,
+        "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7",
+        "layouts": 56,
+        "objects": 15951,
         "reconstructed_overlays": 28,
         "direct_archive_comparison": false,
         "cp_approach_sources_verified": 8,
@@ -85,11 +85,13 @@
         "cp_predecessor_sources_verified": 4,
         "imw_mf_sources_verified": 12,
         "imw_mf_archive_comparison": false,
+        "cw_sources_verified": 6,
+        "cw_archive_comparison": false,
         "errors": []
       }
     },
     {
-      "check": "Only declared Phase 1, GF, CP and IMW-MF assets added",
+      "check": "Only declared Phase 1, GF, CP, IMW-MF and CW assets added",
       "pass": true,
       "detail": null
     },
@@ -176,7 +178,7 @@
     {
       "check": "All accepted network scenery files present",
       "pass": true,
-      "detail": 54
+      "detail": 56
     },
     {
       "check": "Only known legacy scenery types in reference layouts",
@@ -190,6 +192,7 @@
         "CME/IME1500": 1,
         "CMS1500": 1,
         "CP750": 1,
+        "CW750": 1,
         "FF1500": 1,
         "GF1500": 1,
         "GF1100": 1,
@@ -357,17 +360,62 @@
       "check": "Plan and runtime payload are separate",
       "pass": true,
       "detail": null
+    },
+    {
+      "check": "Direct input-directory comparison: catenary assets unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge: both collector queries migrated",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge contains no second network/editor engine",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge has no old OCS calls",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional bridge subscribes/unsubscribes single core tick",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Optional controller preserves the CCL pack dependency ID",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Prepared adapter lexical sanity (NOT compilation)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Adapter preparation did not modify original source",
+      "pass": true,
+      "detail": 49
+    },
+    {
+      "check": "Adapter preparation refuses nonempty output",
+      "pass": true,
+      "detail": null
     }
   ],
-  "scenery_files": 54,
+  "scenery_files": 56,
   "object_counts": {
-    "substation": 14,
-    "pole": 4043,
-    "cantilever": 4038,
-    "wire": 5373,
-    "miscellaneous_object": 448,
+    "substation": 15,
+    "pole": 4350,
+    "cantilever": 4347,
+    "wire": 5703,
+    "miscellaneous_object": 472,
     "gantry": 180,
-    "side_rail_pole": 886
+    "side_rail_pole": 884
   },
   "retained_asset_files": 553,
   "core_csharp_files": 36,
@@ -380,6 +428,6 @@
   "phase1_route_built": true,
   "gf_route_built": true,
   "gf_station_built": true,
-  "scenery_revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8",
+  "scenery_revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7",
   "split_package_game_tested": false
 }

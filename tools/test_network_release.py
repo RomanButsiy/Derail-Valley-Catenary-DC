@@ -18,7 +18,21 @@ class NetworkReleaseTests(unittest.TestCase):
         (self.root / 'audit').mkdir()
         shutil.copy2(ROOT / 'audit/network_6m.json', self.root / 'audit/network_6m.json')
         shutil.copy2(ROOT / 'audit/cp_pre_imw_mf.json.gz', self.root / 'audit/cp_pre_imw_mf.json.gz')
+        shutil.copy2(ROOT / 'audit/pre_cw_visual7.json.gz', self.root / 'audit/pre_cw_visual7.json.gz')
         shutil.copytree(ROOT / SCENERY, self.root / SCENERY)
+
+    def pre_cw_bytes(self, target):
+        prior = json.loads(gzip.decompress((self.root / 'audit/pre_cw_visual7.json.gz').read_bytes()))
+        return prior[target].encode() if target in prior else (self.root / SCENERY / target).read_bytes()
+
+    def test_corrupt_pre_cw_history_is_rejected(self):
+        (self.root / 'audit/pre_cw_visual7.json.gz').write_bytes(b'broken')
+        self.assertTrue(any('Invalid pre-CW snapshot' in e for e in verify(self.root)['errors']))
+
+    def test_cw_superseded_assets_use_current_payloads(self):
+        name = 'scenery_SM-CMS[SM].json'
+        (self.root / SCENERY / name).write_bytes(self.pre_cw_bytes(name))
+        self.assertIn('Accepted CW payload differs: ' + name, verify(self.root)['errors'])
 
     def edit_layout(self, change):
         path = self.root / SCENERY / 'scenery_GF.json'
@@ -82,7 +96,7 @@ class NetworkReleaseTests(unittest.TestCase):
         archive_path = self.root / 'accepted-cp.zip'
         with zipfile.ZipFile(archive_path, 'w') as archive:
             for name, entry in cp['sources'].items():
-                raw = prior[name].encode() if entry.get('superseded_by') else (self.root / SCENERY / entry['target']).read_bytes()
+                raw = prior[name].encode() if entry.get('superseded_by') else self.pre_cw_bytes(entry['target'])
                 archive.writestr(cp['accepted_archive_root'] + name, raw)
         cp['accepted_archive_sha256'] = sha(archive_path.read_bytes())
         manifest.write_text(json.dumps(info))
@@ -120,7 +134,7 @@ class NetworkReleaseTests(unittest.TestCase):
         archive_path = self.root / 'accepted-imw.zip'
         with zipfile.ZipFile(archive_path, 'w') as archive:
             for name, entry in imw['sources'].items():
-                archive.write(self.root / SCENERY / entry['target'], imw['accepted_archive_root'] + name)
+                archive.writestr(imw['accepted_archive_root'] + name, self.pre_cw_bytes(entry['target']))
         imw['accepted_archive_sha256'] = sha(archive_path.read_bytes())
         manifest.write_text(json.dumps(info))
         result = verify(self.root, imw_mf_accepted_zip=archive_path)

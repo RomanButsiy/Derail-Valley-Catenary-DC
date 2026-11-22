@@ -5,7 +5,8 @@ It adds overhead wires and powered side rails for compatible electric locomotive
 
 The expanded network includes **HB–CS–CMS–SM**, **HB–GF towards the mines**, and
 **GF station with its connections towards SM and FF**, **CP approaches**, and
-**IMW–MF**, including MF passenger, industrial and military I/O tracks.
+**IMW–MF**, including MF passenger, industrial and military I/O tracks. City West includes the passenger yard, yard C and the
+A2/A3 service tracks, with neutral sections towards CP and SM.
 
 [**Download from Releases**](https://github.com/RomanButsiy/Derail-Valley-Catenary-DC/releases)
 
