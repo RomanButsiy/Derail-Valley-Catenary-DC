@@ -36,7 +36,11 @@ Debug network Reload reconstructs the network. A controller can stay subscribed
 to SimulationStep across that operation; it must still detach on actual world
 unload. The optional bridge follows that distinction.
 
-The optional adapter retains the old namespace only inside its separate assembly
-for the copied vehicle implementation. Its UMM ID `Catenary-DC` satisfies the
-stock CCL model dependency, but its assembly is `CatenaryDC.Legacy2WE3`, never
-`electric_sim`. Running the original engine alongside the core is rejected.
+The optional 0.3.0 bridge provides UMM ID `Catenary-DC` for 2WE3 model packs.
+Stock CatenaryForCCL discovers `electric_sim.catenary.overhead_equipment, electric_sim`
+by reflection. The bridge assembly therefore uses the name `electric_sim.dll`.
+Its static `system` property returns a contact provider while the core is ready.
+Activation and deactivation events forward to the core. The bound instance
+method forwards the four collector transforms and current to `QueryRelativeContact`.
+The core recognizes its own bridge assembly marker when checking for the original OCS.
+WE-4U keeps its own traction controller and both of its original UMM packages.

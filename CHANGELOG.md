@@ -1,17 +1,26 @@
 # Changelog
 
-## Unreleased — FRC
+## 0.3.0
+
+### Vehicle compatibility
+
+- Build the 2WE3 bridge from Knsgf's v2.8.0 (`03d9de6`). Preserve its instrument response, field weakening and synchronous traction circuit updates.
+- Support both published 2WE3 model variants (2.3.9 sandbox and 2.4.0 with licence).
+- Expose this network to the stock CatenaryForCCL pantograph used by WE-4U InDev-0.3.1. Its controller and both WE-4U packages stay separately installable.
+- Ship a matched core and vehicle bridge. Replace the previous bridge folder when upgrading.
+
+### FRC
 
 - Bundle the four accepted FRC Visual2 layouts for the Farm, FRC, the CP triangle and the OR connection.
 - Electrify B1L and the third through track at FRC. B1L has a signed 49 m gap between anchor masts at the water tower.
 - Check the shared CP approach against both its current FRC layout and its accepted CW predecessor.
 
-## Unreleased — City West
+### City West
 
 - Bundle the six accepted CW Visual7 layouts, including the 750 V yards and service tracks, both neutral sections and the SM approach.
 - Preserve the accepted passenger-yard height profile, low urban crossings and transitions at the arch. The two service tracks share one mast beside the cabinets.
 
-## Unreleased — accepted IMW–MF / save reload fix
+### Accepted IMW–MF / save reload fix
 
 - Integrate the twelve user-accepted Visual8 layouts without regenerating geometry.
 - Keep FF–OR, remove the agreed IMW/CP branches, and add the IMW–MF 1500 V route.

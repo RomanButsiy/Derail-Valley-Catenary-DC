@@ -22,8 +22,7 @@ public static class Main
     {
         foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
-            if (assembly.GetName().Name == "electric_sim" &&
-                assembly.GetType("electric_sim.catenary.overhead_equipment", false) != null)
+            if (VehicleBridgeAttribute.IsOriginalNetwork(assembly))
                 throw new InvalidOperationException("The original electric_sim/Catenary-DC is loaded. " +
                     "Do not run two catenary simulations. Move the old Catenary-DC folder out of Mods and restart. " +
                     "The optional Legacy2WE3 bridge is a separate controller, not the old Catenary-DC mod.");
@@ -41,7 +40,7 @@ public static class Main
             editor_settings.set_up(mod);
             harmony = new Harmony(mod.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            release_log("Derail-Valley-Catenary-DC 0.2.0: catenary-only core. No locomotive controller is included.");
+            release_log("Derail-Valley-Catenary-DC 0.3.0: catenary-only core. No locomotive controller is included.");
             // This engine is session-bound; hot disabling can strand a raised pantograph.
             mod.OnToggle = (_, enabled) => enabled;
             return true;

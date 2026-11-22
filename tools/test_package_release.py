@@ -23,17 +23,19 @@ class ReleaseTests(unittest.TestCase):
             for name in ('LICENSE_CC0.txt', 'LICENSE_MIT.txt', 'NOTICE.md'):
                 shutil.copy2(release.ROOT/name, folder/name)
         shutil.copy2(release.ROOT/'config/network.json', self.core/'network.json')
-        self.write(self.core/'info.json', dict(Id='DerailValleyCatenaryDC', AssemblyName='CatenaryDC.dll', Version='0.2.0'))
-        self.write(self.bridge/'info.json', dict(Id='Catenary-DC', AssemblyName='CatenaryDC.Legacy2WE3.dll', Version='0.2.0',
-                                                Requirements=['DerailValleyCatenaryDC-0.2.0']))
-        self.write(self.core/'build-info.json', dict(project='Derail-Valley-Catenary-DC', version='0.2.0', configuration='Release',
+        self.write(self.core/'info.json', dict(Id='DerailValleyCatenaryDC', AssemblyName='CatenaryDC.dll', Version='0.3.0'))
+        self.write(self.bridge/'info.json', dict(Id='Catenary-DC', AssemblyName='electric_sim.dll', Version='0.3.0',
+                                                Requirements=['DerailValleyCatenaryDC-0.3.0']))
+        self.write(self.core/'build-info.json', dict(project='Derail-Valley-Catenary-DC', version='0.3.0', configuration='Release',
                    core_sha256=release.sha(self.core/'CatenaryDC.dll'), catenary_sha256=release.sha(self.core/'catenary'),
                    parts_sha256=release.sha(self.core/'catenary_parts'), scenery_revision=release.load(release.ROOT/'audit/network_6m.json')['revision']))
-        self.write(self.bridge/'build-info.json', dict(project='Legacy2WE3 bridge', version='0.2.0', configuration='Release',
-                   core_sha256=release.sha(self.core/'CatenaryDC.dll'), controller_sha256=release.sha(self.bridge/'CatenaryDC.Legacy2WE3.dll'),
-                   upstream_commit=release.UPSTREAM, build_fix_revision=release.REVISION))
-        self.write(self.bridge/'preparation.json', dict(bridge_version='0.2.0', compiled=True, catenary_engine_copied=False,
-                   simulate_named_arguments_fixed=0, upstream_commit=release.UPSTREAM, build_fix_revision=release.REVISION))
+        self.write(self.bridge/'build-info.json', dict(project='Legacy2WE3 bridge', version='0.3.0', configuration='Release',
+                   core_sha256=release.sha(self.core/'CatenaryDC.dll'), controller_sha256=release.sha(self.bridge/'electric_sim.dll'),
+                   release_model_versions={'2WE3':'2.3.9','2WE3-licence':'2.4.0'},
+                   ccl_contact_contract=1, upstream_commit=release.UPSTREAM, build_fix_revision=release.REVISION))
+        self.write(self.bridge/'preparation.json', dict(bridge_version='0.3.0', compiled=True, catenary_engine_copied=False,
+                   simulate_named_arguments_fixed=0, release_model_versions={'2WE3':'2.3.9','2WE3-licence':'2.4.0'},
+                   ccl_contact_contract=1, upstream_commit=release.UPSTREAM, build_fix_revision=release.REVISION))
 
     def write(self, path, data):
         # Windows PowerShell 5 writes these JSON receipts as UTF-8 with BOM.
@@ -78,7 +80,7 @@ class ReleaseTests(unittest.TestCase):
 
     def test_changed_binaries_or_bundles_rejected(self):
         for folder, name in ((self.core, 'CatenaryDC.dll'), (self.core, 'catenary'), (self.core, 'catenary_parts'),
-                              (self.bridge, 'CatenaryDC.Legacy2WE3.dll')):
+                              (self.bridge, 'electric_sim.dll')):
             with self.subTest(name=name):
                 path = folder/name
                 before = path.read_bytes()
@@ -94,7 +96,7 @@ class ReleaseTests(unittest.TestCase):
 
     def test_wrong_upstream_rejected(self):
         self.change(self.bridge/'build-info.json', upstream_commit='4d1a6a6')
-        with self.assertRaisesRegex(ValueError, 'e0b78cb'):
+        with self.assertRaisesRegex(ValueError, '03d9de6'):
             self.package()
 
     def test_extra_game_dll_or_override_rejected(self):
@@ -108,6 +110,11 @@ class ReleaseTests(unittest.TestCase):
     def test_versions_must_match(self):
         self.change(self.bridge/'info.json', Version='0.1.0')
         with self.assertRaisesRegex(ValueError, 'versions differ'):
+            self.package()
+
+    def test_stale_controller_is_rejected(self):
+        self.change(self.bridge/'build-info.json', ccl_contact_contract=0)
+        with self.assertRaisesRegex(ValueError, 'CCL contact'):
             self.package()
 
     def test_paths_must_be_redacted(self):

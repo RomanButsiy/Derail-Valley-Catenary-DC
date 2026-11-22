@@ -27,12 +27,13 @@ user's exact pinned author source and stages a separate controller outside the c
 That controller uses the original vehicle implementation and its notices.
 It does not install or redistribute the CCL model pack.
 
-The optional bridge generator now defaults to author commit
-`e0b78cb7943ca4d7cde112065b863139dae0c7b0`. Its 49 selected input hashes are in
-`compat/Legacy2WE3/upstreams/e0b78cb.json`. The original author owns the
-instruments, circuits, traction and vehicle simulation implementation carried
-into that bridge. This derivative adapts contact queries and lifecycle hooks
-to the independent catenary API. It does not import the newer author's OCS,
-scenery, Double-Tracked Valley power cheat or vehicle model assets into the core.
-The older `4d1a6a6` controller remains an explicitly selected compatibility path;
-the catenary foundation provenance above remains unchanged.
+The bridge generator for 0.3.0 uses author commit
+`03d9de65c874797718accae865295862ab588d62` (v2.8.0). The 52 selected input
+hashes are recorded in `compat/Legacy2WE3/upstreams/03d9de6.json`. Instruments,
+circuits and vehicle simulation remain Knsgf's implementation. The generator
+also accepts the historical revisions `e0b78cb` and `4d1a6a6` explicitly.
+
+The bridge exposes the contact API used by Knsgf's Custom Car Loader Catenary
+Support. Players obtain that importer from Knsgf and the WE-4U model and
+electrics from Comrad501. Their binaries, locomotive assets and traction code
+for WE-4U are distributed by their respective authors.

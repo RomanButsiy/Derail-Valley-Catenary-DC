@@ -26,15 +26,16 @@ public static class Main
         {
             // Avoid binding to a second copy of the original vehicle controller.
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-                if (assembly.GetName().Name == "electric_sim")
-                    throw new InvalidOperationException("Remove the original Catenary-DC/electric_sim before enabling this bridge.");
+                if (assembly != typeof(Main).Assembly &&
+                    (assembly.GetName().Name == "electric_sim" || assembly.GetName().Name == "CatenaryDC.Legacy2WE3"))
+                    throw new InvalidOperationException("Another 2WE3 controller is loaded. Remove the old controller and restart the game.");
             if (CatenaryApi.ApiVersion != 1) throw new InvalidOperationException("Unsupported catenary API.");
             mod_info = mod;
             editor_settings.set_up(mod);
             harmony = new Harmony(mod.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             mod.OnToggle = (_, enabled) => enabled;
-            release_log("Optional Legacy2WE3 adapter loaded. Uses ONE CatenaryDC network; 2WE3CCL models must be installed separately.");
+            release_log("2WE3 and CCL vehicle bridge loaded.");
             return true;
         }
         catch (Exception error)

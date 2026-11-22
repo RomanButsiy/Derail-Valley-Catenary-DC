@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Prepare OPTIONAL 2WE3 controller in an ignored build workspace, never in the core.
-Defaults to the pinned e0b78cb upstream controller; 4d1a6a6 remains opt-in.
+Defaults to the v2.8.0 controller; older pinned profiles remain available.
 No binaries or locomotive implementation are included in the catenary repository.
 """
 from __future__ import annotations
@@ -17,10 +17,11 @@ ALLOWED_DIRS = ('devices', 'circuit', 'unit_A', 'unit_B', 'utilities')
 # The stock 2WE3 CCL pack declares AdditionalDependencies: Catenary-DC.
 # Only this optional controller provides that legacy ID; it contains no OCS engine.
 BRIDGE_ID = 'Catenary-DC'
-BUILD_FIX_REVISION = 'legacy2we3-upstream.2'
+BUILD_FIX_REVISION = 'legacy2we3-upstream.3'
 LEGACY_LANGUAGE_VERSION = '14.0'
-BRIDGE_VERSION = '0.2.0'
+BRIDGE_VERSION = '0.3.0'
 UPSTREAM_REVISIONS = {
+    '03d9de6': '03d9de65c874797718accae865295862ab588d62',
     'e0b78cb': 'e0b78cb7943ca4d7cde112065b863139dae0c7b0',
     '4d1a6a6': '4d1a6a691415b6f08f9a76fbafdc8357485e277a',
 }
@@ -64,8 +65,9 @@ def verify_source(source: Path, upstream_revision: str) -> dict:
         if not (source/'WE6SIM'/folder).is_dir():
             raise ValueError('Select the upstream root containing WE6SIM and unity_project.')
         selected.extend(sorted((source/'WE6SIM'/folder).rglob('*.cs')))
-    if upstream_revision == 'e0b78cb':
-        known = json.loads((ROOT/'compat/Legacy2WE3/upstreams/e0b78cb.json').read_text())['source_files']
+    if upstream_revision != '4d1a6a6':
+        manifest = ROOT / 'compat/Legacy2WE3/upstreams' / (upstream_revision + '.json')
+        known = json.loads(manifest.read_bytes())['source_files']
     else:
         original = json.loads((ROOT/'audit/upstream.json').read_text())['source_files']
         fixed = {'WE6SIM/Main.cs', 'WE6SIM/car_spawn_handler.cs', 'WE6SIM/electric_sim.csproj',
@@ -91,7 +93,7 @@ def verify_source(source: Path, upstream_revision: str) -> dict:
     return fingerprints
 
 
-def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str = 'e0b78cb') -> dict:
+def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str = '03d9de6') -> dict:
     source, output, core_dll = source.resolve(), output.resolve(), core_dll.resolve()
     if source == output or source in output.parents:
         raise ValueError('Output must be outside the original upstream directory.')
@@ -113,11 +115,9 @@ def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str =
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, dest)
             copied += 1
-    for name in ('Main.cs','editor_settings.cs'):
+    for name in ('Main.cs','editor_settings.cs','CclContact.cs'):
         shutil.copy2(ROOT/'compat/Legacy2WE3/templates'/name, output/name)
-    # Only the older snapshot needs the named-argument fix. In e0b78cb the
-    # signature and both callers already agree; preserve the entire solver and
-    # unit_A implementation, including new gauges and explicit delta-time.
+    # Keep the selected author's circuit implementation and its call order intact.
     caller_path = output/'unit_A/unit_a_sim.cs'
     caller = caller_path.read_text(encoding='utf-8-sig')
     callee = (output/'circuit/circuit.cs').read_text(encoding='utf-8-sig')
@@ -125,9 +125,12 @@ def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str =
     if upstream_revision == '4d1a6a6':
         caller_path.write_text(fix_simulate_named_arguments(caller, callee), encoding='utf-8')
         named_arguments_fixed = 2
-    elif (callee.count('public async Task simulate(bool permit_commutation)') != 1
-          or any(caller.count(f'_circuit.simulate(permit_commutation: {v})') != 1 for v in ('true', 'false'))):
-        raise ValueError('Unexpected e0b78cb solver contract.')
+    else:
+        signature = ('public void simulate(bool permit_commutation)' if upstream_revision == '03d9de6'
+                     else 'public async Task simulate(bool permit_commutation)')
+        if (callee.count(signature) != 1 or any(caller.count(f'_circuit.simulate(permit_commutation: {v})') != 1
+                                                 for v in ('true', 'false'))):
+            raise ValueError(f'Unexpected {upstream_revision} solver contract.')
 
     pantograph = output/'devices/pantograph.cs'
     text = pantograph.read_text(encoding='utf-8-sig')
@@ -175,7 +178,7 @@ def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str =
     root = ET.Element('Project', Sdk='Microsoft.NET.Sdk')
     props = ET.SubElement(root, 'PropertyGroup')
     for key, val in {'TargetFramework':'net48', 'LangVersion':LEGACY_LANGUAGE_VERSION, 'Nullable':'enable',
-                     'AssemblyName':'CatenaryDC.Legacy2WE3', 'RootNamespace':'electric_sim',
+                     'AssemblyName':'electric_sim', 'RootNamespace':'electric_sim',
                      'Version':BRIDGE_VERSION, 'NoWarn':'$(NoWarn);CS8981',
                      'GameManagedPath':'$(GameDirectory)/DerailValley_Data/Managed'}.items():
         ET.SubElement(props,key).text=val
@@ -197,14 +200,22 @@ def prepare(source: Path, output: Path, core_dll: Path, upstream_revision: str =
     ET.SubElement(target,'Error',Condition="!Exists('$(GameManagedPath)/Assembly-CSharp.dll')",Text='Select the game root using GameDirectory.')
     ET.indent(root, space='  ')
     ET.ElementTree(root).write(output/'Legacy2WE3.csproj',encoding='utf-8',xml_declaration=False)
-    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — optional 2WE3 bridge','Version':BRIDGE_VERSION,
-          'ManagerVersion':'0.27.3','AssemblyName':'CatenaryDC.Legacy2WE3.dll','EntryMethod':'electric_sim.Main.Load',
+    info={'Id':BRIDGE_ID,'DisplayName':'Catenary DC — 2WE3 and CCL vehicle bridge','Version':BRIDGE_VERSION,
+          'ManagerVersion':'0.27.3','AssemblyName':'electric_sim.dll','EntryMethod':'electric_sim.Main.Load',
           'Author':'Knsgf vehicle implementation; compatibility adaptation by RomanButsiy',
-          'Requirements':['DerailValleyCatenaryDC-0.2.0']}
+          'Requirements':['DerailValleyCatenaryDC-' + BRIDGE_VERSION]}
     (output/'info.json').write_text(json.dumps(info,indent=2)+'\n')
+    pack_asset = source / 'unity_project/Assets/_CCL_CARS/WE6A/WE6_pack.asset'
+    source_pack_version = re.search(r'^  Version: ([\d.]+)$', pack_asset.read_text(encoding='utf-8-sig'), re.M)[1]
+    release_packs = {'2WE3': source_pack_version}
+    if upstream_revision == '03d9de6':
+        profile = json.loads((ROOT/'compat/Legacy2WE3/upstreams/03d9de6.json').read_bytes())
+        release_packs = profile['release_model_versions']
     report={'upstream_commit':UPSTREAM_REVISIONS[upstream_revision],
             'upstream_revision':upstream_revision,'bridge_version':BRIDGE_VERSION,
-            'ccl_pack_version':'2.3.7',
+            'source_pack_version':source_pack_version, 'ccl_pack_version':release_packs['2WE3'],
+            'release_model_versions':release_packs,
+            'ccl_contact_contract':1,
             'source':str(source),'core_dll_requested':str(core_dll),
             'verified_files':fingerprints,'copied_implementation_cs':copied,
             'contact_queries_redirected':2,'catenary_engine_copied':False,
@@ -222,7 +233,7 @@ if __name__=='__main__':
     parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--core-dll',type=Path,required=True)
-    parser.add_argument('--upstream-revision',choices=tuple(UPSTREAM_REVISIONS),default='e0b78cb')
+    parser.add_argument('--upstream-revision',choices=tuple(UPSTREAM_REVISIONS),default='03d9de6')
     args=parser.parse_args()
     try:
         report=prepare(args.source,args.output,args.core_dll,args.upstream_revision)

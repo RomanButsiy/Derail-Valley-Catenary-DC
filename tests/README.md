@@ -1,5 +1,26 @@
 # Test boundaries
 
+## CCL pantograph contact
+
+Run this test once per supported importer tag with .NET SDK 10 or later. Use a separate output directory for each tag so that MSBuild always compiles the selected source.
+
+```powershell
+git clone --depth 1 --branch v1.0.0 https://github.com/Knsgf/CCL-OCS ../CCL-OCS-1.0
+git clone --depth 1 --branch v1.1.0 https://github.com/Knsgf/CCL-OCS ../CCL-OCS-1.1
+foreach ($tag in '1.0','1.1') {
+    $source = (Resolve-Path "../CCL-OCS-$tag").Path
+    $out = (Join-Path (Get-Location).Path "../ccl-test-$tag")
+    dotnet build tests/CclContact/CclContact.csproj -c Release "-p:CclSource=$source" --artifacts-path $out
+    if ($LASTEXITCODE) { exit $LASTEXITCODE }
+    dotnet "$out/bin/CclContact/release/CclContact.dll"
+    if ($LASTEXITCODE) { exit $LASTEXITCODE }
+}
+```
+
+The runner compiles the unmodified upstream importer controller and uses its normal reflection lookup, initialization, delegates and ticks against the production bridge and public network API. Game ports, transforms and the sampled world are test doubles. It checks live and dead overhead, a physical gap, load accounting for two collectors, world unload/reload, and original-engine detection.
+
+In the published WE-4U InDev-0.3.1 `EU07/ccl_bundle`, the locomotive uses the pantograph controller proxy and the power bus bar. The sandbox and career 2WE3 v2.8.0 bundles both use the `WE6981A` and `WE6981B` livery prefixes recognized by the stock 2WE3 controller.
+
 ## FRC Visual2
 
 Run `python tools/verify_network_release.py --frc-accepted-zip FRC_Visual2.zip --cw-accepted-zip CW_Visual7.zip`

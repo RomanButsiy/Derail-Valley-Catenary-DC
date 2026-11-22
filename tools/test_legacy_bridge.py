@@ -16,12 +16,12 @@ LEGACY_SOURCE = None
 class GeneratorTests(unittest.TestCase):
     def setUp(self):
         if SOURCE is None:
-            self.skipTest('Pass --source with the e0b78cb author checkout for integration tests.')
+            self.skipTest('Pass --source with the 03d9de6 author checkout for integration tests.')
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.work = Path(self.temp.name)
         self.source = self.work/'upstream'
-        manifest = json.loads((bridge.ROOT/'compat/Legacy2WE3/upstreams/e0b78cb.json').read_text())
+        manifest = json.loads((bridge.ROOT/'compat/Legacy2WE3/upstreams/03d9de6.json').read_text())
         for name in manifest['source_files']:
             dest = self.source/name
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -34,9 +34,11 @@ class GeneratorTests(unittest.TestCase):
     def test_new_source_preserves_author_controller(self):
         before = {p.relative_to(self.source):p.read_bytes() for p in self.source.rglob('*') if p.is_file()}
         report = self.prepare()
-        self.assertEqual(report['upstream_commit'], bridge.UPSTREAM_REVISIONS['e0b78cb'])
+        self.assertEqual(report['upstream_commit'], bridge.UPSTREAM_REVISIONS['03d9de6'])
         self.assertEqual(report['simulate_named_arguments_fixed'], 0)
-        self.assertEqual(len(report['verified_files']), 49)
+        self.assertEqual(len(report['verified_files']), 52)
+        self.assertEqual(report['source_pack_version'], '2.3.8')
+        self.assertEqual(report['release_model_versions'], {'2WE3': '2.3.9', '2WE3-licence': '2.4.0'})
         self.assertFalse(report['compiled'])
         for folder in ('circuit', 'unit_A', 'unit_B', 'devices', 'utilities'):
             for path in (self.output/folder).rglob('*.cs'):
@@ -68,12 +70,16 @@ class GeneratorTests(unittest.TestCase):
         root = ET.parse(self.output/'Legacy2WE3.csproj')
         self.assertEqual(root.findtext('./PropertyGroup/TargetFramework'), 'net48')
         self.assertEqual(root.findtext('./PropertyGroup/LangVersion'), '14.0')
-        self.assertEqual(root.findtext('./PropertyGroup/Version'), '0.2.0')
+        self.assertEqual(root.findtext('./PropertyGroup/Version'), '0.3.0')
         self.assertFalse(root.findall('.//Target[@Name="PostBuild"]'))
         self.assertTrue(all(r.findtext('Private')=='false' for r in root.findall('.//Reference')))
         info = json.loads((self.output/'info.json').read_text())
-        self.assertEqual(info['Requirements'], ['DerailValleyCatenaryDC-0.2.0'])
+        self.assertEqual(info['Requirements'], ['DerailValleyCatenaryDC-0.3.0'])
         self.assertEqual(info['Id'], 'Catenary-DC')
+        self.assertEqual(root.findtext('./PropertyGroup/AssemblyName'), 'electric_sim')
+        self.assertEqual(info['AssemblyName'], 'electric_sim.dll')
+        self.assertEqual((self.output/'CclContact.cs').read_bytes(),
+                         (bridge.ROOT/'compat/Legacy2WE3/templates/CclContact.cs').read_bytes())
 
     def test_edited_file_rejected_before_output(self):
         path = self.source/'WE6SIM/unit_A/unit_a_sim.cs'

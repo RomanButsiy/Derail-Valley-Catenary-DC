@@ -1,6 +1,6 @@
 {
   "project": "Derail-Valley-Catenary-DC",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "source_commit": "4d1a6a691415b6f08f9a76fbafdc8357485e277a",
   "passed": 74,
   "failed": 0,
@@ -421,7 +421,7 @@
     "side_rail_pole": 884
   },
   "retained_asset_files": 551,
-  "core_csharp_files": 36,
+  "core_csharp_files": 37,
   "maximum_reference_wire_length_m": 80.1593857,
   "csharp_compiled": false,
   "csharp_logic_tests_executed": false,

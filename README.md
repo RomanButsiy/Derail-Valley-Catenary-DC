@@ -14,30 +14,24 @@ at the water tower, and the third through track has continuous 1500 V overhead.
 
 ## Installation
 
-Requires **Unity Mod Manager**.
+Use Unity Mod Manager 0.27.3 or later. Close the game and move the original
+`Catenary-DC` folder and any previous copy of the vehicle bridge outside `Mods`.
+Install **Derail-Valley-Catenary-DC-0.3.0.zip** from the release assets.
+The core alone provides the network.
 
-1. Close the game. If you have the original author’s `Catenary-DC` mod installed,
-   move its folder outside `Mods` before installing this version.
-2. Open the latest release and download `Derail-Valley-Catenary-DC-0.2.0.zip`
-   from **Assets**.
-3. Open Unity Mod Manager, select **Derail Valley**, and install the ZIP from
-   the **Mods** tab.
-4. Launch the game and check that the mod is enabled.
+## Electric locomotives
 
-Download the ready-to-install ZIP, **not GitHub’s “Source code” archives**.
+Install **Derail-Valley-Catenary-DC-2WE3-Bridge-0.3.0.zip** from the same
+release for either locomotive. Both use Custom Car Loader and its prerequisites.
 
-## Driving the 2WE3
-
-To use the 2WE3 locomotive, also install:
-
-- **Custom Car Loader (CCL)**.
-- [**2WE3CCL locomotive models**](https://github.com/Knsgf/Derail_Valley_electric_concept/releases/download/v2.5.4/2WE3CCL.zip).
-- **Derail-Valley-Catenary-DC-2WE3-Bridge-0.2.0.zip**, available in this project’s
-  release. Install it through Unity Mod Manager.
-
-Restart the game after installation. The bridge lets the 2WE3 use this network;
-CCL and the locomotive models are separate downloads. If you do not use the
-2WE3, you only need the main mod.
+- **2WE3** — choose one model archive from Knsgf's v2.8.0. Use
+  `2WE3CCL.zip` (2.3.9) for sandbox or `2WE3CCL-licence.zip` (2.4.0)
+  with DV Custom Licenses for career. [2WE3 v2.8.0](https://github.com/Knsgf/Derail_Valley_electric_concept/releases/tag/v2.8.0)
+- **WE-4U** — install both `EU07` and `EU07Electrics` from InDev-0.3.1,
+  DV Custom Licenses, and the player package `CatenaryForCCL.zip`.
+  Its own electrics drive the locomotive. The bridge supplies overhead contact
+  even when no 2WE3 models are installed.
+  [WE-4U InDev-0.3.1](https://github.com/Comrad501/Dv-WE-4U/releases/tag/InDev-0.3.1) · [Custom Car Loader Catenary Support](https://github.com/Knsgf/CCL-OCS/releases/tag/v1.1.0)
 
 [Інструкція встановлення українською](docs/INSTALL_RELEASE_UK.md)
 

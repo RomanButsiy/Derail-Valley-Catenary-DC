@@ -14,11 +14,11 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-UPSTREAM = 'e0b78cb7943ca4d7cde112065b863139dae0c7b0'
-REVISION = 'legacy2we3-upstream.2'
+UPSTREAM = '03d9de65c874797718accae865295862ab588d62'
+REVISION = 'legacy2we3-upstream.3'
 COMMON = {'info.json', 'build-info.json', 'LICENSE_CC0.txt', 'LICENSE_MIT.txt', 'NOTICE.md'}
 CORE_FILES = COMMON | {'CatenaryDC.dll', 'catenary', 'catenary_parts', 'network.json', 'Scenery/README.md'}
-BRIDGE_FILES = COMMON | {'CatenaryDC.Legacy2WE3.dll', 'preparation.json'}
+BRIDGE_FILES = COMMON | {'electric_sim.dll', 'preparation.json'}
 
 
 def sha(path):
@@ -55,21 +55,27 @@ def validate(core, bridge):
     cb, bb = load(core/'build-info.json'), load(bridge/'build-info.json')
     prep = load(bridge/'preparation.json')
     require(ci['Id'] == 'DerailValleyCatenaryDC' and ci['AssemblyName'] == 'CatenaryDC.dll', 'Wrong core mod identity.')
-    require(bi['Id'] == 'Catenary-DC' and bi['AssemblyName'] == 'CatenaryDC.Legacy2WE3.dll', 'Wrong bridge mod identity.')
+    require(bi['Id'] == 'Catenary-DC' and bi['AssemblyName'] == 'electric_sim.dll', 'Wrong bridge mod identity.')
     require(cb['project'] == 'Derail-Valley-Catenary-DC' and bb['project'] == 'Legacy2WE3 bridge', 'Wrong build receipts.')
     require(cb['configuration'] == bb['configuration'] == 'Release', 'Publish Release builds for both components.')
     require(re.fullmatch(r'\d+\.\d+\.\d+', ci['Version']) is not None, 'Invalid core version.')
     require(ci['Version'] == cb['version'] == bi['Version'] == bb['version'] == prep['bridge_version'], 'Component versions differ.')
-    require(bi['Requirements'] == ['DerailValleyCatenaryDC-0.2.0'], 'Unexpected bridge core dependency.')
-    require(bb['upstream_commit'] == prep['upstream_commit'] == UPSTREAM, 'Expected the e0b78cb bridge.')
+    require(ci['Version'] == load(ROOT/'info.json')['Version'], 'Release version differs from this checkout.')
+    require(bi['Requirements'] == ['DerailValleyCatenaryDC-' + ci['Version']], 'Unexpected bridge core dependency.')
+    require(bb['upstream_commit'] == prep['upstream_commit'] == UPSTREAM, 'Expected the 03d9de6 bridge.')
+    profile = load(ROOT/'compat/Legacy2WE3/upstreams/03d9de6.json')
+    require(bb.get('release_model_versions') == prep.get('release_model_versions') == profile['release_model_versions'],
+            'Incorrect 2WE3 release pack versions.')
+    require(bb.get('ccl_contact_contract') == prep.get('ccl_contact_contract') == 1,
+            'Missing CCL contact compatibility in bridge receipts.')
     require(bb['build_fix_revision'] == prep['build_fix_revision'] == REVISION, 'Bridge generator/builder mismatch.')
     require(prep['compiled'] is True and prep['catenary_engine_copied'] is False, 'Expected a compiled controller-only bridge.')
-    require(prep['simulate_named_arguments_fixed'] == 0, 'Obsolete solver fix applied to e0b78cb.')
+    require(prep['simulate_named_arguments_fixed'] == 0, 'Obsolete solver fix applied to 03d9de6.')
     require('source' not in prep and 'core_dll_requested' not in prep, 'Public bridge metadata still contains local workspace paths.')
     require(cb['scenery_revision'] == load(ROOT/'audit/network_6m.json')['revision'], 'Core scenery revision is stale.')
     for name, key in [('CatenaryDC.dll', 'core_sha256'), ('catenary', 'catenary_sha256'), ('catenary_parts', 'parts_sha256')]:
         check_hash(core, name, cb[key])
-    check_hash(bridge, 'CatenaryDC.Legacy2WE3.dll', bb['controller_sha256'])
+    check_hash(bridge, 'electric_sim.dll', bb['controller_sha256'])
     require(bb['core_sha256'] == cb['core_sha256'], 'Bridge was built against a different core DLL.')
     require(load(core/'network.json') == load(ROOT/'config/network.json'), 'Unexpected network profile in release core.')
     for folder in (core, bridge):

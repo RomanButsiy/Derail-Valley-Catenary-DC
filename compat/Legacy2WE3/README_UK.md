@@ -1,67 +1,38 @@
-# Окремий контролер 2WE3 — e0b78cb
+# Складання bridge 0.3.0 для 2WE3 і WE-4U
 
-Bridge 0.2.0 генерується локально з авторського коміту
-`e0b78cb7943ca4d7cde112065b863139dae0c7b0`. 49 вхідних файлів звіряються з
-`upstreams/e0b78cb.json`; довільна новіша або відредагована версія відхиляється.
-Windows checkout з CRLF допускається без зміни змісту.
+Генератор перевіряє 52 вхідні файли з коміту `03d9de65c874797718accae865295862ab588d62` (тег `v2.8.0`). Прилади, ослаблення поля, тягове коло та порядок викликів розрахунку взято з цього коміту. Два запити контакту 2WE3 і події життєвого циклу підключено до API ядра. [Джерело 2WE3](https://github.com/Knsgf/Derail_Valley_electric_concept/commit/03d9de65c874797718accae865295862ab588d62)
 
-Генератор копіює `devices`, `circuit`, `unit_A`, `unit_B` та потрібні `utilities`.
-Авторські прилади, скидання показів, схеми, тяговий розрахунок і явний крок часу
-залишаються авторськими. Змінюються лише два запити контакту пантографів та
-підключення/відключення контролера до API і життєвого циклу ядра.
-У `e0b78cb` аргумент `simulate(permit_commutation: ...)` уже правильний;
-старе виправлення тут не застосовується. Власного згладжування приладів немає.
-
-Авторські OCS, редактор, scenery та power-cheat для Double-Tracked Valley
-не імпортуються. Реалізація локомотива створюється тільки в робочій папці
-`artifacts/`, окремо від `src/` ядра. Авторське джерело не змінюється.
-
-## Складання
-
-Потрібні Python 3.10+, **.NET SDK 10+** для C# 14, DLL установленої гри та
-готове ядро 0.2.0. Обидві DLL залишаються net48. Повний порядок і команди:
-джерело автора, Unity-експорт, ядро, bridge, пакування — у
-[FIRST_RELEASE_UK.md](../../docs/FIRST_RELEASE_UK.md).
-
-У `tools/Build-Legacy2WE3.ps1` передай:
-
-| Параметр | Значення |
-|---|---|
-| `OriginalSourceDirectory` | Корінь авторського checkout з папкою WE6SIM |
-| `CoreReadyDirectory` | Готова папка ядра з CatenaryDC.dll, info.json і build-info.json |
-| `GameDirectory` | Корінь установленої Derail Valley |
-| `Configuration` | Release |
-| `UpstreamRevision` | e0b78cb (також за замовчуванням) |
-
-DLL ядра звіряється за хешем. Результати в `artifacts/legacy2we3-.../`:
-`build.log`, робочий код,
-`ready-to-install/Derail-Valley-Catenary-DC-2WE3-Bridge` та UMM ZIP.
-Публічні metadata містять повний авторський commit і хеш ядра, без локальних
-шляхів користувача. Нічого автоматично не встановлюється.
-
-## Сумісність
+Для WE-4U bridge надає інтерфейс, через який штатний CatenaryForCCL отримує висоту проводу й напругу та передає струм пантографа. Обидва локомотиви використовують одну мережу. Схеми та прилади WE-4U обслуговує його власний мод `EU07Electrics`.
 
 | Компонент | UMM ID | DLL |
 |---|---|---|
 | Ядро мережі | `DerailValleyCatenaryDC` | `CatenaryDC.dll` |
-| Окремий bridge | `Catenary-DC` | `CatenaryDC.Legacy2WE3.dll` |
+| Bridge | `Catenary-DC` | `electric_sim.dll` |
+| Підтримка пантографів CCL (для WE-4U) | `CatenaryForCCL` | `catenary_for_CCL.importer.dll` |
 
-ID bridge потрібний для залежності авторського 2WE3CCL (pack 2.3.7).
-Оригінальний `Catenary-DC/electric_sim` перемісти поза Mods; одночасно його
-не запускай. CCL і моделі 2WE3CCL залишаються окремими встановленнями.
-Пакувальник релізу перевіряє, що bridge зібрано саме проти DLL ядра з комплекту.
+## Збирання та пакування у PowerShell
 
-Попередня авторська версія доступна лише через явний `-UpstreamRevision 4d1a6a6`
-із точним старим джерелом. Тоді застосовуються два виправлення імені аргументу
-`simulate`. `package_release.py` для нового релізу приймає тільки `e0b78cb`.
+Потрібні Python 3.10+, .NET SDK 10+, DLL установленої гри та експорт **Catenary → Export OCS** в Unity 2019.4.41f2. Обидві релізні DLL мають цільову платформу net48. Виконуй команди з кореня репозиторію. [Збирання ядра](../../docs/BUILD_UK.md)
 
-## Перевірки
+```powershell
+git clone --depth 1 --branch v2.8.0 https://github.com/Knsgf/Derail_Valley_electric_concept.git ../2WE3-v2.8.0
+$game = 'C:\Program Files (x86)\Steam\steamapps\common\Derail Valley'
+.\tools\Build.ps1 -GameDirectory $game -Configuration Release
+```
 
-Для нового джерела запусти `python tools/test_legacy_bridge.py --source <author-root>`,
-для пакування — `python tools/test_package_release.py`.
+Присвой `$core` шлях із рядка **Ready folder** цієї збірки. Присвой `$bridge` шлях із рядка **OPTIONAL BRIDGE BUILT** наступної команди. Обидві змінні мають вказувати на папки з `info.json`.
 
-Підготовку джерела й пакування перевірено автоматично; `circuit`, `unit_A`,
-`unit_B` та незмінювані devices/utilities порівняно побайтово з автором.
-Нові DLL у середовищі підготовки патча не компілювалися. Потрібен локальний
-Release build і проїзд із перевіркою A/B, приладів, тяги, компресора,
-нейтральних вставок, бокових рейок та повторного завантаження світу.
+```powershell
+$core = Read-Host 'Ready folder'
+.\tools\Build-Legacy2WE3.ps1 -OriginalSourceDirectory ../2WE3-v2.8.0 -CoreReadyDirectory $core -GameDirectory $game -Configuration Release
+$bridge = Read-Host 'OPTIONAL BRIDGE BUILT'
+python tools/package_release.py --core $core --bridge $bridge --output artifacts/release-0.3.0
+```
+
+Пакувальник звіряє версії, хеш DLL ядра, хеші ресурсів і ревізію контролера. Результат містить два ZIP для UMM, `INSTALL_UK.md`, `SHA256SUMS.txt` і `release.json`. Для відтворення попередніх контролерів доступні параметри `-UpstreamRevision e0b78cb` та `4d1a6a6` із відповідними джерелами. Релізний пакет 0.3.0 використовує `03d9de6`.
+
+## Перевірка
+
+Команда `python tools/test_legacy_bridge.py --source ../2WE3-v2.8.0` звіряє контролер з авторськими файлами. Тести CatenaryForCCL запускають штатний код пантографа з двома версіями імпортера. [Запуск тестів](../../tests/README.md#ccl-pantograph-contact)
+
+Після складання перевір у грі обидві секції 2WE3, покази вольтметра й амперметра під тягою та їх повернення після зняття навантаження. На WE-4U перевір підняття пантографів, появу лінійної напруги, проїзд нейтральної вставки та повторне завантаження збереження. [Встановлення для гравців](../../docs/INSTALL_RELEASE_UK.md)
