@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — FRC
+
+- Bundle the four accepted FRC Visual2 layouts for the Farm, FRC, the CP triangle and the OR connection.
+- Electrify B1L and the third through track at FRC. B1L has a signed 49 m gap between anchor masts at the water tower.
+- Check the shared CP approach against both its current FRC layout and its accepted CW predecessor.
+
 ## Unreleased — City West
 
 - Bundle the six accepted CW Visual7 layouts, including the 750 V yards and service tracks, both neutral sections and the SM approach.

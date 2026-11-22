@@ -1,16 +1,17 @@
 {
-  "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7",
+  "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2",
   "base_commit": "ea4636819112d694c966f76fa345f8ce2ffd0bca",
   "accepted_archive": "Catenary_6m_Visual2.zip",
   "accepted_archive_sha256": "4b82e877c35c71f2e08ebcb94a5c223a8de067d733feff5919c952ad5cd2d9df",
   "accepted_archive_root": "Catenary_6m_Visual2/Scenery/",
-  "total_objects": 15951,
-  "total_layouts": 56,
-  "canonical_network_sha256": "656abbb51da075924a24c8bc00bf3137b3f11128f5ae8e82cbe6e882de3a29f2",
+  "total_objects": 17286,
+  "total_layouts": 57,
+  "canonical_network_sha256": "311dc1bfda059ddf0dba9cfbf5edbd7a60f9ab48552282f517722bf6779adc71",
   "added_assets": [
     "scenery_CP-CW[IMW].json",
     "scenery_CW-750.json",
     "scenery_CW-SM[SM].json",
+    "scenery_FRC-CP-OR.json",
     "scenery_GF-SM[GF].json",
     "scenery_IMW-MF[IMW].json",
     "scenery_MF-Industrial.json",
@@ -31,6 +32,7 @@
     "scenery_CW.json",
     "scenery_FF-IMW[FF].json",
     "scenery_FF-SM[FF].json",
+    "scenery_FM-SM[SM].json",
     "scenery_GF-HB[GF].json",
     "scenery_GF.json",
     "scenery_HB-CS[HB].json",
@@ -41,6 +43,7 @@
     "scenery_IMW-FF[IMW].json",
     "scenery_IMW.json",
     "scenery_MF.json",
+    "scenery_OR.json",
     "scenery_OWN.json",
     "scenery_SM-CMS[SM].json",
     "scenery_SM-FF[SM].json",
@@ -164,7 +167,7 @@
     },
     "scenery_CW-MF[CP].json": {
       "objects": 350,
-      "sha256": "210f64979fd2e187641f6ed45a7c1d89de3bb9e13e3c62cddb64ad17ffe3a4ef",
+      "sha256": "038bd7ef62a34b2eba4504c721f2fdfc924f16314c325ed87a7bbb1ad30d7b85",
       "meta_sha256": "b7d4bea8ee1c149b1452874164fec7a8d76d636db528d0f04e83d1bae2b7736e",
       "guid": "95bbbd5650b12434c8db3f4738a6f822",
       "wire_feeds": {
@@ -235,7 +238,7 @@
     },
     "scenery_FM-SM[SM].json": {
       "objects": 110,
-      "sha256": "0a34c0ae271cf3bb5379cdc9c4a27dd2210e4ec1ec751683034a768c52ab8d88",
+      "sha256": "e33c826c17e52845c951071d459089a16ec2214d26f4b2346944d5dc1ef31a54",
       "meta_sha256": "568556b6d384730acc621c4e35eb971e1f0c64dd6a85d5bdfabe21f633ca8dde",
       "guid": "2a7deb6d4d760cc44a930566950ba49e",
       "wire_feeds": {
@@ -249,6 +252,18 @@
       "guid": "261a7c004b4792441b4eb095e2602f58",
       "wire_feeds": {
         "SM1500": 95
+      }
+    },
+    "scenery_FRC-CP-OR.json": {
+      "objects": 1339,
+      "sha256": "1eede2332259fec0a8896e3ad6f7df8d1c7d50988e7560821a04de3143a9f9a7",
+      "meta_sha256": "89a3425e08ac35f8cc3192db5480ee3b8ba0b8ecb41365663352eb151fafde9c",
+      "guid": "e989a7819eb65b26a19d95dba73f0a0d",
+      "wire_feeds": {
+        "FRC1500": 380,
+        "IMW1500": 33,
+        "NEUTRAL": 20,
+        "SM1500": 5
       }
     },
     "scenery_GF-HB[GF].json": {
@@ -396,8 +411,8 @@
       }
     },
     "scenery_OR.json": {
-      "objects": 484,
-      "sha256": "40ca1b3d6f00a0dda64f47a66f3e41a2f4bdb4a917117b1ee24ca6f295892feb",
+      "objects": 480,
+      "sha256": "8430a10ccddf6c56c57a5cef924815ebf8482e5396c5f879e711086760e66da1",
       "meta_sha256": "39842fb41661a0a7b4272d7fe9fb51ebc270c1b2fc12d76bdc4270ce62122a05",
       "guid": "a533de89ebb67c4459e43cbc2688cef3",
       "wire_feeds": {
@@ -1073,6 +1088,8 @@
     "scenery_cw.json",
     "scenery_ff-ime[ff].json",
     "scenery_ff-sm[ff].json",
+    "scenery_fm-sm[sm].json",
+    "scenery_frc-cp-or.json",
     "scenery_gf-hb[gf].json",
     "scenery_gf.json",
     "scenery_gf_station_transit.json",
@@ -1082,6 +1099,7 @@
     "scenery_ime-ff[cme-ime].json",
     "scenery_ime-gf[cme-ime].json",
     "scenery_mf.json",
+    "scenery_or.json",
     "scenery_own.json",
     "scenery_phase1_hb_cs_cms_visual1.json",
     "scenery_phase2_gf_visual1.json",
@@ -1096,7 +1114,7 @@
     "gf_station": "Accepted station geometry preserved",
     "raised_frame_poles_phase1": 161
   },
-  "verification_scope": "Exact accepted GF/6 m, CP Visual3, IMW-MF Visual8 and CW Visual7 payload integration.",
+  "verification_scope": "Exact accepted GF/6 m, CP Visual3, IMW-MF Visual8, CW Visual7 and FRC Visual2 payload integration.",
   "cp_approaches": {
     "revision": "cp-approaches-visual3",
     "base_commit": "76ee7444eea61904dc93cc2384793d5aa339fc54",
@@ -1292,6 +1310,38 @@
       "scenery_CW.json",
       "scenery_SM-CMS[SM].json",
       "scenery_SM-HB[SM].json"
+    ]
+  },
+  "frc": {
+    "revision": "frc-visual2",
+    "base_commit": "ae5bfbe951fab20b1bd3b5ca01004b2567442bc1",
+    "accepted_date": "2026-11-22",
+    "accepted_archive": "FRC_Visual2.zip",
+    "accepted_archive_sha256": "892de5b9b37d1c5fa15800852e31dde13a601596bc78ded2b57087d0d6fab6da",
+    "accepted_archive_root": "Scenery/",
+    "sources": {
+      "scenery_CW-MF[CP].json": {
+        "sha256": "038bd7ef62a34b2eba4504c721f2fdfc924f16314c325ed87a7bbb1ad30d7b85",
+        "objects": 350
+      },
+      "scenery_FM-SM[SM].json": {
+        "sha256": "e33c826c17e52845c951071d459089a16ec2214d26f4b2346944d5dc1ef31a54",
+        "objects": 110
+      },
+      "scenery_FRC-CP-OR.json": {
+        "sha256": "1eede2332259fec0a8896e3ad6f7df8d1c7d50988e7560821a04de3143a9f9a7",
+        "objects": 1339
+      },
+      "scenery_OR.json": {
+        "sha256": "8430a10ccddf6c56c57a5cef924815ebf8482e5396c5f879e711086760e66da1",
+        "objects": 480
+      }
+    },
+    "predecessor_sha256": "e3f3a1dad5c8529289c90dac07afa1c518ae2475f1d421090cd0ec155090f5e8",
+    "replaced_assets": [
+      "scenery_CW-MF[CP].json",
+      "scenery_FM-SM[SM].json",
+      "scenery_OR.json"
     ]
   }
 }

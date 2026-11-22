@@ -19,11 +19,27 @@ class NetworkReleaseTests(unittest.TestCase):
         shutil.copy2(ROOT / 'audit/network_6m.json', self.root / 'audit/network_6m.json')
         shutil.copy2(ROOT / 'audit/cp_pre_imw_mf.json.gz', self.root / 'audit/cp_pre_imw_mf.json.gz')
         shutil.copy2(ROOT / 'audit/pre_cw_visual7.json.gz', self.root / 'audit/pre_cw_visual7.json.gz')
+        shutil.copy2(ROOT / 'audit/pre_frc_visual2.json.gz', self.root / 'audit/pre_frc_visual2.json.gz')
         shutil.copytree(ROOT / SCENERY, self.root / SCENERY)
 
     def pre_cw_bytes(self, target):
-        prior = json.loads(gzip.decompress((self.root / 'audit/pre_cw_visual7.json.gz').read_bytes()))
-        return prior[target].encode() if target in prior else (self.root / SCENERY / target).read_bytes()
+        for snapshot in ('pre_cw_visual7.json.gz', 'pre_frc_visual2.json.gz'):
+            prior = json.loads(gzip.decompress((self.root / 'audit' / snapshot).read_bytes()))
+            if target in prior:
+                return prior[target].encode()
+        return (self.root / SCENERY / target).read_bytes()
+
+    def test_corrupt_pre_frc_history_is_rejected(self):
+        (self.root / 'audit/pre_frc_visual2.json.gz').write_bytes(b'broken')
+        self.assertTrue(any('Invalid pre-FRC snapshot' in e for e in verify(self.root)['errors']))
+
+    def test_shared_cp_approach_requires_frc_bytes(self):
+        name = 'scenery_CW-MF[CP].json'
+        prior = json.loads(gzip.decompress((self.root / 'audit/pre_frc_visual2.json.gz').read_bytes()))
+        (self.root / SCENERY / name).write_bytes(prior[name].encode())
+        errors = verify(self.root)['errors']
+        self.assertIn('Accepted FRC payload differs: ' + name, errors)
+        self.assertNotIn('Accepted CW payload differs: ' + name, errors)
 
     def test_corrupt_pre_cw_history_is_rejected(self):
         (self.root / 'audit/pre_cw_visual7.json.gz').write_bytes(b'broken')

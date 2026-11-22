@@ -6,7 +6,9 @@ It adds overhead wires and powered side rails for compatible electric locomotive
 The expanded network includes **HB–CS–CMS–SM**, **HB–GF towards the mines**, and
 **GF station with its connections towards SM and FF**, **CP approaches**, and
 **IMW–MF**, including MF passenger, industrial and military I/O tracks. City West includes the passenger yard, yard C and the
-A2/A3 service tracks, with neutral sections towards CP and SM.
+A2/A3 service tracks, with neutral sections towards CP and SM. The FRC route
+connects the Farm, the CP triangle and OR. At FRC, B1L has a signed wire gap
+at the water tower, and the third through track has continuous 1500 V overhead.
 
 [**Download from Releases**](https://github.com/RomanButsiy/Derail-Valley-Catenary-DC/releases)
 

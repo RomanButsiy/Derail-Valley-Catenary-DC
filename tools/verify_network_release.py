@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify accepted GF / 6 m, CP, IMW-MF and CW integrations, without Unity.
+"""Verify accepted GF / 6 m, CP, IMW-MF, CW and FRC integrations, without Unity.
 
 Checks serialized values and multiplicities, metadata, supplies and the mapping
 back to every accepted overlay. This is not a physical clearance or game test.
@@ -31,7 +31,8 @@ def network_digest(layouts):
     return sha(('\n'.join(rows) + '\n').encode())
 
 
-def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_zip=None, cw_accepted_zip=None):
+def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_zip=None,
+           cw_accepted_zip=None, frc_accepted_zip=None):
     root = Path(root)
     info = json.loads((root / 'audit/network_6m.json').read_bytes())
     folder = root / SCENERY
@@ -93,44 +94,48 @@ def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_z
             if any(p.name.lower() == name for p in parent.glob('*.json')):
                 errors.append('Retired monolith duplicates bundled geometry: ' + name)
 
-    # CW replaces four complete files, two of which also supply rows for
-    # older GF/6 m overlays. Reconstruct earlier releases from their original
-    # file versions while checking the current CW payloads independently.
+    # Check each release before restoring the files it replaced. In particular,
+    # CW and FRC both include scenery_CW-MF[CP].json with different contents.
     historic_payloads = payloads.copy()
     historic_layouts = layouts.copy()
-    cw = info.get('cw', {})
-    cw_sources = cw.get('sources', {})
-    if cw:
-        try:
-            data = (root / 'audit/pre_cw_visual7.json.gz').read_bytes()
-            if sha(data) != cw['predecessor_sha256']:
-                raise ValueError('checksum mismatch')
-            prior = json.loads(gzip.decompress(data))
-            if set(prior) != set(cw['replaced_assets']) or not set(prior) <= cw_sources.keys():
-                raise ValueError('unexpected inventory')
-            for name, text in prior.items():
-                historic_payloads[name] = text.encode('utf-8')
-                historic_layouts[name] = json.loads(text)
-        except (OSError, EOFError, ValueError, TypeError, KeyError) as ex:
-            errors.append('Invalid pre-CW snapshot: ' + str(ex))
-    for name, entry in cw_sources.items():
-        if (name not in layouts or sha(payloads[name]) != entry['sha256']
-                or len(layouts[name]) != entry['objects']):
-            errors.append('Accepted CW payload differs: ' + name)
-    if cw_accepted_zip is not None:
-        path = Path(cw_accepted_zip)
-        if not cw or sha(path.read_bytes()) != cw['accepted_archive_sha256']:
-            errors.append('Expected the accepted CW_Visual7.zip')
-        else:
-            prefix = cw['accepted_archive_root']
-            with zipfile.ZipFile(path) as archive:
-                names = sorted(n[len(prefix):] for n in archive.namelist()
-                               if n.startswith(prefix) and n.endswith('.json'))
-                if names != sorted(cw_sources):
-                    errors.append('Unexpected accepted CW archive scenery inventory')
-                for name in names:
-                    if payloads.get(name) != archive.read(prefix + name):
-                        errors.append('Direct accepted CW archive comparison differs: ' + name)
+    releases = (
+        ('FRC', 'pre_frc_visual2.json.gz', frc_accepted_zip),
+        ('CW', 'pre_cw_visual7.json.gz', cw_accepted_zip),
+    )
+    for label, snapshot, archive_path in releases:
+        release = info.get(label.lower(), {})
+        release_sources = release.get('sources', {})
+        for name, entry in release_sources.items():
+            if (name not in historic_layouts or sha(historic_payloads[name]) != entry['sha256']
+                    or len(historic_layouts[name]) != entry['objects']):
+                errors.append(f'Accepted {label} payload differs: {name}')
+        if archive_path is not None:
+            if not release or sha(Path(archive_path).read_bytes()) != release['accepted_archive_sha256']:
+                expected_archive = release.get('accepted_archive', label + ' archive')
+                errors.append('Expected the accepted ' + expected_archive)
+            else:
+                prefix = release['accepted_archive_root']
+                with zipfile.ZipFile(archive_path) as archive:
+                    names = sorted(n[len(prefix):] for n in archive.namelist()
+                                   if n.startswith(prefix) and n.endswith('.json'))
+                    if names != sorted(release_sources):
+                        errors.append(f'Unexpected accepted {label} archive scenery inventory')
+                    for name in names:
+                        if historic_payloads.get(name) != archive.read(prefix + name):
+                            errors.append(f'Direct accepted {label} archive comparison differs: {name}')
+        if release:
+            try:
+                data = (root / 'audit' / snapshot).read_bytes()
+                if sha(data) != release['predecessor_sha256']:
+                    raise ValueError('checksum mismatch')
+                prior = json.loads(gzip.decompress(data))
+                if set(prior) != set(release['replaced_assets']) or not set(prior) <= release_sources.keys():
+                    raise ValueError('unexpected inventory')
+                for name, text in prior.items():
+                    historic_payloads[name] = text.encode('utf-8')
+                    historic_layouts[name] = json.loads(text)
+            except (OSError, EOFError, ValueError, TypeError, KeyError) as ex:
+                errors.append(f'Invalid pre-{label} snapshot: {ex}')
 
     # Rebuild every original overlay in its original order. No regenerated
     # geometry, coordinate rounding, sets or deduplication are involved.
@@ -255,7 +260,10 @@ def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_z
                 cp_predecessor_sources_verified=len(cp_prior),
                 imw_mf_sources_verified=len(imw_sources),
                 imw_mf_archive_comparison=imw_mf_accepted_zip is not None,
-                cw_sources_verified=len(cw_sources), cw_archive_comparison=cw_accepted_zip is not None,
+                cw_sources_verified=len(info.get('cw', {}).get('sources', {})),
+                cw_archive_comparison=cw_accepted_zip is not None,
+                frc_sources_verified=len(info.get('frc', {}).get('sources', {})),
+                frc_archive_comparison=frc_accepted_zip is not None,
                 errors=errors)
 
 
@@ -266,7 +274,9 @@ if __name__ == '__main__':
     parser.add_argument('--cp-accepted-zip', type=Path)
     parser.add_argument('--imw-mf-accepted-zip', type=Path)
     parser.add_argument('--cw-accepted-zip', type=Path)
+    parser.add_argument('--frc-accepted-zip', type=Path)
     args = parser.parse_args()
-    result = verify(args.root, args.accepted_zip, args.cp_accepted_zip, args.imw_mf_accepted_zip, args.cw_accepted_zip)
+    result = verify(args.root, args.accepted_zip, args.cp_accepted_zip,
+                    args.imw_mf_accepted_zip, args.cw_accepted_zip, args.frc_accepted_zip)
     print(json.dumps(result, indent=2))
     raise SystemExit(0 if result['passed'] else 1)

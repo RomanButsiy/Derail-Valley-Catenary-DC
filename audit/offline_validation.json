@@ -71,13 +71,13 @@
       "detail": []
     },
     {
-      "check": "Bundled network matches accepted GF / 6 m, CP, IMW-MF and CW",
+      "check": "Bundled network matches accepted GF / 6 m, CP, IMW-MF, CW and FRC",
       "pass": true,
       "detail": {
         "passed": true,
-        "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7",
-        "layouts": 56,
-        "objects": 15951,
+        "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2",
+        "layouts": 57,
+        "objects": 17286,
         "reconstructed_overlays": 28,
         "direct_archive_comparison": false,
         "cp_approach_sources_verified": 8,
@@ -87,18 +87,20 @@
         "imw_mf_archive_comparison": false,
         "cw_sources_verified": 6,
         "cw_archive_comparison": false,
+        "frc_sources_verified": 4,
+        "frc_archive_comparison": false,
         "errors": []
       }
     },
     {
-      "check": "Only declared Phase 1, GF, CP, IMW-MF and CW assets added",
+      "check": "Only declared Phase 1, GF, CP, IMW-MF, CW and FRC assets added",
       "pass": true,
       "detail": null
     },
     {
       "check": "All retained catenary assets/meta files byte-identical to upload",
       "pass": true,
-      "detail": 553
+      "detail": 551
     },
     {
       "check": "Both upstream license texts preserved byte-for-byte",
@@ -178,7 +180,7 @@
     {
       "check": "All accepted network scenery files present",
       "pass": true,
-      "detail": 56
+      "detail": 57
     },
     {
       "check": "Only known legacy scenery types in reference layouts",
@@ -194,6 +196,7 @@
         "CP750": 1,
         "CW750": 1,
         "FF1500": 1,
+        "FRC1500": 1,
         "GF1500": 1,
         "GF1100": 1,
         "HB1500": 1,
@@ -407,17 +410,17 @@
       "detail": null
     }
   ],
-  "scenery_files": 56,
+  "scenery_files": 57,
   "object_counts": {
-    "substation": 15,
-    "pole": 4350,
-    "cantilever": 4347,
-    "wire": 5703,
-    "miscellaneous_object": 472,
+    "substation": 16,
+    "pole": 4773,
+    "cantilever": 4769,
+    "wire": 6141,
+    "miscellaneous_object": 523,
     "gantry": 180,
     "side_rail_pole": 884
   },
-  "retained_asset_files": 553,
+  "retained_asset_files": 551,
   "core_csharp_files": 36,
   "maximum_reference_wire_length_m": 80.1593857,
   "csharp_compiled": false,
@@ -428,6 +431,6 @@
   "phase1_route_built": true,
   "gf_route_built": true,
   "gf_station_built": true,
-  "scenery_revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7",
+  "scenery_revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2",
   "split_package_game_tested": false
 }

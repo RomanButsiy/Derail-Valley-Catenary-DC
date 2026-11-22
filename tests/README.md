@@ -1,8 +1,15 @@
 # Test boundaries
 
+## FRC Visual2
+
+Run `python tools/verify_network_release.py --frc-accepted-zip FRC_Visual2.zip --cw-accepted-zip CW_Visual7.zip`
+to compare both review archives. The four FRC files are compared with the current bundle sources.
+For the shared CP approach, the verifier restores the preceding CW file from `audit/pre_frc_visual2.json.gz`
+before checking CW. Earlier releases are verified against their own versions.
+
 ## CW Visual7
 
-Run `python tools/verify_network_release.py --cw-accepted-zip CW_Visual7.zip` to compare all six bundled CW payloads directly. The network tests also verify the previous CP, IMW–MF and GF/6 m layouts across the four replaced assets.
+Run `python tools/verify_network_release.py --cw-accepted-zip CW_Visual7.zip` to compare all six accepted CW payloads, including the preceding version of the shared CP approach. The network tests also verify the previous CP, IMW–MF and GF/6 m layouts across the four replaced assets.
 
 
 ## IMW–MF / player tracking update — 2026-11-15

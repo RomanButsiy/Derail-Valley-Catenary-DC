@@ -15,3 +15,7 @@ See [the complete IMW–MF list](../docs/IMW_MF_RELEASE_UK.md).
 
 CW Visual7 is included in the rebuilt bundle. Move its six external review
 overrides outside the mod when upgrading. [CW file list](../docs/CW_RELEASE_UK.md)
+
+After installing the rebuilt FRC bundle, move the four external FRC review
+overrides outside the mod. An older City West override for the shared CP
+approach also takes precedence over the new bundle. [FRC file list](../docs/FRC_RELEASE_UK.md)
