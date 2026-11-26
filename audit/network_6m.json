@@ -1,12 +1,12 @@
 {
-  "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2",
+  "revision": "gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2_imw-refeed_sm-ff-v2.9.0",
   "base_commit": "ea4636819112d694c966f76fa345f8ce2ffd0bca",
   "accepted_archive": "Catenary_6m_Visual2.zip",
   "accepted_archive_sha256": "4b82e877c35c71f2e08ebcb94a5c223a8de067d733feff5919c952ad5cd2d9df",
   "accepted_archive_root": "Catenary_6m_Visual2/Scenery/",
-  "total_objects": 17286,
+  "total_objects": 17428,
   "total_layouts": 57,
-  "canonical_network_sha256": "311dc1bfda059ddf0dba9cfbf5edbd7a60f9ab48552282f517722bf6779adc71",
+  "canonical_network_sha256": "68390ada83e971aceb7625ec359df4ba95517affce65dd86cf06b30f580bc2c1",
   "added_assets": [
     "scenery_CP-CW[IMW].json",
     "scenery_CW-750.json",
@@ -32,6 +32,7 @@
     "scenery_CW.json",
     "scenery_FF-IMW[FF].json",
     "scenery_FF-SM[FF].json",
+    "scenery_FF.json",
     "scenery_FM-SM[SM].json",
     "scenery_GF-HB[GF].json",
     "scenery_GF.json",
@@ -228,12 +229,12 @@
       }
     },
     "scenery_FF.json": {
-      "objects": 391,
-      "sha256": "c7f6e5a0acd0f5cd87cd766b43dbaed05127a26fa5998fd88386143bea39eb81",
+      "objects": 552,
+      "sha256": "37b65029e188aa3f84a95a98059ee46975d9c71735df7ce9282c51e75c7b6cbd",
       "meta_sha256": "66464a237a8c8a1013182f682dc80da35d42f299f52540c69d7c46dc527445ff",
       "guid": "c3ef469b63de25045b4eeb7bf86b6511",
       "wire_feeds": {
-        "FF1500": 125
+        "FF1500": 175
       }
     },
     "scenery_FM-SM[SM].json": {
@@ -255,14 +256,13 @@
       }
     },
     "scenery_FRC-CP-OR.json": {
-      "objects": 1339,
-      "sha256": "1eede2332259fec0a8896e3ad6f7df8d1c7d50988e7560821a04de3143a9f9a7",
+      "objects": 1320,
+      "sha256": "a7cfa996f8c72bc9809ba1c73f13fe32c5034d81d868af432c4053cb6e2379e2",
       "meta_sha256": "89a3425e08ac35f8cc3192db5480ee3b8ba0b8ecb41365663352eb151fafde9c",
       "guid": "e989a7819eb65b26a19d95dba73f0a0d",
       "wire_feeds": {
-        "FRC1500": 380,
-        "IMW1500": 33,
-        "NEUTRAL": 20,
+        "IMW1500": 416,
+        "NEUTRAL": 13,
         "SM1500": 5
       }
     },
@@ -1088,6 +1088,7 @@
     "scenery_cw.json",
     "scenery_ff-ime[ff].json",
     "scenery_ff-sm[ff].json",
+    "scenery_ff.json",
     "scenery_fm-sm[sm].json",
     "scenery_frc-cp-or.json",
     "scenery_gf-hb[gf].json",
@@ -1107,14 +1108,14 @@
     "scenery_sm-ff[sm].json",
     "scenery_sm-hb[sm].json"
   ],
-  "geometry_changed_during_integration": false,
+  "geometry_changed_during_integration": true,
   "height_policy": {
     "nominal_contact_height_m": 6.0,
     "tunnels": "Accepted lower profile with approach transitions",
     "gf_station": "Accepted station geometry preserved",
     "raised_frame_poles_phase1": 161
   },
-  "verification_scope": "Exact accepted GF/6 m, CP Visual3, IMW-MF Visual8, CW Visual7 and FRC Visual2 payload integration.",
+  "verification_scope": "Active IMW refeed and v2.9.0 station update, with exact predecessor checks for GF/6 m, CP Visual3, IMW-MF Visual8, CW Visual7 and FRC Visual2.",
   "cp_approaches": {
     "revision": "cp-approaches-visual3",
     "base_commit": "76ee7444eea61904dc93cc2384793d5aa339fc54",
@@ -1343,5 +1344,39 @@
       "scenery_FM-SM[SM].json",
       "scenery_OR.json"
     ]
+  },
+  "imw_refeed": {
+    "base_commit": "eebca9593e48b9c6e6ce3d8962f1b95e38509c62",
+    "status": "review",
+    "upstream_tag": "v2.9.0",
+    "upstream_commit": "ba44c0df9c0b62760bbb4aefb015839c166293e9",
+    "upstream_files_sha256": {
+      "unity_project/Assets/Catenary/Gantries/RegistrationArmOuterInwardDual.prefab": "219129c2254595248806b59ea4ad9da90ee1057ceed70ce2daa6aeeb449db91c",
+      "unity_project/Assets/Catenary/Gantries/RegistrationArmOuterInwardDual.prefab.meta": "20a387bfda49b1b83fb1f7fc947124e595aa17145c9fca9efa849eba187df3bb",
+      "unity_project/Assets/Catenary/Gantries/RegistrationArmOuterInwardSingle.prefab": "22726464e6ae6d208cbbf353c1b5b59c96e19e353ae86a8b3a489b8834650287",
+      "unity_project/Assets/Catenary/Gantries/RegistrationArmOuterInwardSingle.prefab.meta": "fad76fa9bcc57a1d0a474e31fa70e7532d97ef1c9461d970ca5ae14354b63fbd",
+      "unity_project/Assets/Catenary/Mesh/Gantries/registration_arm_outer_inward_dual.obj": "6ad5d06b41e0843968b8949e82d4a87f0283c55574bbffc5a0b448143869eb16",
+      "unity_project/Assets/Catenary/Mesh/Gantries/registration_arm_outer_inward_dual.obj.meta": "7a2202bf41f9be6368c3b836e2d5431b88209f72e2da17f2e4675637cb94393e",
+      "unity_project/Assets/Catenary/Mesh/Gantries/registration_arm_outer_inward_single.obj": "3b5821b457185384d9dc9ac74f5631c5d5a2a98d9d04c71b470ffda17a1d0293",
+      "unity_project/Assets/Catenary/Mesh/Gantries/registration_arm_outer_inward_single.obj.meta": "c8b74514547d3a7415c0ae76efffe923c4a79a4e9f3e706e32671a82bd81ef0c",
+      "unity_project/Assets/Catenary/Scenery/scenery_FF.json": "37b65029e188aa3f84a95a98059ee46975d9c71735df7ce9282c51e75c7b6cbd",
+      "unity_project/Assets/Catenary/Scenery/scenery_SM.json": "534cc74dd4205731da080e585bd6fdb647c92e535187290916b650f1c2ef8d0d",
+      "unity_project/Assets/Catenary/cantilevers.csv": "ca1aa8ca9bf5ec364688832a774bdcfbf4c00d200bf0baf8856272dc174c76ad"
+    },
+    "replaced_assets": [
+      "scenery_FF.json",
+      "scenery_FRC-CP-OR.json"
+    ],
+    "predecessor_sha256": "f02ae08145784c259c20501dbb1fd5896d2ef1749af8b33862e5019245893d9f",
+    "sources": {
+      "scenery_FF.json": {
+        "sha256": "37b65029e188aa3f84a95a98059ee46975d9c71735df7ce9282c51e75c7b6cbd",
+        "objects": 552
+      },
+      "scenery_FRC-CP-OR.json": {
+        "sha256": "a7cfa996f8c72bc9809ba1c73f13fe32c5034d81d868af432c4053cb6e2379e2",
+        "objects": 1320
+      }
+    }
   }
 }

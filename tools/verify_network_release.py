@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify accepted GF / 6 m, CP, IMW-MF, CW and FRC integrations, without Unity.
+"""Verify the current network and reconstruct the preceding accepted releases.
 
 Checks serialized values and multiplicities, metadata, supplies and the mapping
 back to every accepted overlay. This is not a physical clearance or game test.
@@ -99,16 +99,18 @@ def verify(root=ROOT, accepted_zip=None, cp_accepted_zip=None, imw_mf_accepted_z
     historic_payloads = payloads.copy()
     historic_layouts = layouts.copy()
     releases = (
-        ('FRC', 'pre_frc_visual2.json.gz', frc_accepted_zip),
-        ('CW', 'pre_cw_visual7.json.gz', cw_accepted_zip),
+        ('IMW refeed', 'imw_refeed', 'pre_imw_refeed.json.gz', None),
+        ('FRC', 'frc', 'pre_frc_visual2.json.gz', frc_accepted_zip),
+        ('CW', 'cw', 'pre_cw_visual7.json.gz', cw_accepted_zip),
     )
-    for label, snapshot, archive_path in releases:
-        release = info.get(label.lower(), {})
+    for label, key, snapshot, archive_path in releases:
+        release = info.get(key, {})
         release_sources = release.get('sources', {})
         for name, entry in release_sources.items():
             if (name not in historic_layouts or sha(historic_payloads[name]) != entry['sha256']
                     or len(historic_layouts[name]) != entry['objects']):
-                errors.append(f'Accepted {label} payload differs: {name}')
+                errors.append(f'{label} review payload differs: {name}' if key == 'imw_refeed'
+                              else f'Accepted {label} payload differs: {name}')
         if archive_path is not None:
             if not release or sha(Path(archive_path).read_bytes()) != release['accepted_archive_sha256']:
                 expected_archive = release.get('accepted_archive', label + ' archive')

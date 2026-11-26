@@ -11,8 +11,9 @@ PASS Core has no old engine or locomotive namespace imports
 PASS No locomotive ticking or telemetry in core
 PASS C# lexical brace/quote sanity (NOT compilation)
 PASS Balanced conditional compilation blocks
-PASS Bundled network matches accepted GF station / 6 m Visual 2
-PASS Only declared Phase 1, GF corridor and GF station assets added
+PASS Station layouts and gantry assets match their pinned upstream files
+PASS Current network and historical accepted layouts verified
+PASS Only declared network assets added
 PASS All retained catenary assets/meta files byte-identical to upload
 PASS Both upstream license texts preserved byte-for-byte
 PASS Attribution and scope notice included
@@ -63,4 +64,13 @@ PASS Build stages outside game; does not deploy
 PASS No problematic installer File.Replace/$null path in build script
 PASS No game DLLs or generated binaries in source tree
 PASS Plan and runtime payload are separate
-RESULT: 65/65 offline checks passed. C#/Unity/game NOT executed.
+PASS Direct input-directory comparison: catenary assets unchanged
+PASS Optional bridge: both collector queries migrated
+PASS Optional bridge contains no second network/editor engine
+PASS Optional bridge has no old OCS calls
+PASS Optional bridge subscribes/unsubscribes single core tick
+PASS Optional controller preserves the CCL pack dependency ID
+PASS Prepared adapter lexical sanity (NOT compilation)
+PASS Adapter preparation did not modify original source
+PASS Adapter preparation refuses nonempty output
+RESULT: 75/75 offline checks passed. C#/Unity/game NOT executed.

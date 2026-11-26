@@ -24,9 +24,14 @@ In the published WE-4U InDev-0.3.1 `EU07/ccl_bundle`, the locomotive uses the pa
 ## FRC Visual2
 
 Run `python tools/verify_network_release.py --frc-accepted-zip FRC_Visual2.zip --cw-accepted-zip CW_Visual7.zip`
-to compare both review archives. The four FRC files are compared with the current bundle sources.
-For the shared CP approach, the verifier restores the preceding CW file from `audit/pre_frc_visual2.json.gz`
-before checking CW. Earlier releases are verified against their own versions.
+to compare both review archives. The verifier restores the pre-refeed layouts from
+`audit/pre_imw_refeed.json.gz` before checking FRC Visual2. It then restores the preceding
+CW version of the shared CP approach from `audit/pre_frc_visual2.json.gz`.
+
+Run `python tools/test_network_release.py` to check that the former neutral section on the
+FRC approach to CP uses IMW1500 and that the Farm and OR neutral sections and water tower signs
+match the previous layout. `python tools/validate_project.py` also checks the SM and FF station
+sources and the imported gantry assets against the recorded v2.9.0 hashes.
 
 ## CW Visual7
 

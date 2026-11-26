@@ -1,13 +1,14 @@
 """Regression checks for lost/duplicated geometry and broken split mappings."""
 import json
 import gzip
+from collections import Counter
 from pathlib import Path
 import shutil
 import tempfile
 import unittest
 import zipfile
 
-from verify_network_release import ROOT, SCENERY, verify, sha, network_digest
+from verify_network_release import ROOT, SCENERY, verify, sha, network_digest, canonical
 
 
 class NetworkReleaseTests(unittest.TestCase):
@@ -20,10 +21,11 @@ class NetworkReleaseTests(unittest.TestCase):
         shutil.copy2(ROOT / 'audit/cp_pre_imw_mf.json.gz', self.root / 'audit/cp_pre_imw_mf.json.gz')
         shutil.copy2(ROOT / 'audit/pre_cw_visual7.json.gz', self.root / 'audit/pre_cw_visual7.json.gz')
         shutil.copy2(ROOT / 'audit/pre_frc_visual2.json.gz', self.root / 'audit/pre_frc_visual2.json.gz')
+        shutil.copy2(ROOT / 'audit/pre_imw_refeed.json.gz', self.root / 'audit/pre_imw_refeed.json.gz')
         shutil.copytree(ROOT / SCENERY, self.root / SCENERY)
 
     def pre_cw_bytes(self, target):
-        for snapshot in ('pre_cw_visual7.json.gz', 'pre_frc_visual2.json.gz'):
+        for snapshot in ('pre_cw_visual7.json.gz', 'pre_frc_visual2.json.gz', 'pre_imw_refeed.json.gz'):
             prior = json.loads(gzip.decompress((self.root / 'audit' / snapshot).read_bytes()))
             if target in prior:
                 return prior[target].encode()
@@ -32,6 +34,36 @@ class NetworkReleaseTests(unittest.TestCase):
     def test_corrupt_pre_frc_history_is_rejected(self):
         (self.root / 'audit/pre_frc_visual2.json.gz').write_bytes(b'broken')
         self.assertTrue(any('Invalid pre-FRC snapshot' in e for e in verify(self.root)['errors']))
+
+    def test_previous_frc_release_can_be_reconstructed(self):
+        path = self.root / 'audit/pre_imw_refeed.json.gz'
+        name = 'scenery_FRC-CP-OR.json'
+        original = json.loads(gzip.decompress(path.read_bytes()))[name].encode()
+        manifest = json.loads((self.root / 'audit/network_6m.json').read_bytes())
+        self.assertEqual(sha(original), manifest['frc']['sources'][name]['sha256'])
+        path.write_bytes(b'broken')
+        self.assertTrue(any('Invalid pre-IMW refeed snapshot' in e for e in verify(self.root)['errors']))
+
+    def test_frc_refeed_preserves_other_neutrals_and_water_tower_signs(self):
+        name = 'scenery_FRC-CP-OR.json'
+        snapshot = json.loads(gzip.decompress((self.root / 'audit/pre_imw_refeed.json.gz').read_bytes()))
+        previous = json.loads(snapshot[name])
+        current = json.loads((self.root / SCENERY / name).read_bytes())
+
+        def inside_cp_section(row):
+            # Millimetres, encompassing both warning signs on the FRC side of CP.
+            return 3_050_000 <= row['x'] <= 3_450_000 and 8_480_000 <= row['z'] <= 8_580_000
+
+        def neutral_or_sign(row):
+            return row.get('substation') == 'NEUTRAL' or row.get('template_name', '').startswith('Signs/')
+
+        expected = Counter(canonical(row) for row in previous if neutral_or_sign(row) and not inside_cp_section(row))
+        self.assertEqual(expected, Counter(canonical(row) for row in current if neutral_or_sign(row)))
+        self.assertEqual({row['substation'] for row in current if inside_cp_section(row) and 'substation' in row},
+                         {'IMW1500'})
+        for file in (self.root / SCENERY).glob('scenery_*.json'):
+            self.assertFalse(any(row.get('map_location') == 'FRC1500' or row.get('substation') == 'FRC1500'
+                                 for row in json.loads(file.read_bytes())), file.name)
 
     def test_shared_cp_approach_requires_frc_bytes(self):
         name = 'scenery_CW-MF[CP].json'

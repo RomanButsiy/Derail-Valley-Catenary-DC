@@ -37,3 +37,8 @@ The bridge exposes the contact API used by Knsgf's Custom Car Loader Catenary
 Support. Players obtain that importer from Knsgf and the WE-4U model and
 electrics from Comrad501. Their binaries, locomotive assets and traction code
 for WE-4U are distributed by their respective authors.
+
+The FF passenger station layout and its slim-gantry registration arms come
+from Knsgf's v2.9.0, commit `ba44c0df9c0b62760bbb4aefb015839c166293e9`.
+The SM station layout was compared with the same release. The models and
+meshes for the two new arms retain their original Unity asset identities.

@@ -92,6 +92,7 @@ try {
     Copy-Item -LiteralPath (Join-Path $Root 'config\network.json') -Destination $stage
     New-Item -ItemType Directory -Path (Join-Path $stage 'Scenery') | Out-Null
     Copy-Item -LiteralPath (Join-Path $Root 'Scenery\README.md') -Destination (Join-Path $stage 'Scenery')
+    $network = Get-Content -LiteralPath (Join-Path $Root 'audit\network_6m.json') -Raw | ConvertFrom-Json
     $info = [ordered]@{
         project='Derail-Valley-Catenary-DC'; version='0.3.0'; configuration=$Configuration;
         source_base='068224b52318b1f4ab202cc27dcecfecd231789f'; sdk=$sdk;
@@ -101,7 +102,7 @@ try {
         parts_sha256=(Sha (Join-Path $stage 'catenary_parts'));
         authoring_tools='devtools.1'; assembly_api_version=1;
         locomotive_controller_included=$false;
-        hb_cs_cms_route_implemented=$true; gf_corridor_implemented=$true; gf_station_implemented=$true; cp_approaches_implemented=$true; imw_mf_implemented=$true; cw_implemented=$true; frc_implemented=$true; player_tracking_revision='reload-lifetime-v1'; scenery_revision='gf-station-visual9_6m-visual2_cp-approaches-visual3_imw-mf-visual8_cw-visual7_frc-visual2'
+        hb_cs_cms_route_implemented=$true; gf_corridor_implemented=$true; gf_station_implemented=$true; cp_approaches_implemented=$true; imw_mf_implemented=$true; cw_implemented=$true; frc_implemented=$true; player_tracking_revision='reload-lifetime-v1'; scenery_revision=$network.revision
     }
     $info | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage 'build-info.json') -Encoding UTF8
     $zip = Join-Path $build "Derail-Valley-Catenary-DC-0.3.0-$Configuration.zip"

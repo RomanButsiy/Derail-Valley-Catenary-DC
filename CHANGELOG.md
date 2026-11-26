@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Feed the former FRC network from IMW1500. Replace neutral section C on the FRC approach to the CP triangle with continuous overhead. The Farm and OR approaches still have neutral sections, and FRC B1L retains its signed water-tower gap.
+- Integrate Knsgf's v2.9.0 FF passenger yard, including B1-LP, B2-LP, B3-SP, B4-SP and B5-SP, and the corresponding slim-gantry registration arms.
+- Verify SM track B1O against the published v2.9.0 scenery. All 927 objects in the SM station layout already match.
+
 ## 0.3.0
 
 ### Vehicle compatibility
